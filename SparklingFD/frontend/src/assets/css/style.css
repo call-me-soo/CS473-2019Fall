@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css?family=Baloo+Bhai|Didact+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700&display=swap&subset=korean');
+@import url('https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css');
+@import url('https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css');
+@import "~slick-carousel/slick/slick.css";
+
+
+
+
+.cracker{
+  font-family: 'Baloo Bhai', cursive;
+}
+
+
+.english {
+  font-family: 'Didact Gothic', sans-serif;
+}
+
+.korean {
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+#app {
+  font-family: 'Didact Gothic', sans-serif;
+}
