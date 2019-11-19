@@ -41,6 +41,7 @@
 
 
 <script>
+
   import toolBar from "./components/Toolbar";
   import logo from "./components/Logo";
 	import searchBar from "./components/SearchBar";
