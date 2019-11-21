@@ -4,7 +4,7 @@
       <toolBar></toolBar>
       <v-container
               fluid
-              v-bind:style="{background :'#f0f0f0'}"
+              v-bind:style="{background :'#f5f5f5'}"
       >
         <logo id="logo"></logo>
 
@@ -26,11 +26,12 @@
 
         <v-row justify="center" align="center" style="height: 70px">
           <v-col cols="11">
-            <div class="korean sub-title-large">사랑받은 리뷰</div>
+            <div class="korean sub-title-large d-none d-md-inline-block">사랑받은 리뷰</div>
+            <div class="korean sub-title-small d-md-none">사랑받은 리뷰</div>
           </v-col>
         </v-row>
 
-        <reviewCardBig></reviewCardBig>
+        <slick></slick>
 
 
 
@@ -46,13 +47,13 @@
   import logo from "./components/Logo";
 	import searchBar from "./components/SearchBar";
 	import searchFilter from "./components/SearchFilter"
-	import reviewCardBig from "./components/ReviewCardBig";
+	import slick from "./components/Slick";
 
 	import "./assets/css/style.css";
 
 export default {
   name: 'home',
-  components: {toolBar, logo, searchBar, searchFilter, reviewCardBig},
+  components: {toolBar, logo, searchBar, searchFilter, slick},
   data: () => ({
 
   }),
@@ -78,7 +79,12 @@ export default {
   }
 
   .sub-title-large {
-    font-size: 15pt;
+    font-size: 18pt;
+    font-weight: bold;
+  }
+
+  .sub-title-small {
+    font-size: 12pt;
     font-weight: bold;
   }
 

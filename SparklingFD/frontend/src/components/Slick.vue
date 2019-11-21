@@ -2,12 +2,6 @@
 
   <v-flex>
 
-    <slick
-            ref="slick"
-            :options="slickOptions"
-    >
-    </slick>
-
     <div class="d-none d-md-inline">
       <v-row justify="center">
           <v-col cols="11">
@@ -15,12 +9,12 @@
                       ref="slick"
                       :options="slickOptions"
               >
-                <v-card class="card" v-for="review in bestReviews" :key="review.id">
+              <v-row wrap class="d-inline-flex justify-center" v-for="review in bestReviews" :key="review.id">
+                <v-col cols="11" class="card">
                   <v-row wrap
-                         justify="center"
                          align="baseline"
-                         class="d-inline-flex pl-9 pt-7 pa-3">
-                    <v-flex class="korean card-title pr-2">{{review.company.name}}</v-flex>
+                         class="d-inline-flex pl-9 pt-5 pa-3">
+                    <v-flex class="korean card-title-large pr-2">{{review.company.name}}</v-flex>
                     <v-flex class="korean card-subtitle pr-1 text--darken-1 grey--text">{{review.user.department}} {{review.user.nickname}} | {{review.semester}}</v-flex>
                     <v-btn class="korean ml-2" rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
                   </v-row>
@@ -30,15 +24,18 @@
                     <v-col class="korean card-content" cols="8">
                       {{review.review.content}}
                     </v-col>
-                    <v-col >
-
+                    <v-col cols="4">
+                      <Radar></Radar>
                     </v-col>
                   </v-row>
+              </v-col>
+              </v-row>
 
-                  <v-card-text>
 
-                  </v-card-text>
-                </v-card>
+                <!--<v-card class="card" v-for="review in bestReviews" :key="review.id">-->
+
+
+                <!--</v-card>-->
               </slick>
           </v-col>
       </v-row>
@@ -50,11 +47,29 @@
                       ref="slick"
                       :options="slickOptions"
               >
-                <v-card class="card">asdfadsfasdfadsfadfadsfdsafasdfasdfadfadsf</v-card>
-                <v-card class="card">asdfadsfasdfadsfadfadsfdsafasdfasdfadfadsf</v-card>
-                <v-card class="card">asdfadsfasdfadsfadfadsfdsafasdfasdfadfadsf</v-card>
-                <v-card class="card">asdfadsfasdfadsfadfadsfdsafasdfasdfadfadsf</v-card>
-                <v-card class="card">asdfadsfasdfadsfadfadsfdsafasdfasdfadfadsf</v-card>
+                <v-card class="card" v-for="review in bestReviews" :key="review.id">
+                  <v-row wrap
+                         justify="center"
+                         align="baseline"
+                         class="d-inline-flex pl-8 pt-7">
+                    <v-flex class="korean card-title-small pr-2">{{review.company.name}}</v-flex>
+                    <v-flex class="korean card-subtitle pr-1 text--darken-1 grey--text">
+                      {{review.user.department}} {{review.user.nickname}} | {{review.semester}}
+                      <v-btn class="korean ml-1" rounded x-small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
+                    </v-flex>
+                  </v-row>
+                  <v-row wrap
+                         class="pl-5"
+                  >
+                    <v-col class="korean card-content" style="font-size: smaller; overflow: hidden; height: 160px" cols="11">
+                      {{review.review.content}}
+                    </v-col>
+
+                  </v-row>
+
+                  <Radar></Radar>
+
+                </v-card>
 
               </slick>
           </v-col>
@@ -68,11 +83,11 @@
 <script>
 
   import slick from 'vue-slick';
-
+  import { Radar } from 'vue-chartjs';
 	export default {
 		name: "ReviewCardBig",
 		components: {
-			slick
+			slick, Radar
 		},
 		data() {
 			return {
@@ -82,23 +97,24 @@
             user: {id: 1, department: '전산학부', nickname: '빨간 넥타이'},
             semester: '2019 여름',
             like: 57,
-            review: {aggregate: 4.0, star: [3, 5, 4, 5, 3], content: '급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 덕분에 분위기도 좋고 복지도 좋은 회사에서 뜻깊은 경험 했습니다! 급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다.'}
+            review: {aggregate: 4.0, star: [3, 5, 4, 5, 3], content: '급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 덕분에 분위기도 좋고 복지도 좋은 회사에서 뜻깊은 경험 했습니다! 급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만,급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 덕분에 분위기도 좋고 복지도 좋은 회사에서 뜻깊은 경험 했습니다! 급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 '}
           },
           { id: 2,
             company: {id: 1, name: 'SK하이닉스', src: '/'},
             user: {id: 1, department: '전산학부', nickname: '빨간 넥타이'},
             semester: '2019 여름',
             like: 57,
-            review: {aggregate: 4.0, star: [3, 5, 4, 5, 3], content: '급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 덕분에 분위기도 좋고 복지도 좋은 회사에서 뜻깊은 경험 했습니다! 급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다.'}
+            review: {aggregate: 4.0, star: [3, 5, 4, 5, 3], content: '급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 덕분에 분위기도 좋고 복지도 좋은 회사에서 뜻깊은 경험 했습니다! 급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만,급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 덕분에 분위기도 좋고 복지도 좋은 회사에서 뜻깊은 경험 했습니다! 급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 '}
           },
-          { id: 3,
-            company: {id: 1, name: 'SK하이닉스', src: '/'},
-            user: {id: 1, department: '전산학부', nickname: '빨간 넥타이'},
-            semester: '2019 여름',
-            like: 57,
-            review: {aggregate: 4.0, star: [3, 5, 4, 5, 3], content: '급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 덕분에 분위기도 좋고 복지도 좋은 회사에서 뜻깊은 경험 했습니다! 급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다.'}
-          },
-          { id: 4,
+					{
+						id: 3,
+						company: {id: 1, name: 'SK하이닉스', src: '/'},
+						user: {id: 1, department: '전산학부', nickname: '빨간 넥타이'},
+						semester: '2019 여름',
+						like: 57,
+						review: {aggregate: 4.0, star: [3, 5, 4, 5, 3], content: '급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 덕분에 분위기도 좋고 복지도 좋은 회사에서 뜻깊은 경험 했습니다! 급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만,급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 덕분에 분위기도 좋고 복지도 좋은 회사에서 뜻깊은 경험 했습니다! 급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 '}
+					},
+							{ id: 4,
             company: {id: 1, name: 'SK하이닉스', src: '/'},
             user: {id: 1, department: '전산학부', nickname: '빨간 넥타이'},
             semester: '2019 여름',
@@ -199,14 +215,19 @@
   @import "~slick-carousel/slick/slick.css";
   @import "~slick-carousel/slick/slick-theme.css";
 
+
   .card {
-    height: 250px;
-    padding: 0 9px;
+    height: 260px;
+    background-color: white;
   }
 
-  .card-title {
-    font-weight: bold !important;
+  .card-title-large {
+    font-weight: bold;
     font-size: larger;
+  }
+
+  .card-title-small {
+    font-weight: bold;
   }
 
   .card-subtitle {
@@ -215,7 +236,13 @@
 
   .card-content {
     font-size: 11.5pt;
-    line-height: 18pt
+    line-height: 18pt;
+    overflow: hidden;
+    display: block;
+    display: -webkit-box;
+    height: 160px;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
   }
 
   .slick-prev {
