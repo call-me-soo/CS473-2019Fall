@@ -24,14 +24,34 @@
         </v-flex>
 
 
-        <v-row justify="center" align="center" style="height: 70px">
+        <v-row justify="center" align="center" >
           <v-col cols="11">
             <div class="korean sub-title-large d-none d-md-inline-block">사랑받은 리뷰</div>
             <div class="korean sub-title-small d-md-none">사랑받은 리뷰</div>
           </v-col>
         </v-row>
 
-        <slick></slick>
+        <reviewCardSlick></reviewCardSlick>
+
+        <v-row justify="center" align="center" class="mt-10">
+          <v-col cols="11">
+            <div class="korean sub-title-large d-none d-md-inline-block">따끈따끈한 리뷰</div>
+            <div class="korean sub-title-small d-md-none">따끈따끈 리뷰</div>
+          </v-col>
+        </v-row>
+
+        <v-row wrap justify="center">
+          <v-col cols="10">
+            <v-row wrap>
+              <reviewCardSmall></reviewCardSmall>
+              <reviewCardSmall></reviewCardSmall>
+              <reviewCardSmall></reviewCardSmall>
+              <reviewCardSmall></reviewCardSmall>
+              <reviewCardSmall></reviewCardSmall>
+            </v-row>
+          </v-col>
+        </v-row>
+
 
 
 
@@ -45,15 +65,16 @@
 
   import toolBar from "./components/Toolbar";
   import logo from "./components/Logo";
-	import searchBar from "./components/SearchBar";
-	import searchFilter from "./components/SearchFilter"
-	import slick from "./components/Slick";
+  import searchBar from "./components/SearchBar";
+  import searchFilter from "./components/SearchFilter"
+  import reviewCardSlick from "./components/ReviewCardSlick";
+  import reviewCardSmall from "./components/ReviewCardSmall";
 
-	import "./assets/css/style.css";
+  import "./assets/css/style.css";
 
 export default {
   name: 'home',
-  components: {toolBar, logo, searchBar, searchFilter, slick},
+  components: {reviewCardSlick, toolBar, logo, searchBar, searchFilter,reviewCardSmall},
   data: () => ({
 
   }),
@@ -81,11 +102,13 @@ export default {
   .sub-title-large {
     font-size: 18pt;
     font-weight: bold;
+    height: 60px;
   }
 
   .sub-title-small {
-    font-size: 12pt;
+    font-size: 14pt;
     font-weight: bold;
+    height: 30px;
   }
 
 
