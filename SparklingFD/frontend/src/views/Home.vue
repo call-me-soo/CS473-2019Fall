@@ -18,10 +18,14 @@
             <div class="english main-title-small d-md-none">Crack Your Internship with</div><br><div class="cracker main-title-small d-md-none"> CRACKER!</div>
           </div>
         </v-row>
-        <v-flex>
-              <searchBar></searchBar>
-              <searchFilter></searchFilter>
-        </v-flex>
+        <v-row class="mt-10" justify="center">
+          <v-col class="pa-2" cols="8">
+            <searchBar></searchBar>
+          </v-col>
+        </v-row>
+        <v-row justify="center">
+          <searchFilter></searchFilter>
+        </v-row>
 
 
         <v-row justify="center" align="center" >
@@ -63,14 +67,14 @@
 
 <script>
 
-  import toolBar from "./components/Toolbar";
-  import logo from "./components/Logo";
-  import searchBar from "./components/SearchBar";
-  import searchFilter from "./components/SearchFilter"
-  import reviewCardSlick from "./components/ReviewCardSlick";
-  import reviewCardSmall from "./components/ReviewCardSmall";
+  import toolBar from "../components/Toolbar";
+  import logo from "../components/Logo";
+  import searchBar from "../components/SearchBar";
+  import searchFilter from "../components/SearchFilter"
+  import reviewCardSlick from "../components/ReviewCardSlick";
+  import reviewCardSmall from "../components/ReviewCardSmall";
 
-  import "./assets/css/style.css";
+  import "../assets/css/style.css";
 
 export default {
   name: 'home',

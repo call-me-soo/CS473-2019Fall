@@ -1,7 +1,6 @@
 <template>
 
   <v-flex>
-
     <div class="d-none d-md-inline">
       <v-row justify="center">
           <v-col cols="11">
@@ -12,9 +11,9 @@
               <v-row wrap class="d-inline-flex justify-center" v-for="review in bestReviews" :key="review.id">
                 <v-col cols="11" class="card">
                   <v-row wrap
-                         class="pl-9 pt-3 pa-3"
+                         class="korean pl-9 pt-3 pa-3"
                   >
-                    <v-col class="korean" cols="8">
+                    <v-col cols="8">
                       <v-row wrap
                              align="baseline"
                              class="d-inline-flex pb-4">
@@ -32,10 +31,10 @@
                       <v-row wrap class="pl-3" justify="center">
                         <radarChart></radarChart>
                       </v-row>
-                      <v-row wrap class="d-inline-flex pt-2" justify="center" align="baseline">
-                        <div class="d-inline-flex" align="baseline">
+                      <v-row wrap class="pt-2" justify="center" align="baseline">
+                        <v-col class="text-center">
                           <v-rating
-                                  class="pa-3"
+                                  class="d-inline pa-3"
                                   background-color="#DDDDDD"
                                   readonly
                                   v-model="review.review.aggregate"
@@ -43,9 +42,8 @@
                                   medium
                                   dense
                           ></v-rating>
-                          <v-flex>{{review.review.aggregate}}</v-flex>
-                        </div>
-
+                          <span class="label d-inline">{{review.review.aggregate}}</span>
+                        </v-col>
                       </v-row>
                     </v-col>
                   </v-row>
@@ -118,7 +116,7 @@
                   semester: '2019 여름',
                   like: 57,
                   review: {
-                    aggregate: 4.0,
+                    aggregate: 4.5,
                     star: [3, 5, 4, 5, 3],
                     content: '급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 덕분에 분위기도 좋고 복지도 좋은 회사에서 뜻깊은 경험 했습니다! 급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만,급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 덕분에 분위기도 좋고 복지도 좋은 회사에서 뜻깊은 경험 했습니다! 급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 '
                   }
@@ -322,8 +320,11 @@
     -webkit-box-orient: vertical;
   }
 
-  .chart {
-    height: 100px;
+  .label {
+    font-size: 9pt;
+    font-weight: bold;
+    color: #676767
   }
+
 
 </style>

@@ -31,52 +31,21 @@
       </v-flex>
     </v-row>
 
-    <v-dialog v-model="dialog1" max-width="500px">
-      <v-card>
-        <v-card-title
-                class="korean headline grey lighten-2"
-                primary-title
-        >
-          업무 강도
-        </v-card-title>
 
-        <v-card-text>
-          <v-row wrap style="height: 150px" align="center" justify="center">
-            <vue-slider
-                    ref="slider"
-                    v-model="value"
-                    width="90%"
-                    :adsorb="true"
-                    :interval="1"
-                    :data="range"
-                    :marks="true"
-                    :process-dragable="true"
-                    :height="10"
-                    :tooltip="'always'"
-            ></vue-slider>
-          </v-row>
-
-        </v-card-text>
-      </v-card>
-    </v-dialog>
   </div>
-
-
 
 </template>
 
 <script>
 
-  import VueSlider from 'vue-slider-component';
+
 
   export default {
     name: "SearchFilter",
-    components: { VueSlider },
+    components: {  },
     data () {
       return {
         dialog1: false,
-        value: [0,5],
-        range: [0,1,2,3,4,5],
 
       }
     }
@@ -84,6 +53,52 @@
 </script>
 
 <style>
-  @import '~vue-slider-component/theme/default.css';
+
+
+  /* process style */
+  .vue-slider-process {
+    background-color: #FFCF57;
+    border-radius: 15px;
+    transition: background-color 0.3s;
+  }
+  .vue-slider:hover .vue-slider-process {
+    background-color: #FFCF57;
+  }
+
+  /* mark style */
+  .vue-slider-mark-step {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px #e8e8e8;
+    background-color: #ffffff;
+  }
+  .vue-slider-mark-step-active {
+    box-shadow: 0 0 0 2px #FFCF57;
+  }
+  .vue-slider:hover .vue-slider-mark-step-active {
+    box-shadow: 0 0 0 2px #FFCF57;
+  }
+
+  .vue-slider-dot:hover .vue-slider-dot-tooltip, .vue-slider-dot-tooltip-show {
+    opacity: 1;
+    visibility: visible;
+  }
+  .vue-slider-dot:hover .vue-slider-dot-tooltip .vue-slider-dot-tooltip-inner, .vue-slider-dot-tooltip-show .vue-slider-dot-tooltip-inner {
+     transform: scale(1);
+   }
+
+  .vue-slider-dot-tooltip-inner {
+    font-size: 14px;
+    white-space: nowrap;
+    padding: 6px 8px;
+    color: #fff;
+    border-radius: 5px;
+    border-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 0, 0, 0.75);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transform: scale(0.9);
+    transition: transform 0.3s;
+  }
 
 </style>

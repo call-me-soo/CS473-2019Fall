@@ -5,7 +5,7 @@
         extends: Radar,
         props: {
             height: {
-                default: 160
+                default: 150
             },
             width : {
                 default: 250

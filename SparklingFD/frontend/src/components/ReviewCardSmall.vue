@@ -1,12 +1,12 @@
 <template>
-    <v-card class="card mb-3 mr-3 ml-3">
+    <v-card class="card korean mb-3 mr-3 ml-3">
         <v-row wrap
                class="d-inline-flex justify-center pt-5"
         >
             <v-col cols="10">
-                <v-flex class="korean card-title pb-2">{{review.company.name}}</v-flex>
-                <v-flex class="korean card-subtitle text--darken-1 grey--text">{{review.user.department}} {{review.user.nickname}} | {{review.semester}}</v-flex>
-                <v-row class="korean card-content pt-5 pa-3">{{review.review.content}}</v-row>
+                <v-flex class="card-title pb-2">{{review.company.name}}</v-flex>
+                <v-flex class="card-subtitle text--darken-1 grey--text">{{review.user.department}} {{review.user.nickname}} | {{review.semester}}</v-flex>
+                <v-row class="card-content pt-5 pa-3">{{review.review.content}}</v-row>
                 <v-row wrap class="d-inline-flex pt-2" align="baseline">
                     <v-rating
                             class="pa-2"
@@ -17,8 +17,8 @@
                             medium
                             dense
                     ></v-rating>
-                    <v-flex class="pr-1">{{review.review.aggregate}}</v-flex>
-                    <v-btn class="korean ml-10" rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
+                    <v-flex class="label pr-1">{{review.review.aggregate}}</v-flex>
+                    <v-btn class="ml-10" rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
                 </v-row>
 
             </v-col>
@@ -71,6 +71,12 @@
         height: 235px;
         -webkit-line-clamp: 9;
         -webkit-box-orient: vertical;
+    }
+
+    .label {
+        font-size: 9pt;
+        font-weight: bold;
+        color: #676767
     }
 
 
