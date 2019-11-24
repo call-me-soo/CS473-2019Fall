@@ -34,7 +34,9 @@
           </v-col>
         </v-row>
         <v-row justify="center">
-          <searchFilter></searchFilter>
+          <searchFilter
+                  :rating.sync="filterRating[0]"
+          ></searchFilter>
         </v-row>
 
 
@@ -87,10 +89,12 @@
 
 export default {
   name: 'home',
-  components: {reviewCardSlick, logo, searchBar, searchFilter,reviewCardSmall},
-  data: () => ({
-
-  }),
+  components: {reviewCardSlick, logo, searchBar, searchFilter, reviewCardSmall},
+  data() {
+    return {
+      filterRating: [[0,5], [0,5], [0,5], [0,5], [0,5]]
+    }
+  }
 };
 </script>
 
