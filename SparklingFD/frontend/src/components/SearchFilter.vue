@@ -5,21 +5,20 @@
            class="d-none d-md-inline"
     >
       <v-btn @click="dialog=true"
-             class="korean ma-2 lighten-2"
+             class="filterbutton korean mt-2 ml-1 mr-1 lighten-2"
              :class="isFilter ? 'button-on' : 'grey grey--text text--darken-1'"
-             rounded
+             depressed rounded
       >
         {{label}} {{isFilter ? rating.join('-') : ''}}
       </v-btn>
     </div>
-
     <v-row wrap
            class="d-md-none"
            justify="center"
     >
       <v-flex style="justify-content: space-between">
             <div class="text-center">
-              <v-btn @click="dialog=true" class="korean mr-1 grey lighten-2 grey--text text--darken-1" x-small rounded>{{rating.toString()}}</v-btn>
+              <v-btn @click="dialog=true" class="korean mr-1 grey lighten-2 grey--text text--darken-1" small depressed rounded>{{rating.toString()}}</v-btn>
             </div>
       </v-flex>
     </v-row>
@@ -111,6 +110,9 @@
     background-color: #FFCF57 !important;
     color: #000000 !important;
   }
-
+  
+  .filterbutton {
+    letter-spacing: -0.05rem;
+  }
 
 </style>

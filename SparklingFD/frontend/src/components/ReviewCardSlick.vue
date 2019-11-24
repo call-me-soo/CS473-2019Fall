@@ -8,8 +8,8 @@
                       ref="slick"
                       :options="slickOptions"
               >
-              <v-row wrap class="d-inline-flex justify-center" v-for="review in bestReviews" :key="review.id">
-                <v-col cols="11" class="card">
+              <v-row wrap class="d-inline-flex justify-center card-wrapper" v-for="review in bestReviews" :key="review.id">
+                <v-col class="card">
                   <v-row wrap
                          class="korean pl-9 pt-3 pa-3"
                   >
@@ -279,10 +279,16 @@
   @import "~slick-carousel/slick/slick.css";
   @import "~slick-carousel/slick/slick-theme.css";
 
+  .card-wrapper{
+    width: 98% !important;
+  }
 
   .card {
     height: 260px;
     background-color: white;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 10px rgba(0,0,0, 0.08) !important;
+    width: 98% !important;
   }
 
   .card-title-large {
@@ -324,6 +330,10 @@
     font-size: 9pt;
     font-weight: bold;
     color: #676767
+  }
+
+  .slick-dots{
+    padding: 24px !important;
   }
 
 
