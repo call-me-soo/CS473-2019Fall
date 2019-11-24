@@ -1,11 +1,23 @@
 npm install -g yarn 
 npm install -g @vue/cli 
-npm install vue-router --save
-npm install axios --save
-vue create frontend
+npm install -g vue-router --save
+npm install -g vue-chartjs --save
+npm install -g axios --save
+npm install -g eslint
+cd frontend
+vue add vuetify
+npm install chart.js
+npm install jquery
+npm install vue-chartjs
+npm install vue-router
+npm install vue-slick
+npm install vue-slider-component
+cd ../
+
+
 
 npm install -g express-generator
-express --view=pug backend
+# express --view=pug backend
 
 cd backend
 npm install
