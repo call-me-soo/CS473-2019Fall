@@ -3,31 +3,23 @@
         <v-content>
             <Toolbar></Toolbar>
             <v-container>
-                <v-row wrap
-                       class=""
-                       justify="center"
-                       style="height: 100px">
-                        <v-col cols="8">
-                            <v-row align="baseline">
-                                <SearchBar></SearchBar>
-                                <v-btn class="ml-5" small fab><v-icon>mdi-filter-variant</v-icon></v-btn>
-                            </v-row>
-                        </v-col>
-                </v-row>
-
-                <v-row wrap justify="center" align="center" >
-                    <v-col cols="7">
-                        <div class="korean pl-4 sub-title-large d-none d-md-inline-block">검색 결과</div>
-                        <div class="korean sub-title-small d-md-none">검색 결과</div>
-                    </v-col>
-                    <v-col cols="2">
-                    <v-overflow-btn
-                            class=""
-                            style="width: 160px"
-                            :items="dropdown_font"
-                            label="필터"
-                            target="#dropdown-example"
-                    ></v-overflow-btn>
+                <v-row wrap class="pt-5" justify="center" align="center" >
+                    <v-col cols="9">
+                        <v-row wrap align="center">
+                            <div class="korean sub-title-large d-none d-md-inline-block">검색 결과</div>
+                            <div class="korean sub-title-small d-md-none">검색 결과</div>
+                            <v-spacer></v-spacer>
+                            <v-spacer></v-spacer>
+                            <v-spacer></v-spacer>
+                            <v-spacer></v-spacer>
+                            <v-overflow-btn
+                                    class=""
+                                    style="width: 30px"
+                                    :items="filters"
+                                    label="필터"
+                                    target="#dropdown-example"
+                            ></v-overflow-btn>
+                        </v-row>
                     </v-col>
                 </v-row>
 
@@ -48,13 +40,13 @@
 <script>
     import Toolbar from "../components/Toolbar";
     import ReviewCardBig from "../components/ReviewCardBig";
-    import SearchBar from "../components/SearchBar";
 
     export default {
         name: "Search",
-        components: {SearchBar, Toolbar, ReviewCardBig },
+        components: {Toolbar, ReviewCardBig },
         data () {
             return {
+                filters: ['전체 평점', '업무 강도', '분위기', '급여', '배우는 것', '사내 복지'],
                 bestReviews: [
                     {
                         id: 1,
