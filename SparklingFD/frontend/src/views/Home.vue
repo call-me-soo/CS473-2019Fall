@@ -1,7 +1,17 @@
 <template>
   <v-app>
+    <v-app-bar
+            app
+            color="#FFCF57"
+            flat
+    >
+      <v-toolbar-title class="cracker">CRACKER</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn class="english" text>Sign in</v-btn>
+      <v-btn class="english" text>Sign up</v-btn>
+
+    </v-app-bar>
     <v-content>
-      <toolBar></toolBar>
       <v-container
               fluid
               v-bind:style="{background :'#f5f5f5'}"
@@ -67,7 +77,6 @@
 
 <script>
 
-  import toolBar from "../components/Toolbar";
   import logo from "../components/Logo";
   import searchBar from "../components/SearchBar";
   import searchFilter from "../components/SearchFilter"
@@ -78,7 +87,7 @@
 
 export default {
   name: 'home',
-  components: {reviewCardSlick, toolBar, logo, searchBar, searchFilter,reviewCardSmall},
+  components: {reviewCardSlick, logo, searchBar, searchFilter,reviewCardSmall},
   data: () => ({
 
   }),

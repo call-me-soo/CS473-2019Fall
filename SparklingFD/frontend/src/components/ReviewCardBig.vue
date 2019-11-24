@@ -1,8 +1,8 @@
 <template>
     <v-flex>
         <div class="d-none d-md-inline">
-            <v-card class="card korean ma-4">
-                <v-row class="pl-10 pa-5" wrap>
+            <v-card class="card korean mt-4 mb-4">
+                <v-row class="pl-12 pa-5" wrap>
                     <v-col class="korean" cols="8">
                         <v-row wrap
                                align="baseline"
