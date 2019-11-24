@@ -2,9 +2,9 @@
   <v-flex class="flex-grow-1">
     <v-flex class="d-none d-md-flex">
       <v-text-field
-              class="korean"
+              class="search korean"
               solo-inverted
-              clearlable
+              flat
               rounded
               hide-details
               label="회사명 또는 지역을 입력해주세요 :)"
@@ -15,9 +15,9 @@
     </v-flex>
     <v-flex class="d-md-none">
       <v-text-field
-              class="korean"
+              class="search korean"
               solo-inverted
-              clearlable
+              flat
               rounded
               hide-details
               label="회사명 또는 지역"
@@ -47,5 +47,9 @@
 </script>
 
 <style scoped>
+
+.search {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08) !important;
+}
 
 </style>
