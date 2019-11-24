@@ -1,16 +1,17 @@
 <template>
 
-  <div>
-    <v-row wrap
-           class="d-none d-md-block"
-           justify="center"
+  <v-flex class="d-inline">
+    <div wrap
+           class="d-none d-md-inline"
     >
-      <v-flex style="justify-content: space-between">
-            <div class="text-center">
-              <v-btn @click="dialog=true" class="korean ma-2 grey lighten-2 grey--text text--darken-1" rounded>{{rating.toString()}}</v-btn>
-            </div>
-      </v-flex>
-    </v-row>
+      <v-btn @click="dialog=true"
+             class="korean ma-2 lighten-2"
+             :class="isFilter ? 'button-on' : 'grey grey--text text--darken-1'"
+             rounded
+      >
+        {{label}} {{isFilter ? rating.join('-') : ''}}
+      </v-btn>
+    </div>
 
     <v-row wrap
            class="d-md-none"
@@ -18,7 +19,7 @@
     >
       <v-flex style="justify-content: space-between">
             <div class="text-center">
-              <v-btn @click="dialog=true" class="korean mr-1 grey lighten-2 grey--text text--darken-1" x-small rounded>업무 강도</v-btn>
+              <v-btn @click="dialog=true" class="korean mr-1 grey lighten-2 grey--text text--darken-1" x-small rounded>{{rating.toString()}}</v-btn>
             </div>
       </v-flex>
     </v-row>
@@ -32,7 +33,7 @@
           분위기
         </v-card-title>
         <v-card-text>
-          <v-row wrap align="center" justify="center">
+          <v-row wrap style="height: 100px" align="center" justify="center">
             <vue-slider
                     ref="slider"
                     v-model="rating"
@@ -68,7 +69,7 @@
       </v-card>
     </v-dialog>
 
-  </div>
+  </v-flex>
 
 </template>
 
@@ -79,6 +80,10 @@
     name: "SearchFilter",
     components: { VueSlider },
     props: {
+      label: {
+        type: String,
+        required: true
+      },
       value: {
         type: Array,
         required: true
@@ -87,20 +92,25 @@
     data () {
       return {
         dialog: false,
-        rating: [0,5],
-        range: [0,1,2,3,4,5]
-
+        rating: [0, 5],
+        range: [0, 1, 2, 3, 4, 5],
+        isFilter: false
       }
     },
     methods: {
       onCallBack(value){
-        this.$emit('update: value', value)
+        this.$emit('update: value', value);
       }
     }
   }
 </script>
 
 <style>
+
+  .button-on {
+    background-color: #FFCF57 !important;
+    color: #000000 !important;
+  }
 
 
 </style>
