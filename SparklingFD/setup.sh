@@ -12,7 +12,7 @@ npm install jquery
 npm install vue-chartjs
 npm install vue-router
 npm install vue-slick
-rnpm install vue-slider-component
+npm install vue-slider-component
 cd ../
 
 
