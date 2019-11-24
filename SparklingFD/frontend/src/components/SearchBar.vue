@@ -3,7 +3,7 @@
     <v-flex class="d-none d-md-flex">
       <v-text-field
               class="search korean"
-              solo-inverted
+              solo
               flat
               rounded
               hide-details
@@ -16,7 +16,7 @@
     <v-flex class="d-md-none">
       <v-text-field
               class="search korean"
-              solo-inverted
+              solo
               flat
               rounded
               hide-details
