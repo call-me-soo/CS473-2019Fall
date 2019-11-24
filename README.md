@@ -1,5 +1,3 @@
-Ang Gimotti
-================
 How to setup (Only for your first start)
 ```
 cd SparklingFD
