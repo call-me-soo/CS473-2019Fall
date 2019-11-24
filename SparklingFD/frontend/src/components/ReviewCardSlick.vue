@@ -283,6 +283,8 @@
   .card {
     height: 260px;
     background-color: white;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 10px rgba(0,0,0, 0.08) !important;
   }
 
   .card-title-large {
@@ -324,6 +326,10 @@
     font-size: 9pt;
     font-weight: bold;
     color: #676767
+  }
+
+  .slick-dots{
+    padding: 24px !important;
   }
 
 

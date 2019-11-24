@@ -51,6 +51,9 @@
         height: 400px;
         background-color: white;
         max-width: 330px;
+        border-radius: 10px !important;
+        box-shadow: 0 4px 10px rgba(0,0,0, 0.08) !important;
+        margin: 12px !important;
     }
 
     .card-title {
