@@ -29,9 +29,24 @@
                       </v-row>
                     </v-col>
                     <v-col cols="4">
-                      <v-container fluid class="chart">
+                      <v-row wrap class="pl-3" justify="center">
                         <radarChart></radarChart>
-                      </v-container>
+                      </v-row>
+                      <v-row wrap class="d-inline-flex pt-2" justify="center" align="baseline">
+                        <div class="d-inline-flex" align="baseline">
+                          <v-rating
+                                  class="pa-3"
+                                  background-color="#DDDDDD"
+                                  readonly
+                                  v-model="review.review.aggregate"
+                                  color="#FFCF57"
+                                  medium
+                                  dense
+                          ></v-rating>
+                          <v-flex>{{review.review.aggregate}}</v-flex>
+                        </div>
+
+                      </v-row>
                     </v-col>
                   </v-row>
               </v-col>
@@ -53,6 +68,12 @@
                          align="baseline"
                          class="pl-8 pt-7">
                     <v-flex class="korean card-title-small pr-2">{{review.company.name}}</v-flex>
+                  </v-row>
+                  <v-row wrap
+                         justify="center"
+                         align="baseline"
+                         class="pl-8"
+                  >
                     <v-flex class="korean card-subtitle pr-1 text--darken-1 grey--text">
                       {{review.user.department}} {{review.user.nickname}} | {{review.semester}}
                       <v-btn class="korean ml-1" rounded x-small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
@@ -66,8 +87,6 @@
                     </v-col>
 
                   </v-row>
-
-                  <radarChart></radarChart>
 
                 </v-card>
 
@@ -92,7 +111,7 @@
 		data() {
 			return {
               bestReviews: [
-                {
+               {
                   id: 1,
                   company: {id: 1, name: 'SK하이닉스', src: '/'},
                   user: {id: 1, department: '전산학부', nickname: '빨간 넥타이'},
@@ -304,8 +323,7 @@
   }
 
   .chart {
-    flex-grow: 1;
-    min-height: 0;
+    height: 100px;
   }
 
 </style>

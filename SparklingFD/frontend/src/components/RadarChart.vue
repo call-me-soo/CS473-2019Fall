@@ -3,6 +3,14 @@
 
     export default {
         extends: Radar,
+        props: {
+            height: {
+                default: 160
+            },
+            width : {
+                default: 250
+            }
+        },
         name: "RadarChart",
         data (){
             return {
