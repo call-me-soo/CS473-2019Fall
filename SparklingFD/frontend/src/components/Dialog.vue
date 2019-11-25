@@ -9,7 +9,7 @@
                 분위기
             </v-card-title>
             <v-card-text>
-                <v-row wrap style="height: 120px" align="center" justify="center">
+                <v-row wrap align="center" justify="center">
                     <vue-slider
                             ref="slider"
                             v-model="value"

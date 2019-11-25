@@ -8,8 +8,8 @@
                       ref="slick"
                       :options="slickOptions"
               >
-              <v-row wrap class="d-inline-flex justify-center" v-for="review in bestReviews" :key="review.id">
-                <v-col cols="11" class="card">
+              <v-row wrap class="d-inline-flex justify-center card-wrapper" v-for="review in bestReviews" :key="review.id">
+                <v-col class="card">
                   <v-row wrap
                          class="korean pl-9 pt-3 pa-3"
                   >
@@ -17,9 +17,9 @@
                       <v-row wrap
                              align="baseline"
                              class="d-inline-flex pb-4">
-                        <v-flex class="korean card-title-large pr-2">{{review.company.name}}</v-flex>
-                        <v-flex class="korean card-subtitle pr-1 text--darken-1 grey--text">{{review.user.department}} {{review.user.nickname}} | {{review.semester}}</v-flex>
-                        <v-btn class="korean ml-2" rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
+                        <v-flex class="card-title-large pr-2">{{review.company.name}}</v-flex>
+                        <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.department}} {{review.user.nickname}} | {{review.semester}}</v-flex>
+                        <v-btn class="ml-2" rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
                       </v-row>
                       <v-row wrap>
                         <v-flex class="card-content-large">
@@ -163,12 +163,16 @@
   @import "~slick-carousel/slick/slick.css";
   @import "~slick-carousel/slick/slick-theme.css";
 
+  .card-wrapper{
+    width: 98% !important;
+  }
 
   .card {
     height: 260px;
     background-color: white;
     border-radius: 10px !important;
     box-shadow: 0 4px 10px rgba(0,0,0, 0.08) !important;
+    width: 98% !important;
   }
 
   .card-title-large {

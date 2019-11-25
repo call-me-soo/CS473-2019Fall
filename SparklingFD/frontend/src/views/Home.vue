@@ -33,9 +33,16 @@
             <searchBar></searchBar>
           </v-col>
         </v-row>
-        <v-row justify="center">
-          <searchFilter></searchFilter>
+        <v-row wrap dense class="pb-5" justify="center">
+          <div style="text-align: center">
+            <searchFilter v-for="index in 5" :key="index"
+                          :rating.sync="filterRating[index-1]"
+                          :label.sync="fiterLabel[index-1]"
+            ></searchFilter>
+          </div>
+
         </v-row>
+
 
 
         <v-row justify="center" align="center" >
@@ -87,10 +94,13 @@
 
 export default {
   name: 'home',
-  components: {reviewCardSlick, logo, searchBar, searchFilter,reviewCardSmall},
-  data: () => ({
-
-  }),
+  components: {reviewCardSlick, logo, searchBar, searchFilter, reviewCardSmall},
+  data() {
+    return {
+      fiterLabel: ['업무 강도', '분위기', '급여', '배우는 것', '사내복지'],
+      filterRating: [[0,5], [0,5], [0,5], [0,5], [0,5]]
+    }
+  }
 };
 </script>
 
