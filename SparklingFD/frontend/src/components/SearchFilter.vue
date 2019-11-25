@@ -7,7 +7,8 @@
       <v-btn @click="dialog=true"
              class="filterbutton korean mt-2 ml-1 mr-1 lighten-2"
              :class="isFilter ? 'button-on' : 'grey grey--text text--darken-1'"
-             depressed rounded
+             rounded
+             medium
       >
         {{label}} {{isFilter ? rating.join('-') : ''}}
       </v-btn>

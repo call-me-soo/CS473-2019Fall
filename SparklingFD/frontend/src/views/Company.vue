@@ -21,6 +21,10 @@
                             <div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{company.field.toString()}} | {{company.location}}</div>
                             <div class="sub-title-2-large pr-2">기업리뷰</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{company.reviews.length}}</div>
                             <div class="sub-title-2-large pr-2">추천학과</div><div class="sub-title-2-large pr-1 text--darken-1 grey--text">{{company.recommend.toString()}}</div>
+                            <v-spacer></v-spacer>
+                            <v-btn rounded>
+                                리뷰 작성
+                            </v-btn>
                         </v-row>
                     </v-col>
                     <v-col class="korean d-md-none" cols="10">
@@ -72,6 +76,36 @@
                     </v-col>
                 </v-row>
 
+                <v-row wrap class="pt-5" justify="center" align="center" >
+                    <v-col cols="9">
+                        <v-row wrap align="center">
+                            <div class="korean sub-title-large d-none d-md-inline-block">리뷰</div>
+                            <div class="korean sub-title-small d-md-none">리뷰</div>
+                            <v-spacer></v-spacer>
+                            <v-spacer></v-spacer>
+                            <v-spacer></v-spacer>
+                            <v-spacer></v-spacer>
+                            <v-btn-toggle
+                                    dense
+                                    rounded
+                                    class="button-toggle"
+                                    v-model="toggle_exclusive"
+                                    mandatory
+                            >
+                                <v-btn>최신순</v-btn>
+                                <v-btn>추천순</v-btn>
+                            </v-btn-toggle>
+                        </v-row>
+                    </v-col>
+                </v-row>
+
+                <v-row wrap justify="center">
+                    <v-col cols="9">
+                        <ReviewCardBig></ReviewCardBig>
+                        <ReviewCardBig></ReviewCardBig>
+                        <ReviewCardBig></ReviewCardBig>
+                    </v-col>
+                </v-row>
 
             </v-container>
         </v-content>
@@ -83,9 +117,15 @@
     import VueSlider from "vue-slider-component";
     import LineChart from "../components/LineChart";
     import RadarChart from "../components/RadarChart";
+    import ReviewCardBig from "../components/ReviewCardBig";
     export default {
         name: "Company",
-        components: { Toolbar, LineChart, VueSlider, RadarChart },
+        components: { Toolbar, LineChart, VueSlider, RadarChart, ReviewCardBig },
+        computed: {
+            param: function () {
+                return this.$route.params;
+            }
+        },
         data () {
             return {
                 company: {
@@ -120,7 +160,8 @@
                         }]
                     },
                 value: [0,5],
-                range: [0,1,2,3,4,5]
+                range: [0,1,2,3,4,5],
+                toggle_exclusive: undefined
                 }
             }
         }
@@ -146,6 +187,11 @@
 
     .sub-title-2-small {
         font-size: small;
+    }
+
+    .button-toggle {
+        font-size:
+
     }
 
 </style>

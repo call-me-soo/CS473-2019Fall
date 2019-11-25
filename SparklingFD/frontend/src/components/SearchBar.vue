@@ -32,9 +32,8 @@
 
 <script>
 
-
   export default {
-		name: "SearchBar",
+    name: "SearchBar",
     data() {
 			return {
 

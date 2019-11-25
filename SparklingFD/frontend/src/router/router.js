@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Search from "../views/Search";
 import Signup from "../views/Signup";
 import Company from "../views/Company";
+import Review from "../views/Review";
 
 Vue.use(VueRouter);
 
@@ -24,9 +25,14 @@ const routes = [
     component: Signup
   },
   {
-    path: '/company',
+    path: '/company/:id',
     name: 'company',
     component: Company
+  },
+  {
+    path: '/review/:id',
+    name: 'review',
+    component: Review
   }
 ]
 
