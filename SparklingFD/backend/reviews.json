@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "company": {"id": 1, "name": "SK하이닉스", "src": "/"},
+        "user": {"id": 1, "department": "전산학부", "nickname": "빨간 넥타이"},
+        "semester": "2019 여름",
+        "like": 57,
+        "review": {
+            "aggregate": 2.5,
+            "star": [3, 5, 4, 5, 3],
+            "content": "흔들리는 꽃들속에서 치킨을 발견한거야~"
+        }
+    },
+    {
+        "id": 2,
+        "company": {"id": 2, "name": "삼성", "src": "/"},
+        "user": {"id": 2, "department": "전산학부", "nickname": "바보 멍청이"},
+        "semester": "2018 겨울",
+        "like": 33,
+        "review": {
+            "aggregate": 3.7,
+            "star": [4, 3, 4, 3, 4],
+            "content": "배고파요 도와주세요"
+        }
+    }
+]
