@@ -1,0 +1,12 @@
+[
+    {
+        "id": 1,
+        "department": "전산학부",
+        "nickname": "빨간 넥타이"
+    },
+    {
+        "id": 2,
+        "department": "전산학부",
+        "nickname": "바부 멍청이"
+    }
+]

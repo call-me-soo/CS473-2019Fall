@@ -1,0 +1,20 @@
+[
+    {
+        "ID": 1,
+        "name": "SK하이닉스",
+        "logosrc": "/",
+        "field": ["IT", "반도체"],
+        "location": "이천",
+        "recommend": ["CS", "EE"],
+        "reviews": []
+    },
+    {
+        "ID": 2,
+        "name": "삼성",
+        "logosrc": "/",
+        "field": ["IT", "반도체"],
+        "location": "삼성역",
+        "recommend": ["CS", "EE"],
+        "reviews": []
+    }
+]
