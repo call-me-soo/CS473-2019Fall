@@ -33,7 +33,7 @@
                                 class="d-inline-flex"
                                 align="baseline">
                             <div>
-                                <v-avatar class="pr-5 pb-2" size="30">
+                                <v-avatar class="mr-5 mb-2" size="40">
                                     <img
                                             src="https://cdn.vuetifyjs.com/images/john.jpg"
                                             alt="John"
@@ -67,7 +67,7 @@
                     </v-col>
                 </v-row>
 
-                <v-row wrap class="pt-3" justify="center" align="center">
+                <v-row wrap class="pt-3 pb-3" justify="center" align="center">
                     <v-col cols="6">
                         <LineChart></LineChart>
                     </v-col>
@@ -75,6 +75,14 @@
                         <RadarChart></RadarChart>
                     </v-col>
                 </v-row>
+
+                <v-row wrap justify="center">
+                    <v-col cols="10">
+                        <v-divider></v-divider>
+                    </v-col>
+                </v-row>
+
+
 
                 <v-row wrap class="pt-5" justify="center" align="center" >
                     <v-col cols="9">
@@ -159,8 +167,8 @@
                             }
                         }]
                     },
-                value: [0,5],
-                range: [0,1,2,3,4,5],
+                value: ['이전', '2017 가을'],
+                range: ['이전', '2017 봄', '2017 여름', '2017 가을', '2017 겨울', '2018 봄', '2018 여름', '2018 가을', '2018 겨울', '2019 봄', '2019 여름', '2019 가을'],
                 toggle_exclusive: undefined
                 }
             }
@@ -189,9 +197,5 @@
         font-size: small;
     }
 
-    .button-toggle {
-        font-size:
-
-    }
 
 </style>

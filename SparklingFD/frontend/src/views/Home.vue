@@ -14,7 +14,7 @@
     <v-content>
       <v-container
               fluid
-              v-bind:style="{background :'#f5f5f5'}"
+              :style="{background :'#f5f5f5'}"
       >
         <logo id="logo"></logo>
 
@@ -28,22 +28,21 @@
             <div class="english main-title-small d-md-none">Crack Your Internship with</div><br><div class="cracker main-title-small d-md-none"> CRACKER!</div>
           </div>
         </v-row>
+
         <v-row class="mt-10" justify="center">
           <v-col class="pa-2" cols="8">
             <searchBar></searchBar>
           </v-col>
         </v-row>
+
         <v-row wrap dense class="pb-5" justify="center">
           <div style="text-align: center">
             <searchFilter v-for="index in 5" :key="index"
                           :rating.sync="filterRating[index-1]"
-                          :label.sync="fiterLabel[index-1]"
+                          :label.sync="filterLabel[index-1]"
             ></searchFilter>
           </div>
-
         </v-row>
-
-
 
         <v-row justify="center" align="center" >
           <v-col cols="11">
@@ -52,7 +51,9 @@
           </v-col>
         </v-row>
 
-        <reviewCardSlick></reviewCardSlick>
+        <reviewCardSlick
+                :bestReviews.sync="bestReviews"
+        ></reviewCardSlick>
 
         <v-row justify="center" align="center" class="mt-10">
           <v-col cols="11">
@@ -64,11 +65,9 @@
         <v-row wrap justify="center">
           <v-col cols="10">
             <v-row wrap>
-              <reviewCardSmall></reviewCardSmall>
-              <reviewCardSmall></reviewCardSmall>
-              <reviewCardSmall></reviewCardSmall>
-              <reviewCardSmall></reviewCardSmall>
-              <reviewCardSmall></reviewCardSmall>
+              <reviewCardSmall v-for="review in recentReviews" :key="recentReviews.indexOf(review)"
+                      :review="review"
+              ></reviewCardSmall>
             </v-row>
           </v-col>
         </v-row>
@@ -94,12 +93,32 @@
 
 export default {
   name: 'home',
-  components: {reviewCardSlick, logo, searchBar, searchFilter, reviewCardSmall},
+  components: {reviewCardSlick, logo, searchBar, searchFilter, reviewCardSmall },
+  mounted() {
+      this.$http.get('../../api/cards')
+      .then((response) => {
+              this.bestReviews = response.data;
+              console.log(this.bestReviews)
+          })
+
+      this.$http.get('../../api/getReview')
+          .then((response) => {
+              this.recentReviews = response.data;
+              console.log(this.bestReviews)
+          })
+  },
   data() {
-    return {
-      fiterLabel: ['업무 강도', '분위기', '급여', '배우는 것', '사내복지'],
-      filterRating: [[0,5], [0,5], [0,5], [0,5], [0,5]]
+        return {
+            bestReviews: [],
+            recentReviews: [],
+            filterLabel: ['업무 강도', '분위기', '급여', '배우는 것', '사내복지'],
+            filterRating: [[0,5], [0,5], [0,5], [0,5], [0,5]],
+            filterDialog: [false, false, false, false, false],
+            filterSelected: [false, false, false, false, false]
     }
+  },
+  methods: {
+
   }
 };
 </script>

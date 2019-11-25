@@ -25,12 +25,12 @@ const routes = [
     component: Signup
   },
   {
-    path: '/company/:id',
+    path: '/company/:companyId',
     name: 'company',
     component: Company
   },
   {
-    path: '/review/:id',
+    path: '/review/:companyId',
     name: 'review',
     component: Review
   }

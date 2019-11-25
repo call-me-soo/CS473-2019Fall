@@ -18,6 +18,7 @@
                                     :items="filters"
                                     label="필터"
                                     target="#dropdown-example"
+                                    color="#FFCF57"
                             ></v-overflow-btn>
                         </v-row>
                     </v-col>

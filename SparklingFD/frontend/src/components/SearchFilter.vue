@@ -4,13 +4,13 @@
     <div wrap
            class="d-none d-md-inline"
     >
-      <v-btn @click="dialog=true"
+      <v-btn @click="showModal=true"
              class="filterbutton korean mt-2 ml-1 mr-1 lighten-2"
-             :class="isFilter ? 'button-on' : 'grey grey--text text--darken-1'"
+             :class="isFilterOn ? 'button-on' : 'grey grey--text text--darken-1'"
              rounded
              medium
       >
-        {{label}} {{isFilter ? rating.join('-') : ''}}
+        {{label}} {{isFilterOn ? rating.join('-') : ''}}
       </v-btn>
     </div>
     <v-row wrap
@@ -19,12 +19,12 @@
     >
       <v-flex style="justify-content: space-between">
             <div class="text-center">
-              <v-btn @click="dialog=true" class="korean mr-1 grey lighten-2 grey--text text--darken-1" small depressed rounded>{{rating.toString()}}</v-btn>
+              <v-btn @click="showModal=true" class="korean mr-1 grey lighten-2 grey--text text--darken-1" small depressed rounded>{{rating.toString()}}</v-btn>
             </div>
       </v-flex>
     </v-row>
 
-    <v-dialog v-model="dialog" max-width="500px">
+    <v-dialog v-model="showModal" max-width="500px">
       <v-card>
         <v-card-title
                 class="korean headline grey lighten-2"
@@ -36,7 +36,7 @@
           <v-row wrap style="height: 100px" align="center" justify="center">
             <vue-slider
                     ref="slider"
-                    v-model="rating"
+                    v-model="input"
                     width="90%"
                     :adsorb="true"
                     :interval="1"
@@ -44,7 +44,6 @@
                     :marks="true"
                     :process-dragable="true"
                     :height="5"
-                    @change="onCallBack"
             ></vue-slider>
           </v-row>
         </v-card-text>
@@ -53,7 +52,7 @@
           <v-btn
                   color="red"
                   text
-                  @click="cancel"
+                  @click="cancelModal"
           >
             Cancel
           </v-btn>
@@ -61,7 +60,7 @@
           <v-btn
                   color="primary"
                   text
-                  @click="confirm"
+                  @click="confirmModal"
           >
             Confirm
           </v-btn>
@@ -84,22 +83,33 @@
         type: String,
         required: true
       },
-      value: {
+      rating: {
         type: Array,
         required: true
-      }
+      },
+
     },
     data () {
       return {
-        dialog: false,
-        rating: [0, 5],
+        showModal: false,
+        input: [0, 5],
         range: [0, 1, 2, 3, 4, 5],
-        isFilter: false
+        isFilterOn: false
       }
     },
     methods: {
-      onCallBack(value){
-        this.$emit('update: value', value);
+      onCallBack(rating){
+        this.$emit('update: rating', rating);
+      },
+      confirmModal() {
+        this.rating = this.input;
+        this.onCallBack();
+        this.showModal = false;
+        this.isFilterOn = true;
+      },
+      cancelModal() {
+        this.input = this.rating;
+        this.showModal = false;
       }
     }
   }

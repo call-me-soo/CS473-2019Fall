@@ -14,7 +14,7 @@
         name: "RadarChart",
         data (){
             return {
-                labels: ['급여', '분위기', '업무강도', '배우는 것', '사내복지'],
+                labels: ['업무강도','분위기', '급여', '배우는 것', '사내복지'],
                 datasets: [{
                     backgroundColor: '#FFCF57',
                     borderColor: '#FFCF57',

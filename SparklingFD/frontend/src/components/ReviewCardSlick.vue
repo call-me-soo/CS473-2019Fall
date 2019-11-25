@@ -5,10 +5,14 @@
       <v-row justify="center">
           <v-col cols="11">
             <slick
-                      ref="slick"
-                      :options="slickOptions"
+                    ref="slick"
+                    :options="slickOptions"
               >
-              <v-row wrap class="d-inline-flex justify-center card-wrapper" v-for="review in bestReviews" :key="review.id">
+              <v-row wrap
+                     class="d-inline-flex justify-center card-wrapper"
+                     v-for="review in (bestReviews.length > 0 ? bestReviews : placeholder)"
+                     :key="bestReviews.indexOf(review)"
+              >
                 <v-col class="card">
                   <v-row wrap
                          class="korean pl-9 pt-3 pa-3"
@@ -41,13 +45,14 @@
                                   color="#FFCF57"
                                   medium
                                   dense
+                                  half-increments
                           ></v-rating>
                           <span class="label d-inline">{{review.review.aggregate}}</span>
                         </v-col>
                       </v-row>
                     </v-col>
                   </v-row>
-              </v-col>
+                </v-col>
               </v-row>
               </slick>
           </v-col>
@@ -60,7 +65,7 @@
                       ref="slick"
                       :options="slickOptions"
               >
-                <v-card class="card" v-for="review in bestReviews" :key="review.id">
+                <v-card class="card" v-for="review in (bestReviews.length > 0 ? bestReviews : placeholder)" :key="review.id">
                   <v-row wrap
                          justify="center"
                          align="baseline"
@@ -83,9 +88,7 @@
                     <v-col cols="11">
                       <v-flex class="korean card-content-small">{{review.review.content}}</v-flex>
                     </v-col>
-
                   </v-row>
-
                 </v-card>
 
               </slick>
@@ -102,60 +105,58 @@
   import slick from 'vue-slick';
   import radarChart from "./RadarChart";
 	export default {
-		name: "ReviewCardSlick",
-		components: {
-			slick, radarChart
-		},
-    created () {
-      this.$http.get('/api/cards')
-        .then((response) => {
-          this.bestReviews = response.data
-        })
-    },
+      name: "ReviewCardSlick",
+      props: {
+        bestReviews: {
+          type: Array,
+          required: true
+        },
+      },
+      components: {
+        slick, radarChart
+      },
 		data() {
-			return {
-              bestReviews: [],
-              slickOptions: {
-                accessibility: true,
-                autoplay: true,
-                autoplaySpeed: 5000,
-                arrows: true,
-                prevArrow: '<button type="button" class="slick-prev">Previous</button>',
-                nextArrow: '<button type="button" class="slick-next">Next</button>',
-                dots: true,
-                infinite: true,
-                speed: 300,
-                slidesToShow: 1,
-                centerMode: true,
-                centerPadding: '10%',
-                draggable: true,
-                responsive: [
-                  {
-                    breakpoint: 600,
-                    settings: {
-                      slidesToShow: 1,
-                      slidesToScroll: 1,
-                      arrows: false,
-                      centerMode: false,
-                    }
+          return {
+            placeholder: [{id: 1}],
+            slickOptions: {
+              accessibility: true,
+              autoplay: true,
+              autoplaySpeed: 5000,
+              arrows: true,
+              prevArrow: '<button type="button" class="slick-prev">Previous</button>',
+              nextArrow: '<button type="button" class="slick-next">Next</button>',
+              dots: true,
+              infinite: true,
+              speed: 300,
+              slidesToShow: 1,
+              centerMode: true,
+              centerPadding: '10%',
+              draggable: true,
+              responsive: [
+                {
+                  breakpoint: 600,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    arrows: false,
+                    centerMode: false,
                   }
-                ]
+                }
+              ]
               }
             }
 		},
-		methods: {
-
-    },
-      computed: {
-        myStyles() {
-          return {
-            height: '50px',
-            width: '50px',
-            position: 'relative'
-          }
+      methods: {
+        onCallBack(bestReviews){
+          this.$emit('update: bestReviews', bestReviews);
         }
+      },
+      computed: {
+      },
+      mounted() {
+
       }
-	}
+    }
 </script>
 
 <style scoped>
