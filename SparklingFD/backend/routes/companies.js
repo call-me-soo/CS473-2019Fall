@@ -18,7 +18,29 @@ router.get('/:ID', function(req, res){
     res.json(company);
   })
 })
+router.post('/add', function(req, res){
+  var company = new Company();
+  company.ID = req.query.ID;
+  company.name = req.query.name;
+  company.logosrc = req.query.logosrc;
+  company.field = req.query.field;
+  company.location = req.query.location;
+  company.recommend = req.query.recommend;
+  company.star = req.query.star;
+  company.salary = req.query.salary;
+  company.reviews = req.query.reviews;
 
+  company.save(function(err){
+      if(err){
+          console.error(err);
+          res.json({result: 0});
+          return;
+      }
+
+      res.json({result: 1});
+
+  });
+});
 // router.get('/', function(req, res, next) {
 //   res.send(companies)
 // });
