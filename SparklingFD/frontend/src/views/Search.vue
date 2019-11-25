@@ -45,6 +45,15 @@
     export default {
         name: "Search",
         components: {Toolbar, ReviewCardBig },
+        created() {
+            this.$http.get('../../api/searchQuery/'
+                + this.$route.params.userInput + '?'
+                + Object.keys(this.$route.params.query).map(k => k + '=' + this.$route.params.query[k])
+                    .join('&'))
+                .then((response) => {
+                    this.companyInfo = response.data[0];
+                })
+        },
         data () {
             return {
                 filters: ['전체 평점', '업무 강도', '분위기', '급여', '배우는 것', '사내 복지'],

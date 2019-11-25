@@ -17,10 +17,10 @@
                                     >
                                 </v-avatar>
                             </div>
-                            <div class="sub-title-large pr-5">{{company.name}}</div>
-                            <div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{company.field.toString()}} | {{company.location}}</div>
-                            <div class="sub-title-2-large pr-2">기업리뷰</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{company.reviews.length}}</div>
-                            <div class="sub-title-2-large pr-2">추천학과</div><div class="sub-title-2-large pr-1 text--darken-1 grey--text">{{company.recommend.toString()}}</div>
+                            <div class="sub-title-large pr-5">{{companyInfo.name}}</div>
+                            <div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{companyInfo.field.toString()}} | {{companyInfo.location}}</div>
+                            <div class="sub-title-2-large pr-2">기업리뷰</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{companyInfo.reviews.length}}</div>
+                            <div class="sub-title-2-large pr-2">추천학과</div><div class="sub-title-2-large pr-1 text--darken-1 grey--text">{{companyInfo.recommend.toString()}}</div>
                             <v-spacer></v-spacer>
                             <v-btn rounded>
                                 리뷰 작성
@@ -40,12 +40,12 @@
                                     >
                                 </v-avatar>
                             </div>
-                            <div class="sub-title-small pr-3">{{company.name}}</div>
+                            <div class="sub-title-small pr-3">{{companyInfo.name}}</div>
                         </v-row>
                         <v-row class="sub-title-2-small">
-                            <div class="pr-5 text--darken-1 grey--text">{{company.field.toString()}} | {{company.location}}</div>
-                            <div class="pr-2">기업리뷰</div><div class="pr-5 text--darken-1 grey--text">{{company.reviews.length}}</div>
-                            <div class="pr-2">추천학과</div><div class="pr-1 text--darken-1 grey--text">{{company.recommend.toString()}}</div>
+                            <div class="pr-5 text--darken-1 grey--text">{{companyInfo.field.toString()}} | {{companyInfo.location}}</div>
+                            <div class="pr-2">기업리뷰</div><div class="pr-5 text--darken-1 grey--text">{{companyInfo.reviews.length}}</div>
+                            <div class="pr-2">추천학과</div><div class="pr-1 text--darken-1 grey--text">{{companyInfo.recommend.toString()}}</div>
                         </v-row>
 
                     </v-col>
@@ -109,9 +109,13 @@
 
                 <v-row wrap justify="center">
                     <v-col cols="9">
-                        <ReviewCardBig></ReviewCardBig>
-                        <ReviewCardBig></ReviewCardBig>
-                        <ReviewCardBig></ReviewCardBig>
+                        <ReviewCardBig v-for="review in companyInfo.reviews"
+                                       :key="companyInfo.reviews.indexOf(review)"
+                                       :review="review"
+                        >
+
+                        </ReviewCardBig>
+
                     </v-col>
                 </v-row>
 
@@ -129,6 +133,12 @@
     export default {
         name: "Company",
         components: { Toolbar, LineChart, VueSlider, RadarChart, ReviewCardBig },
+        created () {
+            this.$http.get('../../api/getCompanyInfo/' + this.$route.params.companyId)
+                .then((response) => {
+                    this.companyInfo = response.data[0];
+                })
+        },
         computed: {
             param: function () {
                 return this.$route.params;
@@ -136,38 +146,8 @@
         },
         data () {
             return {
-                company: {
-                    id: 1,
-                    name: 'SK하이닉스',
-                    field: ['IT', '반도체'],
-                    location: '이천',
-                    recommend: ['CS', 'EE'],
-                    reviews: [{
-                        id: 1,
-                        company: {id: 1, name: 'SK하이닉스', src: '/'},
-                        user: {id: 1, department: '전산학부', nickname: '빨간 넥타이'},
-                        semester: '2019 여름',
-                        like: 57,
-                        review: {
-                            aggregate: 4.5,
-                            star: [3, 5, 4, 5, 3],
-                            content: '급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 덕분에 분위기도 좋고 복지도 좋은 회사에서 뜻깊은 경험 했습니다! 급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만,급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 덕분에 분위기도 좋고 복지도 좋은 회사에서 뜻깊은 경험 했습니다! 급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 '
-                        }
-                    },
-                        {
-                            id: 2,
-                            company: {id: 1, name: 'SK하이닉스', src: '/'},
-                            user: {id: 1, department: '전산학부', nickname: '빨간 넥타이'},
-                            semester: '2019 여름',
-                            like: 57,
-                            review: {
-                                aggregate: 4.5,
-                                star: [3, 5, 4, 5, 3],
-                                content: '급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 덕분에 분위기도 좋고 복지도 좋은 회사에서 뜻깊은 경험 했습니다! 급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만,급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 덕분에 분위기도 좋고 복지도 좋은 회사에서 뜻깊은 경험 했습니다! 급여는 딱 평균인데 분위기가 너무 좋았어요. 원래 지도 관련 평가가 낮은 인턴쉽이라 걱정했었지만, 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 잘 챙겨줍니다. 올해부터 인턴십 프로그램을 크게 개선해서 요즘은 담당 사수님이 1대1로 꼼꼼하게 '
-                            }
-                        }]
-                    },
-                value: ['이전', '2017 가을'],
+                companyInfo: {},
+                value: ['이전', '2019 가을'],
                 range: ['이전', '2017 봄', '2017 여름', '2017 가을', '2017 겨울', '2018 봄', '2018 여름', '2018 가을', '2018 겨울', '2019 봄', '2019 여름', '2019 가을'],
                 toggle_exclusive: undefined
                 }

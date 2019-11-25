@@ -7,14 +7,18 @@
                         <v-row wrap
                                align="baseline"
                                class="d-inline-flex pb-4">
-                            <v-flex class="card-title-large pr-2">{{review.company.name}}</v-flex>
-                            <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.department}} {{review.user.nickname}} | {{review.semester}}</v-flex>
-                            <v-btn class="ml-2" rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
-                        </v-row>
-                        <v-row wrap>
-                            <v-flex class="card-content-large">
-                                {{review.review.content}}
-                            </v-flex>
+                            <div>
+                                <v-avatar class="pr-5 pb-2" size="40">
+                                    <img
+                                            src="https://cdn.vuetifyjs.com/images/john.jpg"
+                                            alt="John"
+                                    >
+                                </v-avatar>
+                            </div>
+                            <div class="sub-title-large pr-5">{{companyInfo.name}}</div>
+                            <div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{companyInfo.field.toString()}} | {{companyInfo.location}}</div>
+                            <div class="sub-title-2-large pr-2">기업리뷰</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{companyInfo.reviews.length}}</div>
+                            <div class="sub-title-2-large pr-2">추천학과</div><div class="sub-title-2-large pr-1 text--darken-1 grey--text">{{companyInfo.recommend.toString()}}</div>
                         </v-row>
                     </v-col>
                     <v-col cols="4">
@@ -41,24 +45,15 @@
             </v-card>
         </div>
     </v-flex>
-
 </template>
 
 <script>
-
-    import radarChart from '../components/RadarChart';
-
     export default {
-        name: "ReviewCardBig",
-        components: { radarChart },
+        name: "CompanyCard",
         props: {
-          review: {
-              type: Object,
-              required: true
-          }
-        },
-        data () {
-            return {
+            company: {
+                type: Object,
+                required: true
             }
         }
     }

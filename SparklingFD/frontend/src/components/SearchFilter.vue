@@ -5,12 +5,12 @@
            class="d-none d-md-inline"
     >
       <v-btn @click="showModal=true"
-             class="filterbutton korean mt-2 ml-1 mr-1 lighten-2"
+             class="filter-button korean mt-2 ml-1 mr-1 lighten-2"
              :class="isFilterOn ? 'button-on' : 'grey grey--text text--darken-1'"
              rounded
              medium
       >
-        {{label}} {{isFilterOn ? rating.join('-') : ''}}
+        {{label}} {{isFilterOn ? rating : ''}}
       </v-btn>
     </div>
     <v-row wrap
@@ -19,7 +19,7 @@
     >
       <v-flex style="justify-content: space-between">
             <div class="text-center">
-              <v-btn @click="showModal=true" class="korean mr-1 grey lighten-2 grey--text text--darken-1" small depressed rounded>{{rating.toString()}}</v-btn>
+              <v-btn @click="showModal=true" class="korean mr-1 grey lighten-2 grey--text text--darken-1" small depressed rounded>{{rating}}</v-btn>
             </div>
       </v-flex>
     </v-row>
@@ -44,6 +44,7 @@
                     :marks="true"
                     :process-dragable="true"
                     :height="5"
+                    direction="rtl"
             ></vue-slider>
           </v-row>
         </v-card-text>
@@ -84,25 +85,31 @@
         required: true
       },
       rating: {
-        type: Array,
+        type: Number,
         required: true
       },
+      selected: {
+        type: Boolean,
+        required: true
+      }
 
     },
     data () {
       return {
         showModal: false,
-        input: [0, 5],
-        range: [0, 1, 2, 3, 4, 5],
+        input: 0,
+        range: [5,4,3,2,1,0],
         isFilterOn: false
       }
     },
     methods: {
-      onCallBack(rating){
+      onCallBack(rating, selected){
         this.$emit('update: rating', rating);
+        this.$emit('update: selected', selected);
       },
       confirmModal() {
         this.rating = this.input;
+        this.selected = true;
         this.onCallBack();
         this.showModal = false;
         this.isFilterOn = true;
@@ -122,7 +129,7 @@
     color: #000000 !important;
   }
   
-  .filterbutton {
+  .filter-button {
     letter-spacing: -0.05rem;
   }
 

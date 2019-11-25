@@ -15,9 +15,9 @@ const routes = [
     component: Home
   },
   {
-    path: '/search',
+    path: '/search/:userInput/:query',
     name: 'search',
-    component: Search
+    component: Search,
   },
   {
     path: '/signup',

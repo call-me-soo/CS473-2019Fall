@@ -1,23 +1,203 @@
 <template>
-    <div>
-        <v-row wrap class="pt-5" justify="center" align="center" >
-            <v-col cols="9">
-                <v-row wrap align="center">
-                    <div class="korean sub-title-large d-none d-md-inline-block">리뷰 작성</div>
-                    <div class="korean sub-title-small d-md-none">리뷰 작성</div>
+    <v-app>
+        <Toolbar></Toolbar>
+        <v-content>
+            <div>
+                <v-row wrap class="korean pt-5" justify="center" align="center">
+                    <v-col cols="9">
+                        <v-row wrap class="pb-5" align="baseline">
+                            <div class="sub-title-large pr-5 d-none d-md-inline-block">리뷰 작성하기</div>
+                            <div class="sub-title-small d-md-none">리뷰 작성하기</div>
+
+                            <div class="sub-title-2-large text--darken-1 grey--text">{{companyInfo.name}}</div>
+                        </v-row>
+
+                        <v-container class="pa-10" style="background-color: #ffffff">
+                            <v-row style="height: 70px" align="center">
+                                <v-col cols="3">
+                                    <div class="sub-title-2-large">
+                                        기간
+                                        <v-tooltip right>
+                                            <template v-slot:activator="{ on }">
+                                                <v-icon v-on="on" small>mdi-help-circle-outline</v-icon>
+                                            </template>
+                                            <span>Right tooltip</span>
+                                        </v-tooltip>
+                                    </div>
+                                </v-col>
+                                <v-overflow-btn
+                                        class="mr-10"
+                                        :items="yearOption"
+                                        label="년도"
+                                        editable
+                                        item-value="text"
+                                        style="width: 30px"
+                                ></v-overflow-btn>
+                                <v-overflow-btn
+                                        class="mr-5"
+                                        :items="seasonOption"
+                                        label="학기"
+                                        editable
+                                        item-value="text"
+                                        style="width: 30px"
+                                ></v-overflow-btn>
+                            </v-row>
+                            <v-row style="height: 70px" align="center">
+                                <v-col cols="3">
+                                    <div class="sub-title-2-large">
+                                        급여
+                                        <v-tooltip right>
+                                            <template v-slot:activator="{ on }">
+                                                <v-icon v-on="on" small>mdi-help-circle-outline</v-icon>
+                                            </template>
+                                            <span>Right tooltip</span>
+                                        </v-tooltip>
+                                    </div>
+                                </v-col>
+                                <v-text-field
+                                        class="korean pr-5"
+                                        solo
+                                        hide-details
+                                        label="180"
+                                        background-color="grey lighten-3"
+                                >
+                                </v-text-field>
+                                <div class="sub-title-2-large">만원</div>
+                            </v-row>
+                            <v-row style="height: 70px" align="center">
+                                <v-col cols="3">
+                                    <div class="sub-title-2-large">
+                                        업무 강도
+                                        <v-tooltip right>
+                                            <template v-slot:activator="{ on }">
+                                                <v-icon v-on="on" small>mdi-help-circle-outline</v-icon>
+                                            </template>
+                                            <span>Right tooltip</span>
+                                        </v-tooltip>
+                                    </div>
+                                </v-col>
+                                <v-rating
+                                        class="d-inline"
+                                        background-color="#DDDDDD"
+                                        v-model="review.star[0]"
+                                        color="#FFCF57"
+                                        large
+                                        dense
+                                        half-increments
+                                ></v-rating>
+                            </v-row>
+                            <v-row style="height: 70px" align="center">
+                                <v-col cols="3">
+                                    <div class="sub-title-2-large">
+                                        분위기
+                                        <v-tooltip right>
+                                            <template v-slot:activator="{ on }">
+                                                <v-icon v-on="on" small>mdi-help-circle-outline</v-icon>
+                                            </template>
+                                            <span>Right tooltip</span>
+                                        </v-tooltip>
+                                    </div>
+                                </v-col>
+                                <v-rating
+                                        class="d-inline"
+                                        background-color="#DDDDDD"
+                                        v-model="review.star[1]"
+                                        color="#FFCF57"
+                                        large
+                                        dense
+                                        half-increments
+                                ></v-rating>
+                            </v-row>
+                            <v-row style="height: 70px" align="center">
+                                <v-col cols="3">
+                                    <div class="sub-title-2-large">
+                                        배우는 것
+                                        <v-tooltip right>
+                                            <template v-slot:activator="{ on }">
+                                                <v-icon v-on="on" small>mdi-help-circle-outline</v-icon>
+                                            </template>
+                                            <span>Right tooltip</span>
+                                        </v-tooltip>
+                                    </div>
+                                </v-col>
+                                <v-rating
+                                        class="d-inline"
+                                        background-color="#DDDDDD"
+                                        v-model="review.star[2]"
+                                        color="#FFCF57"
+                                        large
+                                        dense
+                                        half-increments
+                                ></v-rating>
+                            </v-row>
+                            <v-row style="height: 70px" align="center">
+                                <v-col cols="3">
+                                    <div class="sub-title-2-large">
+                                        사내 복지
+                                        <v-tooltip right>
+                                            <template v-slot:activator="{ on }">
+                                                <v-icon v-on="on" small>mdi-help-circle-outline</v-icon>
+                                            </template>
+                                            <span>Right tooltip</span>
+                                        </v-tooltip>
+                                    </div>
+                                </v-col>
+                                <v-rating
+                                        class="d-inline"
+                                        background-color="#DDDDDD"
+                                        v-model="review.star[3]"
+                                        color="#FFCF57"
+                                        large
+                                        dense
+                                        half-increments
+                                ></v-rating>
+                            </v-row>
+                            <v-row class="pt-5" align="top">
+                                <v-col cols="3">
+                                    <div class="sub-title-2-large">
+                                        내용
+                                        <v-tooltip right>
+                                            <template v-slot:activator="{ on }">
+                                                <v-icon v-on="on" small>mdi-help-circle-outline</v-icon>
+                                            </template>
+                                            <span>Right tooltip</span>
+                                        </v-tooltip>
+                                    </div>
+                                </v-col>
+                                <v-col cols="9">
+                                    <v-textarea
+                                            filled
+                                    >
+                                    </v-textarea>
+                                </v-col>
+
+                            </v-row>
+                            <v-row wrap justify="center">
+                                <v-btn rounded large>
+                                    제출하기
+                                </v-btn>
+                            </v-row>
+                        </v-container>
+
+                    </v-col>
                 </v-row>
-            </v-col>
-        </v-row>
-    </div>
+            </div>
+        </v-content>
+
+    </v-app>
+
 </template>
 
 <script>
+    import Toolbar from "../components/Toolbar";
+
     export default {
         name: "Review",
+        components: { Toolbar },
         mounted() {
-            this.$http.get('../../api/getCompanyInfo/' + this.$route.params.id)
+            this.$http.get('../../api/getCompanyInfo/' + this.$route.params.companyId)
                 .then((response) => {
-                    this.companyInfo = response.data;
+                    this.companyInfo = response.data[0];
                 })
         },
         computed: {
@@ -27,7 +207,18 @@
         },
         data() {
             return {
-                companyInfo: {}
+                companyInfo: {},
+                yearOption: [2019, 2018, 2017, 2016, 2015],
+                seasonOption: ['봄', '여름', '가을', '겨울'],
+                review: {
+                    semester: {
+                        year: "",
+                        season: ""
+                    },
+                    star: {
+
+                    }
+                }
             }
         }
     }
@@ -45,6 +236,15 @@
         font-size: 14pt;
         font-weight: bold;
         height: 30px;
+    }
+
+    .sub-title-2-large {
+        font-weight: bolder;
+        width: 200px;
+    }
+
+    .sub-title-2-small {
+        font-size: small;
     }
 
 </style>

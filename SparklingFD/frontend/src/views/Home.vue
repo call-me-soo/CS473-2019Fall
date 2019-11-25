@@ -31,7 +31,10 @@
 
         <v-row class="mt-10" justify="center">
           <v-col class="pa-2" cols="8">
-            <searchBar></searchBar>
+            <searchBar
+                    :searchInput="searchInput"
+                    @keydown.enter.native="search"
+            ></searchBar>
           </v-col>
         </v-row>
 
@@ -40,6 +43,7 @@
             <searchFilter v-for="index in 5" :key="index"
                           :rating.sync="filterRating[index-1]"
                           :label.sync="filterLabel[index-1]"
+                          :selected.sync="filterSelected[index-1]"
             ></searchFilter>
           </div>
         </v-row>
@@ -109,15 +113,34 @@ export default {
   },
   data() {
         return {
+            searchInput: '',
             bestReviews: [],
             recentReviews: [],
             filterLabel: ['업무 강도', '분위기', '급여', '배우는 것', '사내복지'],
             filterRating: [[0,5], [0,5], [0,5], [0,5], [0,5]],
-            filterDialog: [false, false, false, false, false],
-            filterSelected: [false, false, false, false, false]
+            filterSelected: [false, false, false, false, false],
+            searchQuery: {},
     }
   },
   methods: {
+    search () {
+      if (this.filterSelected[0]) {
+        this.searchQuery['harness'] = this.filterRating[0]
+      }
+      if (this.filterSelected[1]) {
+        this.searchQuery['atmosphere'] = this.filterRating[1]
+      }
+      if (this.filterSelected[2]) {
+        this.searchQuery['salary'] = this.filterRating[2]
+      }
+      if (this.filterSelected[3]) {
+        this.searchQuery['learn'] = this.filterRating[3]
+      }
+      if (this.filterSelected[4]) {
+        this.searchQuery['welfare'] = this.filterRating[4]
+      }
+      this.$router.push({path: 'search', userInput: this.searchInput, query: this.searchQuery})
+    }
 
   }
 };
