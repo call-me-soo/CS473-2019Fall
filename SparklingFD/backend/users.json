@@ -1,12 +1,16 @@
 [
     {
         "id": 1,
+        "userid": "sana",
+        "pw": "tksktksk",
         "department": "전산학부",
         "nickname": "빨간 넥타이"
     },
     {
         "id": 2,
+        "userid": "cs473",
+        "pw": "sohard",
         "department": "전산학부",
-        "nickname": "바부 멍청이"
+        "nickname": "검은 호랑이"
     }
 ]

@@ -7,4 +7,6 @@ npm install
 npm install axios --save
 
 cd ../backend
+npm install --save mongoose
+npm install --save body-parser
 npm install

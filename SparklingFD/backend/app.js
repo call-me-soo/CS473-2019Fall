@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var bodyParser  = require('body-parser');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -11,7 +12,19 @@ var searchRouter = require('./routes/searches')
 var cardsRouter = require('./routes/cards');
 var setRouter = require('./routes/setreviews');
 
+
 var app = express();
+
+// var router = require('./routes')(app, User);
+// const usersRouter = require('./routes/users.js')(app, User);
+
+var mongoose    = require('mongoose');
+var db = mongoose.connection;
+db.on('error', console.error);
+db.once('open', () => {
+  console.log('DB connection good.');
+})
+mongoose.connect("mongodb://localhost:27017/Cracker", { useNewUrlParser: true});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,12 +37,18 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api/users', usersRouter);
 app.use('/api/getCompanyInfo', companiesRouter);
 app.use('/api/searchQuery', searchRouter);
 app.use('/api/getReview', cardsRouter);
 app.use('/api/setReview', setRouter);
 app.use('/api/cards', cardsRouter);
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+// var UserController = require('./routes/users.js');  // 추가
+// app.use('/models', UserController);  // 추가
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
