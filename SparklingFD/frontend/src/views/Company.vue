@@ -121,6 +121,11 @@
     export default {
         name: "Company",
         components: { Toolbar, LineChart, VueSlider, RadarChart, ReviewCardBig },
+        computed: {
+            param: function () {
+                return this.$route.params;
+            }
+        },
         data () {
             return {
                 company: {
