@@ -51,6 +51,14 @@
     export default {
         name: "ReviewCardBig",
         components: { radarChart },
+        created () {
+            this.$http.get("../api/cards/1/")
+                .then((response) => {
+                    console.log("WaWaWa");
+                    console.log(response.data);
+                    this.review = response.data[0];
+                })
+        },
         data () {
             return {
                 review: {
