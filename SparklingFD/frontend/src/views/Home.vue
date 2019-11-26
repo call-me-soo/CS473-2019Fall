@@ -154,8 +154,15 @@ export default {
       }
       console.log("확인")
       console.log(this.searchInput)
-      console.log(this.searchQuery)
-      this.$router.push({path: 'search', userInput: this.searchInput, query: this.searchQuery})
+      console.log(this.searchQuery.harness)
+      console.log('search/' + this.searchInput + '/' + this.searchQuery)
+      if(this.searchInput == ''){
+        // this.$router.push({path: 'search/' + 'aa' + '/', query: this.searchQuery})
+        this.$router.push({path: 'search/' + 'aa' + '/harness=' + this.searchQuery.harness + '&atmosphere=' + this.searchQuery.atmosphere + '&salary=' + this.searchQuery.salary + '&learn=' + this.searchQuery.learn + '&welfare=' + this.searchQuery.welfare})
+      }else {
+        this.$router.push({path: 'search/' + this.searchInput + '/harness=' + this.searchQuery.harness + '&atmosphere=' + this.searchQuery.atmosphere + '&salary=' + this.searchQuery.salary + '&learn=' + this.searchQuery.learn + '&welfare=' + this.searchQuery.welfare})
+      }
+      // this.$router.push({path: 'search', userInput: this.searchInput, query: this.searchQuery})
     }
 
   }
