@@ -1,5 +1,8 @@
 <template>
-    <v-dialog v-model="showModal" max-width="500px">
+    <v-dialog v-if="visible" max-width="500px" @click.self="handleWrapperClick">
+        <header>
+            <button @click="$emit('update:visible', !visible)">Close</button>
+        </header>
         <v-card class="card korean mt-4 mb-4">
             <v-row class="pl-12 pa-5" wrap>
                 <v-col class="korean" cols="11">
@@ -122,6 +125,10 @@
         name: "ReviewDialog",
         components: {RadarChart},
         props: {
+            visible: {
+                type: Boolean,
+                required: true
+            },
             review: {
                 type: Object,
                 required: true
@@ -138,7 +145,10 @@
                 } else {
                     return '겨울';
                 }
-            }
+            },
+            handleWrapperClick(){
+                this.$emit('update:visible', false)
+            },
         }
     }
 </script>

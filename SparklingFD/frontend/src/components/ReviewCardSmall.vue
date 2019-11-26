@@ -28,11 +28,12 @@
             </v-col>
 
         </v-row>
+
+        <ReviewDialog ref="modal"
+                      :review.sync="review"
+        ></ReviewDialog>
     </v-card>
 
-    <ReviewDialog ref="modal"
-                  :review.sync="review"
-    ></ReviewDialog>
 
 </template>
 

@@ -14,7 +14,8 @@
                      :key="bestReviews.indexOf(review)"
               >
                 <ReviewDialog ref="modal"
-                              :review.sync="review"
+                              :review="review"
+                              :visible="showModal"
                 ></ReviewDialog>
                 <v-col class="card">
                   <v-row wrap
@@ -29,7 +30,7 @@
                         <v-btn class="ml-2" rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
                       </v-row>
                       <v-row wrap>
-                        <v-flex class="card-content-large" @click="$refs.modal.showModal=true">
+                        <v-flex class="card-content-large" @click="showModal=true">
                           {{review.review.content}}
                         </v-flex>
                       </v-row>
@@ -123,6 +124,7 @@
       },
 		data() {
           return {
+            showModal: false,
             placeholder: [{id: 1}],
             slickOptions: {
               accessibility: true,
