@@ -1,9 +1,8 @@
 <template>
 
-  <v-flex class="d-inline">
-    <div v-if="label === '급여'">
-      <div wrap
-           class="d-none d-md-inline"
+  <div class="d-inline">
+    <v-flex class="d-inline" v-if="label === '급여'">
+      <div wrap class="d-none d-md-inline"
       >
         <v-btn @click="showModal=true"
                class="filter-button korean mt-2 ml-1 mr-1 lighten-2"
@@ -44,7 +43,7 @@
                       background-color="grey lighten-3"
               >
               </v-text-field>
-              <div class="sub-title-2-large">만원</div>
+              <div class="sub-title-2-large">만원 이상</div>
             </v-row>
           </v-card-text>
           <v-card-actions>
@@ -67,8 +66,9 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-    </div>
-    <div v-else>
+    </v-flex>
+
+    <v-flex v-else class="d-inline">
       <div wrap
            class="d-none d-md-inline"
       >
@@ -136,8 +136,8 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-    </div>
-  </v-flex>
+    </v-flex>
+  </div>
 
 
 </template>
