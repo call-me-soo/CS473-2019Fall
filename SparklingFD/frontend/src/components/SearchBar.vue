@@ -51,9 +51,6 @@
       onCallBack(searchInput){
         this.$emit('update:searchInput', searchInput);
       }
-      // search() {
-      //   this.onCallBack(this.userInput);
-      // }
     }
 
 	}

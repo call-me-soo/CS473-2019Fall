@@ -1,7 +1,9 @@
 <template>
     <v-app>
         <v-content>
-            <Toolbar></Toolbar>
+            <Toolbar ref="toolbar"
+                     @keydown.enter.native="search"
+            ></Toolbar>
             <v-container>
                 <v-row wrap class="pt-5" justify="center" align="center" >
                     <v-col cols="9">
@@ -63,6 +65,11 @@
             return {
                 filters: ['전체 평점', '업무 강도', '분위기', '급여', '배우는 것', '사내 복지'],
                 companyInfo: [],
+            }
+        },
+        methods: {
+            search() {
+                vm.$refs.toolbar.search();
             }
         }
     }
