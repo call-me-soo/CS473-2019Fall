@@ -142,7 +142,13 @@
         },
         methods: {
             routeToCompany() {
-                this.$router.push({path: 'company/', companyId: this.companyInfo.id})
+                // console.log('aaaa')
+                // console.log(this)
+                // console.log(this.companyInfo)
+                // console.log(this.companyInfo.ID)
+                // console.log(this.companyId)
+                // this.$router.push({path: '../../company/', companyId: this.companyInfo.ID})
+                this.$router.push({path: '../../company/' + this.companyInfo.ID})
             }
 
         }
