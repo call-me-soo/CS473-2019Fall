@@ -2,7 +2,8 @@
     <v-app>
         <v-content>
             <Toolbar ref="toolbar"
-                     @keydown.enter.native="search"
+                    :searchInput.sync="searchInput"
+                    @keydown.enter.native="search"
             ></Toolbar>
             <v-container>
                 <v-row wrap class="pt-5" justify="center" align="center" >

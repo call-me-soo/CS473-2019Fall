@@ -12,10 +12,20 @@
       <v-spacer></v-spacer>
       <v-col cols="7">
         <v-row align="center">
-            <SearchBar
-                    :searchInput.sync="searchInput"
-                    @keydown.enter.native="search"
-            ></SearchBar>
+    <v-flex class="d-none d-md-flex">
+      <v-text-field
+              class="search korean"
+              solo
+              flat
+              rounded
+              hide-details
+              label="회사명 또는 지역을 입력해주세요 :)"
+              background-color="white"
+              prepend-inner-icon="mdi-magnify"
+              @change="onCallBack"
+      >
+      </v-text-field>
+    </v-flex>
             <v-btn @click="filterOpen=true" class="ml-5" small fab>
               <v-icon>mdi-filter-variant</v-icon>
             </v-btn>
@@ -51,11 +61,11 @@
 </template>
 
 <script>
-  import SearchBar from "./SearchBar";
-  import SearchFilter from "./SearchFilter";
+  // import SearchBar from "./SearchBar";
+  // import SearchFilter from "./SearchFilter";
   export default {
     name: "Toolbar",
-      components: { SearchBar, SearchFilter },
+      components: { },
       data() {
         return {
           searchInput: '',
@@ -64,33 +74,12 @@
           filterRating: [0,0,0,0,0],
           filterSelected: [false, false, false, false, false]
         }
-    },
+   },
     methods: {
-      search() {
-        if (this.filterSelected[0]) {
-          this.searchQuery['harness'] = this.filterRating[0]
-        }
-        if (this.filterSelected[1]) {
-          this.searchQuery['atmosphere'] = this.filterRating[1]
-        }
-        if (this.filterSelected[2]) {
-          this.searchQuery['salary'] = this.filterRating[2]
-        }
-        if (this.filterSelected[3]) {
-          this.searchQuery['learn'] = this.filterRating[3]
-        }
-        if (this.filterSelected[4]) {
-          this.searchQuery['welfare'] = this.filterRating[4]
-        }
-
-        if (this.searchInput == '') {
-          this.$router.push({path: 'search/' + 'aa' + '/', query: this.searchQuery})
-
-        } else {
-          this.$router.push({path: 'search/' + this.searchInput + '/harness=' + this.searchQuery.harness + '&atmosphere=' + this.searchQuery.atmosphere + '&salary=' + this.searchQuery.salary + '&learn=' + this.searchQuery.learn + '&welfare=' + this.searchQuery.welfare})
+        onCallBack(searchInput){
+          this.$emit('update:searchInput', searchInput);
         }
       }
-    }
   }
 </script>
 
