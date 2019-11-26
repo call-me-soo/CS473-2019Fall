@@ -39,7 +39,7 @@
                         </v-col>
                     </v-row>
                     <v-row class="pb-3">
-                        <div class="sub-title-2-large pr-2">급여</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{(1-parseFloat(companyInfo.salary)/100.0) * 300}}만원, 상위 {{companyInfo.salary}}</div>
+                        <div class="sub-title-2-large pr-2">급여</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">200만원, 상위 25%</div>
                     </v-row>
                     <v-row wrap align="baseline">
                         <v-col cols="6">
