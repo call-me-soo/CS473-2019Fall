@@ -173,7 +173,7 @@
 
                             </v-row>
                             <v-row wrap justify="center">
-                                <v-btn rounded large>
+                                <v-btn rounded large @click="routeToCompany">
                                     제출하기
                                 </v-btn>
                             </v-row>
@@ -203,6 +203,11 @@
         computed: {
             param: function () {
                 return this.$route.params;
+            }
+        },
+        methods: {
+            routeToCompany() {
+                this.$router.push({path: '../../company/' + this.companyInfo.ID})
             }
         },
         data() {

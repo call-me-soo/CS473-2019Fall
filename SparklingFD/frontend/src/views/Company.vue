@@ -22,7 +22,7 @@
                             <div class="sub-title-2-large pr-2">기업리뷰</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{companyInfo.reviews.length}}</div>
                             <div class="sub-title-2-large pr-2">추천학과</div><div class="sub-title-2-large pr-1 text--darken-1 grey--text">{{companyInfo.recommend.toString()}}</div>
                             <v-spacer></v-spacer>
-                            <v-btn rounded>
+                            <v-btn rounded @click="routeToReview">
                                 리뷰 작성
                             </v-btn>
                         </v-row>
@@ -133,6 +133,11 @@
     export default {
         name: "Company",
         components: { Toolbar, LineChart, VueSlider, RadarChart, ReviewCardBig },
+        methods: {
+            routeToReview() {
+                this.$router.push({path: '../../review/' + this.companyInfo.ID})
+            }
+        },
         created () {
             this.$http.get('../../api/getCompanyInfo/' + this.$route.params.companyId)
                 .then((response) => {
