@@ -15,12 +15,16 @@ router.get('/', function(req, res){
 router.get('/userinput', function (req, res){
     var numofrev = 0
     var revcards = []
-    var harness_start = parseInt(req.query.harness.split(',')[0].replace('[',''))
-    var atmosphere_start = parseInt(req.query.atmosphere.split(',')[0].replace('[',''))
-    var salary_start = parseInt(req.query.salary.split(',')[0].replace('[',''))
-    var learn_start = parseInt(req.query.learn.split(',')[0].replace('[',''))
-    var welfare_start = parseInt(req.query.welfare.split(',')[0].replace('[',''))
-    Company.find({$and: [{"star.0":{$gte:harness_start}}, {"star.1":{$gte:atmosphere_start}}, {"star.2":{$gte:salary_start}}, {"star.3":{$gte:learn_start}}, {"star.4":{$gte:welfare_start}}]}, function(err, companies){
+    var harness_start = parseInt(req.query.harness)
+    var atmosphere_start = parseInt(req.query.atmosphere)
+    var salary_start = parseInt(req.query.salary)
+    var learn_start = parseInt(req.query.learn)
+    var welfare_start = parseInt(req.query.welfare)
+    Company.find({$or: [{$and: [{"star.0":{$gte:harness_start}},
+    {"star.1":{$gte:atmosphere_start}},
+    {"star.2":{$gte:salary_start}},
+    {"star.3":{$gte:learn_start}},
+    {"star.4":{$gte:welfare_start}}]}, {"name":req.query.input}]}, function(err, companies) {
         if(err) return res.status(500).json({error: err});
         if(!companies) return res.status(404).json({error: 'company not found'});
         res.json(companies);

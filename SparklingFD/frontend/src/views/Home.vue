@@ -117,7 +117,7 @@ export default {
             bestReviews: [],
             recentReviews: [],
             filterLabel: ['업무 강도', '분위기', '급여', '배우는 것', '사내복지'],
-            filterRating: [[0,5], [0,5], [0,5], [0,5], [0,5]],
+            filterRating: [0,0,0,0,0],
             filterSelected: [false, false, false, false, false],
             searchQuery: {},
     }
