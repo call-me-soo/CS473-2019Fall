@@ -197,7 +197,7 @@
         mounted() {
             this.$http.get('../../api/getCompanyInfo/' + this.$route.params.companyId)
                 .then((response) => {
-                    this.companyInfo = response.data[0];
+                    this.companyInfo = response.data;
                 })
         },
         computed: {
