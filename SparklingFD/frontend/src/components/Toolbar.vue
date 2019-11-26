@@ -13,7 +13,7 @@
       <v-col cols="7">
         <v-row align="center">
             <SearchBar
-                    :searchInput="searchInput"
+                    :searchInput.sync="searchInput"
                     @keydown.enter.native="search"
             ></SearchBar>
             <v-btn @click="filterOpen=true" class="ml-5" small fab>
@@ -66,7 +66,7 @@
         }
     },
     methods: {
-      search () {
+      search() {
         if (this.filterSelected[0]) {
           this.searchQuery['harness'] = this.filterRating[0]
         }
@@ -82,7 +82,13 @@
         if (this.filterSelected[4]) {
           this.searchQuery['welfare'] = this.filterRating[4]
         }
-        this.$router.push({path: 'search', userInput: this.searchInput, query: this.searchQuery})
+
+        if (this.searchInput == '') {
+          this.$router.push({path: 'search/' + 'aa' + '/', query: this.searchQuery})
+
+        } else {
+          this.$router.push({path: 'search/' + this.searchInput + '/harness=' + this.searchQuery.harness + '&atmosphere=' + this.searchQuery.atmosphere + '&salary=' + this.searchQuery.salary + '&learn=' + this.searchQuery.learn + '&welfare=' + this.searchQuery.welfare})
+        }
       }
     }
   }

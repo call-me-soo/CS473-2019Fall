@@ -124,49 +124,28 @@ export default {
   },
   methods: {
     search () {
-      // this.searchQuery['harness'] = this.filterRating[0]
-      // this.searchQuery['atmosphere'] = this.filterRating[1]
-      // this.searchQuery['salary'] = this.filterRating[2]
-      // this.searchQuery['learn'] = this.filterRating[3]
-      // this.searchQuery['welfare'] = this.filterRating[4]
-      // if (this.filterSelected[0]) {
-      //   this.searchQuery['harness'] = this.filterRating[0]
-      // }
-      // if (this.filterSelected[1]) {
-      //   this.searchQuery['atmosphere'] = this.filterRating[1]
-      // }
-      // if (this.filterSelected[2]) {
-      //   this.searchQuery['salary'] = this.filterRating[2]
-      // }
-      // if (this.filterSelected[3]) {
-      //   this.searchQuery['learn'] = this.filterRating[3]
-      // }
-      // if (this.filterSelected[4]) {
-      //   this.searchQuery['welfare'] = this.filterRating[4]
-      // }
-      this.searchQuery['harness'] = this.filterRating[0]
-      this.searchQuery['atmosphere'] = this.filterRating[1]
-      this.searchQuery['salary'] = this.filterRating[2]
-      this.searchQuery['learn'] = this.filterRating[3]
-      this.searchQuery['welfare'] = this.filterRating[4]
-      console.log("harness")
-      console.log(this.filterSelected[0])
-      console.log(this.filterSelected[1])
-      console.log(this.filterSelected[2])
-      console.log(this.filterSelected[3])
-      console.log(this.filterSelected[4])
-      console.log(this.filterRating[0])
-      console.log(this.searchQuery['harness'])
-      console.log("확인")
-      console.log(this.searchInput)
+      if (this.filterSelected[0]) {
+        this.searchQuery['harness'] = this.filterRating[0]
+      }
+      if (this.filterSelected[1]) {
+        this.searchQuery['atmosphere'] = this.filterRating[1]
+      }
+      if (this.filterSelected[2]) {
+        this.searchQuery['salary'] = this.filterRating[2]
+      }
+      if (this.filterSelected[3]) {
+        this.searchQuery['learn'] = this.filterRating[3]
+      }
+      if (this.filterSelected[4]) {
+        this.searchQuery['welfare'] = this.filterRating[4]
+      }
+
       if(this.searchInput == ''){
         this.$router.push({path: 'search/' + 'aa' + '/', query: this.searchQuery})
-        // this.searchInput = 'isempty'
-        // this.$router.push({path: 'search/' + this.searchInput + '/harness=' + this.searchQuery.harness + '&atmosphere=' + this.searchQuery.atmosphere + '&salary=' + this.searchQuery.salary + '&learn=' + this.searchQuery.learn + '&welfare=' + this.searchQuery.welfare})
+
       }else {
         this.$router.push({path: 'search/' + this.searchInput + '/harness=' + this.searchQuery.harness + '&atmosphere=' + this.searchQuery.atmosphere + '&salary=' + this.searchQuery.salary + '&learn=' + this.searchQuery.learn + '&welfare=' + this.searchQuery.welfare})
       }
-      // this.$router.push({path: 'search', userInput: this.searchInput, query: this.searchQuery})
     }
 
   }
