@@ -30,7 +30,7 @@
                 class="korean headline grey lighten-2"
                 primary-title
         >
-          분위기
+          {{this.label}}
         </v-card-title>
         <v-card-text>
           <v-row wrap style="height: 100px" align="center" justify="center">
@@ -104,13 +104,13 @@
     },
     methods: {
       onCallBack(rating, selected){
-        this.$emit('update: rating', rating);
-        this.$emit('update: selected', selected);
+        this.$emit('update:rating', rating);
+        this.$emit('update:selected', selected);
       },
       confirmModal() {
         this.rating = this.input;
         this.selected = true;
-        this.onCallBack();
+        this.onCallBack(this.input, true);
         this.showModal = false;
         this.isFilterOn = true;
       },

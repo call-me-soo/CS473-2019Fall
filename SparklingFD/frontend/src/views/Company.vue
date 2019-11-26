@@ -136,13 +136,9 @@
         created () {
             this.$http.get('../../api/getCompanyInfo/' + this.$route.params.companyId)
                 .then((response) => {
-                    this.companyInfo = response.data[0];
+                    console.log(response.data);
+                    this.companyInfo = response.data;
                 })
-        },
-        computed: {
-            param: function () {
-                return this.$route.params;
-            }
         },
         data () {
             return {

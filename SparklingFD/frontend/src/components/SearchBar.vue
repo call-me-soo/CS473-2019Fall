@@ -44,13 +44,16 @@
     },
     data() {
       return {
-
+        // userInput: ''
       }
     },
     methods: {
       onCallBack(searchInput){
-        this.$emit('update: searchInput', searchInput);
+        this.$emit('update:searchInput', searchInput);
       }
+      // search() {
+      //   this.onCallBack(this.userInput);
+      // }
     }
 
 	}

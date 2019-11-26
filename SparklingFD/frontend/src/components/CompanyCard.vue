@@ -15,15 +15,87 @@
                                     >
                                 </v-avatar>
                             </div>
-                            <div class="sub-title-large pr-5">{{companyInfo.name}}</div>
+                            <div class="card-title-large pr-5">{{companyInfo.name}}</div>
                             <div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{companyInfo.field.toString()}} | {{companyInfo.location}}</div>
                             <div class="sub-title-2-large pr-2">기업리뷰</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{companyInfo.reviews.length}}</div>
                             <div class="sub-title-2-large pr-2">추천학과</div><div class="sub-title-2-large pr-1 text--darken-1 grey--text">{{companyInfo.recommend.toString()}}</div>
                         </v-row>
+                        <v-row class="pb-3">
+                            <div class="sub-title-2-large pr-2">급여</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{(1-parseFloat(companyInfo.salary)/100.0) * 300}}만원, 상위 {{companyInfo.salary}}</div>
+                        </v-row>
+                        <v-row wrap align="baseline">
+                            <v-col cols="6">
+                                <v-row wrap align="baseline">
+                                    <div class="sub-title-2-large pr-2">업무강도</div>
+                                    <v-rating
+                                            class="d-inline pr-3"
+                                            background-color="#DDDDDD"
+                                            readonly
+                                            v-model="this.companyInfo.star[0]"
+                                            color="#FFCF57"
+                                            medium
+                                            dense
+                                            half-increments
+                                    ></v-rating>
+                                    <span class="label d-inline">{{this.companyInfo.star[0]}}</span>
+                                </v-row>
+                            </v-col>
+                            <v-col cols="6">
+                                <v-row wrap align="baseline">
+                                    <div class="sub-title-2-large pr-2">분위기</div>
+                                    <v-rating
+                                            class="d-inline pr-3"
+                                            background-color="#DDDDDD"
+                                            readonly
+                                            v-model="this.companyInfo.star[1]"
+                                            color="#FFCF57"
+                                            medium
+                                            dense
+                                            half-increments
+                                    ></v-rating>
+                                    <span class="label d-inline">{{this.companyInfo.star[1]}}</span>
+                                </v-row>
+                            </v-col>
+                        </v-row>
+                        <v-row wrap align="baseline">
+                            <v-col cols="6">
+                                <v-row wrap align="baseline">
+                                    <div class="sub-title-2-large pr-2">배우는 것</div>
+                                    <v-rating
+                                            class="d-inline pr-3"
+                                            background-color="#DDDDDD"
+                                            readonly
+                                            v-model="this.companyInfo.star[3]"
+                                            color="#FFCF57"
+                                            medium
+                                            dense
+                                            half-increments
+                                    ></v-rating>
+                                    <span class="label d-inline">{{this.companyInfo.star[3]}}</span>
+                                </v-row>
+                            </v-col>
+                            <v-col cols="6">
+                                <v-row wrap align="baseline">
+                                    <div class="sub-title-2-large pr-2">사내복지</div>
+                                    <v-rating
+                                            class="d-inline pr-3"
+                                            background-color="#DDDDDD"
+                                            readonly
+                                            v-model="this.companyInfo.star[4]"
+                                            color="#FFCF57"
+                                            medium
+                                            dense
+                                            half-increments
+                                    ></v-rating>
+                                    <span class="label d-inline">{{this.companyInfo.star[4]}}</span>
+                                </v-row>
+                            </v-col>
+                        </v-row>
+                        
                     </v-col>
                     <v-col cols="4">
                         <v-row wrap class="pl-3" justify="center">
-                            <radarChart></radarChart>
+                            <RadarChart></RadarChart>
                         </v-row>
                         <v-row wrap class="pt-2" justify="center" align="baseline">
                             <v-col class="text-center">
@@ -31,12 +103,13 @@
                                         class="d-inline pa-3"
                                         background-color="#DDDDDD"
                                         readonly
-                                        v-model="review.review.aggregate"
+                                        v-model="this.aggregate"
                                         color="#FFCF57"
                                         medium
                                         dense
+                                        half-increments
                                 ></v-rating>
-                                <span class="label d-inline">{{review.review.aggregate}}</span>
+                                <span class="label d-inline">{{this.aggregate}}</span>
                             </v-col>
                         </v-row>
                     </v-col>
@@ -48,12 +121,23 @@
 </template>
 
 <script>
+    import RadarChart from "./RadarChart";
     export default {
         name: "CompanyCard",
+        components: {RadarChart},
         props: {
-            company: {
+            companyInfo: {
                 type: Object,
                 required: true
+            }
+        },
+        computed: {
+            aggregate() {
+                var sum=0;
+                for(var i=0; i<5; i++){
+                    sum +=this.companyInfo.star[i]
+                }
+                return sum/5.0;
             }
         }
     }
@@ -104,6 +188,26 @@
         font-size: 9pt;
         font-weight: bold;
         color: #676767
+    }
+
+    .sub-title-large {
+        font-size: 18pt;
+        font-weight: bold;
+        height: 50px;
+    }
+
+    .sub-title-small {
+        font-size: 14pt;
+        font-weight: bold;
+        height: 30px;
+    }
+
+    .sub-title-2-large {
+        font-weight: bolder;
+    }
+
+    .sub-title-2-small {
+        font-size: small;
     }
 
 </style>

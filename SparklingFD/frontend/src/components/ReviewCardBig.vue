@@ -8,7 +8,7 @@
                                align="baseline"
                                class="d-inline-flex pb-4">
                             <v-flex class="card-title-large pr-2">{{review.company.name}}</v-flex>
-                            <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.department}} {{review.user.nickname}} | {{review.semester}}</v-flex>
+                            <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.department}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}</v-flex>
                             <v-btn class="ml-2" rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
                         </v-row>
                         <v-row wrap>
@@ -59,6 +59,19 @@
         },
         data () {
             return {
+            }
+        },
+        methods: {
+            numbertoSeason(number){
+                if (number==1){
+                    return '봄';
+                } else if (number==2){
+                    return '여름';
+                } else if (number==3){
+                    return '가을';
+                } else {
+                    return '겨울';
+                }
             }
         }
     }
