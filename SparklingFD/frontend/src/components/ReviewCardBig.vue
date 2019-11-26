@@ -12,7 +12,7 @@
                             <v-btn class="ml-2" rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
                         </v-row>
                         <v-row wrap>
-                            <v-flex class="card-content-large">
+                            <v-flex class="card-content-large" @click="$refs.modal.showModal=true">
                                 {{review.review.content}}
                             </v-flex>
                         </v-row>
@@ -40,6 +40,10 @@
 
             </v-card>
         </div>
+
+        <ReviewDialog ref="modal"
+                      :review.sync="review"
+        ></ReviewDialog>
     </v-flex>
 
 </template>
@@ -47,10 +51,11 @@
 <script>
 
     import radarChart from '../components/RadarChart';
+    import ReviewDialog from "./ReviewDialog";
 
     export default {
         name: "ReviewCardBig",
-        components: { radarChart },
+        components: { radarChart, ReviewDialog },
         props: {
           review: {
               type: Object,

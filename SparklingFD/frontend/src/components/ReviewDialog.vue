@@ -125,7 +125,7 @@
             review: {
                 type: Object,
                 required: true
-            }
+            },
         },
         methods: {
             numbertoSeason(number){

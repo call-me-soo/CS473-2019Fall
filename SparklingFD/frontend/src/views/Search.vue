@@ -69,7 +69,6 @@
         },
         methods: {
             search() {
-                vm.$refs.toolbar.search();
             }
         }
     }

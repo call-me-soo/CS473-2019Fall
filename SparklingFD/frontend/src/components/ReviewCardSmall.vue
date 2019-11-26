@@ -6,7 +6,7 @@
             <v-col cols="10">
                 <v-flex class="card-title pb-2">{{review.company.name}}</v-flex>
                 <v-flex class="card-subtitle text--darken-1 grey--text">{{review.user.department}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}</v-flex>
-                <v-row class="card-content pt-5 pa-3">{{review.review.content}}</v-row>
+                <v-row class="card-content pt-5 pa-3" @click="$refs.modal.showModal=true">{{review.review.content}}</v-row>
                 <v-row wrap class="pt-2 pl-1" align="baseline">
                     <v-flex>
                         <v-rating
@@ -30,11 +30,17 @@
         </v-row>
     </v-card>
 
+    <ReviewDialog ref="modal"
+                  :review.sync="review"
+    ></ReviewDialog>
+
 </template>
 
 <script>
+    import ReviewDialog from "./ReviewDialog";
     export default {
         name: "ReviewCardSmall",
+        components: { ReviewDialog },
         props: {
             review: {
                 type: Object,

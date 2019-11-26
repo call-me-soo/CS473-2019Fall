@@ -13,6 +13,9 @@
                      v-for="review in (bestReviews.length > 0 ? bestReviews : placeholder)"
                      :key="bestReviews.indexOf(review)"
               >
+                <ReviewDialog ref="modal"
+                              :review.sync="review"
+                ></ReviewDialog>
                 <v-col class="card">
                   <v-row wrap
                          class="korean pl-9 pt-3 pa-3"
@@ -26,7 +29,7 @@
                         <v-btn class="ml-2" rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
                       </v-row>
                       <v-row wrap>
-                        <v-flex class="card-content-large">
+                        <v-flex class="card-content-large" @click="$refs.modal.showModal=true">
                           {{review.review.content}}
                         </v-flex>
                       </v-row>
@@ -98,11 +101,14 @@
   </v-flex>
 
 
+
+
 </template>
 
 <script>
 
   import slick from 'vue-slick';
+  import ReviewDialog from "./ReviewDialog";
   import radarChart from "./RadarChart";
 	export default {
       name: "ReviewCardSlick",
@@ -113,7 +119,7 @@
         },
       },
       components: {
-        slick, radarChart
+        slick, radarChart, ReviewDialog
       },
 		data() {
           return {
