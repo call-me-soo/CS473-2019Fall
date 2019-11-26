@@ -124,9 +124,22 @@ export default {
   },
   methods: {
     search () {
+      this.searchQuery['harness'] = this.filterRating[0]
+      this.searchQuery['atmosphere'] = this.filterRating[1]
+      this.searchQuery['salary'] = this.filterRating[2]
+      this.searchQuery['learn'] = this.filterRating[3]
+      this.searchQuery['welfare'] = this.filterRating[4]
       if (this.filterSelected[0]) {
         this.searchQuery['harness'] = this.filterRating[0]
       }
+      console.log("harness")
+      console.log(this.filterSelected[0])
+      console.log(this.filterSelected[1])
+      console.log(this.filterSelected[2])
+      console.log(this.filterSelected[3])
+      console.log(this.filterSelected[4])
+      console.log(this.filterRating[0])
+      console.log(this.searchQuery['harness'])
       if (this.filterSelected[1]) {
         this.searchQuery['atmosphere'] = this.filterRating[1]
       }
@@ -139,6 +152,9 @@ export default {
       if (this.filterSelected[4]) {
         this.searchQuery['welfare'] = this.filterRating[4]
       }
+      console.log("확인")
+      console.log(this.searchInput)
+      console.log(this.searchQuery)
       this.$router.push({path: 'search', userInput: this.searchInput, query: this.searchQuery})
     }
 

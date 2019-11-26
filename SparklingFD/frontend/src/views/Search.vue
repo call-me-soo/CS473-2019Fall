@@ -46,13 +46,20 @@
         name: "Search",
         components: {Toolbar, ReviewCardBig },
         created() {
-            this.$http.get('../../api/searchQuery/'
-                + this.$route.params.userInput + '?'
-                + Object.keys(this.$route.params.query).map(k => k + '=' + this.$route.params.query[k])
-                    .join('&'))
+            this.$http.get('../../api/searchQuery/userinput?'
+                + this.$route.params.userInput + '&'
+                + this.$route.params.query)
                 .then((response) => {
                     this.companyInfo = response.data[0];
+                    console.log(this.companyInfo);
                 })
+            // this.$http.get('../../api/searchQuery/'
+            //     + this.$route.params.userInput + '?'
+            //     + Object.keys(this.$route.params.query).map(k => k + '=' + this.$route.params.query[k])
+            //         .join('&'))
+            //     .then((response) => {
+            //         this.companyInfo = response.data[0];
+            //     })
         },
         data () {
             return {
