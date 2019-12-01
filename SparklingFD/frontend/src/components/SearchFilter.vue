@@ -9,6 +9,7 @@
              :class="isFilterOn ? 'button-on' : 'grey grey--text text--darken-1'"
              rounded
              medium
+             depressed
       >
         {{label}} {{isFilterOn ? rating : ''}}
       </v-btn>
