@@ -67,10 +67,6 @@
             </v-row>
           </v-col>
         </v-row>
-
-
-
-
       </v-container>
     </v-content>
   </v-app>
@@ -132,8 +128,8 @@ export default {
         this.searchQuery['welfare'] = this.filterRating[4]
       }
 
-      if(this.searchInput == ''){
-        this.$router.push({path: 'search/' + 'aa' + '/', query: this.searchQuery})
+      if(this.searchInput == '' || this.searchInput == undefined){
+        this.$router.push({path: 'search/' + 'aa' + '/harness=' + this.searchQuery.harness + '&atmosphere=' + this.searchQuery.atmosphere + '&salary=' + this.searchQuery.salary + '&learn=' + this.searchQuery.learn + '&welfare=' + this.searchQuery.welfare})
 
       }else {
         this.$router.push({path: 'search/' + this.searchInput + '/harness=' + this.searchQuery.harness + '&atmosphere=' + this.searchQuery.atmosphere + '&salary=' + this.searchQuery.salary + '&learn=' + this.searchQuery.learn + '&welfare=' + this.searchQuery.welfare})
