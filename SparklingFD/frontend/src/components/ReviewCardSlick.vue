@@ -26,7 +26,7 @@
                              align="baseline"
                              class="d-inline-flex pb-4">
                         <v-flex class="card-title-large pr-2">{{review.company.name}}</v-flex>
-                        <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.department}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}</v-flex>
+                        <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}</v-flex>
                         <v-btn class="ml-2" rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
                       </v-row>
                       <v-row wrap>
@@ -82,7 +82,7 @@
                          class="pl-8"
                   >
                     <v-flex class="korean card-subtitle pr-1 text--darken-1 grey--text">
-                      {{review.user.department}} {{review.user.nickname}} | {{review.semester}}
+                      {{review.user.major}} {{review.user.nickname}} | {{review.semester}}
                       <v-btn class="korean ml-1" rounded x-small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
                     </v-flex>
                   </v-row>

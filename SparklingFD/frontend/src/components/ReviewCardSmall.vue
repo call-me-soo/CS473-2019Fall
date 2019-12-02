@@ -5,7 +5,7 @@
         >
             <v-col cols="10">
                 <v-flex class="card-title pb-2">{{review.company.name}}</v-flex>
-                <v-flex class="card-subtitle text--darken-1 grey--text">{{review.user.department}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}</v-flex>
+                <v-flex class="card-subtitle text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}</v-flex>
                 <v-row class="card-content pt-5 pa-3" @click="$refs.modal.showModal=true">{{review.review.content}}</v-row>
                 <v-row wrap class="pt-2 pl-1" align="baseline">
                     <v-flex>
@@ -33,7 +33,6 @@
                       :review.sync="review"
         ></ReviewDialog>
     </v-card>
-
 
 </template>
 

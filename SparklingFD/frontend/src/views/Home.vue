@@ -1,16 +1,8 @@
 <template>
   <v-app>
-    <v-app-bar
-            app
-            color="#FFCF57"
-            flat
-    >
-      <v-toolbar-title class="cracker">CRACKER</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn class="english" text>Sign in</v-btn>
-      <v-btn class="english" text>Sign up</v-btn>
-
-    </v-app-bar>
+    <ToolBar ref="ToolBar"
+      @keydown.enter.native="search"
+    ></ToolBar>
     <v-content>
       <v-container
               fluid
@@ -82,7 +74,7 @@
 
 
 <script>
-
+  import ToolBar from "../components/Toolbar";
   import logo from "../components/Logo";
   import searchBar from "../components/SearchBar";
   import searchFilter from "../components/SearchFilter"
@@ -93,7 +85,7 @@
 
 export default {
   name: 'home',
-  components: {reviewCardSlick, logo, searchBar, searchFilter, reviewCardSmall },
+  components: {ToolBar, reviewCardSlick, logo, searchBar, searchFilter, reviewCardSmall },
   mounted() {
       this.$http.get('../../api/cards')
       .then((response) => {
