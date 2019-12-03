@@ -19,7 +19,7 @@
                                     class=""
                                     style="width: 30px"
                                     :items="filters"
-                                    label="필터"
+                                    label="정렬"
                                     target="#dropdown-example"
                                     color="#FFCF57"
                             ></v-overflow-btn>

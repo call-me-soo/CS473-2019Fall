@@ -23,7 +23,7 @@
             >
             </v-text-field>
           </v-flex>
-            <v-btn @click="filterOpen=true" class="ml-5" color="white" small fab depressed>
+            <v-btn @click="filterOpen=!filterOpen" class="ml-5" color="white" small fab depressed>
               <v-icon>mdi-filter-variant</v-icon>
             </v-btn>
         </v-row>
@@ -214,15 +214,22 @@
 <script>
 
 // import SearchBar from "./SearchBar";
-// import SearchFilter from "./SearchFilter";
+import searchFilter from "./SearchFilter";
 import "../assets/css/style.css";
 export default {
   name: "Toolbar",
-  components: { },
+  components: { searchFilter },
   created() {
-    if (this.$route.path == '/') {
-      this.isHome = true;
-    }
+    if (this.$route.path == '/') this.isHome = true;
+    else this.isHome = false;
+    // console.log(this.$route.params.userInput)
+      this.$http.get('../../api/searchQuery/userinput?input='
+        + this.$route.params.userInput + '&'
+        + this.$route.params.query)
+        .then((response) => {
+          this.companyInfo = response.data;
+          console.log(this.companyInfo);
+      })
   },
   data() {
     return {
@@ -232,6 +239,7 @@ export default {
       filterLabel: ['업무 강도', '분위기', '급여', '배우는 것', '사내복지'],
       filterRating: [0,0,0,0,0],
       filterSelected: [false, false, false, false, false],
+      showFilter: false,
 
       isAuthenticated: false,
       signInOpen: false,
@@ -251,7 +259,7 @@ export default {
     onCallBack(searchInput){
       this.$emit('update:searchInput', searchInput);
     },
-    
+
     getRandomInt (min, max) {
       return Math.floor(Math.random() * (max - min)) + min;
     },
