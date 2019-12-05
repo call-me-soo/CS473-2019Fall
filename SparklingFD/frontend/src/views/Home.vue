@@ -116,31 +116,31 @@ export default {
         this.searchQuery['harness'] = this.filterRating[0]
       }
       if(this.searchQuery.harness == undefined){
-        this.searchQuery.harness = 5
+        this.searchQuery.harness = 0
       }
       if (this.filterSelected[1]) {
         this.searchQuery['atmosphere'] = this.filterRating[1]
       }
       if(this.searchQuery.atmosphere == undefined){
-        this.searchQuery.atmosphere = 5
+        this.searchQuery.atmosphere = 0
       }
       if (this.filterSelected[2]) {
         this.searchQuery['salary'] = this.filterRating[2]
       }
       if(this.searchQuery.salary == undefined){
-        this.searchQuery.salary = 5
+        this.searchQuery.salary = 0
       }
       if (this.filterSelected[3]) {
         this.searchQuery['learn'] = this.filterRating[3]
       }
       if(this.searchQuery.learn == undefined){
-        this.searchQuery.learn = 5
+        this.searchQuery.learn = 0
       }
       if (this.filterSelected[4]) {
         this.searchQuery['welfare'] = this.filterRating[4]
       }
       if(this.searchQuery.welfare == undefined){
-        this.searchQuery.welfare = 5
+        this.searchQuery.welfare = 0
       }
       if(this.searchInput == '' || this.searchInput == undefined){
         this.$router.push({path: 'search/' + 'aa' + '/harness=' + this.searchQuery.harness + '&atmosphere=' + this.searchQuery.atmosphere + '&salary=' + this.searchQuery.salary + '&learn=' + this.searchQuery.learn + '&welfare=' + this.searchQuery.welfare})
