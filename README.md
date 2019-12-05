@@ -12,7 +12,9 @@
 </p>
 
 # 1. About
-Cracker는 2019년 가을학기 CS473수업에서 진행된 프로젝트로, 카이스트 학생들을 위한 인턴십 후기 공유 플랫폼입니다. 
+Cracker는 2019년 가을학기 CS473수업에서 진행된 프로젝트로, 카이스트 학생들을 위한 인턴십 후기 공유 플랫폼입니다.
+<img src="스크린샷 2019-12-05 오후 1.30.07.png"/>
+<img src="스크린샷 2019-12-05 오후 1.30.18.png" />
 # 2. Structure
 Our project is mainly divided into three parts; frontend(client), backend(server), database.
 ```
