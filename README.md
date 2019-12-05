@@ -23,28 +23,28 @@ Cracker
 ```
 #### Front-end
 Frontend page starts with main.js which calls router that views vue files in views folder. Components for views are in component folder.
-> Stack: Vue.js
+> **Stack:** Vue.js
 #### Back-end
 Backend starts with app.js which connects db and backend server. It calls the routers which handles RESTful api calls for data transmission.
-> Stack: Express.js, Node.js
+> **Stack:** Express.js, Node.js
 #### Database
 Database is implemented separately by mongodb.
-> Stack: MongoDB
+> **Stack:** MongoDB
 
 ## How to setup
-* Only for your first start
+#### Only for your first start
 ```
-cd SparklingFD
-./setup.sh
+$ cd SparklingFD
+$ ./setup.sh
 ```
-* to start FE
+#### to start FE
 ```
-cd frontend
-npm run serve
+$ cd frontend
+$ npm run serve
 ```
-* to start BE
+#### to start BE
 ```
-cd backend 
-npm install 
-npm start
+$ cd backend 
+$ npm install 
+$ npm start
 ```
