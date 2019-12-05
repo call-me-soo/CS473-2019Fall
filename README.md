@@ -1,6 +1,6 @@
 <p align="center">
   <a href="http://52.78.227.11:8080/">
-    <img src="cracker logo.svg" with="200"/>
+    <img src="cracker logo.svg" width="200"/>
   </a>
   <p align="center">
     Web service to help KAIST students share their internship experiences
