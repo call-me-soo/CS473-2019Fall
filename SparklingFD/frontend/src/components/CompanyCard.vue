@@ -1,7 +1,7 @@
 <template>
     <v-flex>
         <div class="d-none d-md-inline">
-            <v-card class="card korean mt-4 mb-4">
+            <v-card class="card korean mt-4 mb-4" @click="routeToCompany">
                 <v-row class="pl-12 pa-5" wrap>
                     <v-col class="korean" cols="8">
                         <v-row wrap
@@ -15,7 +15,7 @@
                                     >
                                 </v-avatar>
                             </div>
-                            <div class="card-title-large pr-5" @click="routeToCompany">{{companyInfo.name}}</div>
+                            <div class="card-title-large pr-5">{{companyInfo.name}}</div>
                             <div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{companyInfo.field.toString()}} | {{companyInfo.location}}</div>
                             <div class="sub-title-2-large pr-2">기업리뷰</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{companyInfo.reviews.length}}</div>
                             <div class="sub-title-2-large pr-2">추천학과</div><div class="sub-title-2-large pr-1 text--darken-1 grey--text">{{companyInfo.recommend.toString()}}</div>

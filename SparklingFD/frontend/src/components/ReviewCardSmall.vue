@@ -1,12 +1,13 @@
 <template>
-    <v-card class="card korean mb-3 mr-3 ml-3">
+    <v-card class="card korean mb-3 mr-3 ml-3" @click.stop="modalOpen">
+        <ReviewDialog :visible.sync="modalVisible" :review="review"></ReviewDialog>
         <v-row wrap
                class="justify-center pt-5"
         >
             <v-col cols="10">
                 <v-flex class="card-title pb-2">{{review.company.name}}</v-flex>
                 <v-flex class="card-subtitle text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}</v-flex>
-                <v-row class="card-content pt-5 pa-3" @click="$refs.modal.showModal=true">{{review.review.content}}</v-row>
+                <v-row class="card-content pt-5 pa-3">{{review.review.content}}</v-row>
                 <v-row wrap class="pt-2 pl-1" align="baseline">
                     <v-flex>
                         <v-rating
@@ -28,10 +29,6 @@
             </v-col>
 
         </v-row>
-
-        <ReviewDialog ref="modal"
-                      :review.sync="review"
-        ></ReviewDialog>
     </v-card>
 
 </template>
@@ -49,7 +46,7 @@
         },
         data () {
             return {
-
+                modalVisible: false,
             }
         },
         methods: {
@@ -63,6 +60,9 @@
                 } else {
                     return '겨울';
                 }
+            },
+            modalOpen() {
+                this.modalVisible = true;
             }
         }
     }

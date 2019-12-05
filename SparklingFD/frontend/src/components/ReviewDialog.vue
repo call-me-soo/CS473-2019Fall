@@ -1,9 +1,10 @@
 <template>
-    <v-dialog v-if="visible" max-width="500px" @click.self="handleWrapperClick">
-        <header>
-            <button @click="$emit('update:visible', false)">Close</button>
-        </header>
-        <v-card class="card korean mt-4 mb-4">
+    <v-dialog v-model="visible" max-width="1000px" @click:outside="handleWrapperClick">
+        <v-card class="card korean">
+            <v-row wrap>
+                <v-spacer></v-spacer>
+                <button class="pr-5 pt-3" @click="close"><v-icon>mdi-close</v-icon></button>
+            </v-row>
             <v-row class="pl-12 pa-5" wrap>
                 <v-col class="korean" cols="11">
                     <v-row wrap
@@ -15,32 +16,39 @@
                     </v-row>
                     <v-row wrap>
                         <v-flex class="card-content-large">
-                            {{review.content}}
+                            {{review.review.content}}
                         </v-flex>
                     </v-row>
                 </v-col>
             </v-row>
-            <v-row wrap justify="center">
+            <v-row justify="center">
+                <v-col cols="11">
+                    <v-divider></v-divider>
+                </v-col>
+            </v-row>
+
+            <v-row wrap class="pt-5">
                 <v-col cols="4">
                     <v-row wrap class="pl-3" justify="center">
-                        <RadarChart></RadarChart>
+                        <RadarChart :star="review.review.star" style="width:200px"></RadarChart>
                     </v-row>
-                </v-col>
-                <v-col cols="7">
                     <v-row wrap class="pt-2" justify="center" align="baseline">
                         <v-col class="text-center">
                             <v-rating
+                                    half-increments
                                     class="d-inline pa-3"
                                     background-color="#DDDDDD"
                                     readonly
-                                    v-model="review.aggregate"
+                                    v-model="review.review.aggregate"
                                     color="#FFCF57"
-                                    large
+                                    medium
                                     dense
                             ></v-rating>
-                            <span class="d-inline">{{review.aggregate}}</span>
+                            <span class="d-inline">{{review.review.aggregate}}</span>
                         </v-col>
                     </v-row>
+                </v-col>
+                <v-col cols="8">
                     <v-row class="pb-3">
                         <div class="sub-title-2-large pr-2">급여</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">200만원, 상위 25%</div>
                     </v-row>
@@ -52,13 +60,13 @@
                                         class="d-inline pr-3"
                                         background-color="#DDDDDD"
                                         readonly
-                                        v-model="this.review.star[0]"
+                                        v-model="review.review.star[0]"
                                         color="#FFCF57"
                                         medium
                                         dense
                                         half-increments
                                 ></v-rating>
-                                <span class="label d-inline">{{this.review.star[0]}}</span>
+                                <span class="label d-inline">{{review.review.star[0]}}</span>
                             </v-row>
                         </v-col>
                         <v-col cols="6">
@@ -68,13 +76,13 @@
                                         class="d-inline pr-3"
                                         background-color="#DDDDDD"
                                         readonly
-                                        v-model="this.review.star[1]"
+                                        v-model="review.review.star[1]"
                                         color="#FFCF57"
                                         medium
                                         dense
                                         half-increments
                                 ></v-rating>
-                                <span class="label d-inline">{{this.review.star[1]}}</span>
+                                <span class="label d-inline">{{review.review.star[1]}}</span>
                             </v-row>
                         </v-col>
                     </v-row>
@@ -86,13 +94,13 @@
                                         class="d-inline pr-3"
                                         background-color="#DDDDDD"
                                         readonly
-                                        v-model="this.review.star[3]"
+                                        v-model="review.review.star[3]"
                                         color="#FFCF57"
                                         medium
                                         dense
                                         half-increments
                                 ></v-rating>
-                                <span class="label d-inline">{{this.review.star[3]}}</span>
+                                <span class="label d-inline">{{review.review.star[3]}}</span>
                             </v-row>
                         </v-col>
                         <v-col cols="6">
@@ -102,13 +110,13 @@
                                         class="d-inline pr-3"
                                         background-color="#DDDDDD"
                                         readonly
-                                        v-model="this.review.star[4]"
+                                        v-model="review.review.star[4]"
                                         color="#FFCF57"
                                         medium
                                         dense
                                         half-increments
                                 ></v-rating>
-                                <span class="label d-inline">{{this.review.star[4]}}</span>
+                                <span class="label d-inline">{{review.review.star[4]}}</span>
                             </v-row>
                         </v-col>
                     </v-row>
@@ -132,7 +140,11 @@
             review: {
                 type: Object,
                 required: true
-            },
+            }
+        },
+        data () {
+            return {
+            }
         },
         methods: {
             numbertoSeason(number){
@@ -149,10 +161,62 @@
             handleWrapperClick(){
                 this.$emit('update:visible', false)
             },
+            close() {
+                this.$emit('update:visible', false)
+            }
         }
     }
 </script>
 
 <style scoped>
+
+    .card {
+        background-color: white;
+        border-radius: 10px !important;
+        box-shadow: 0 4px 10px rgba(0,0,0, 0.08) !important;
+    }
+
+    .card-title-large {
+        font-weight: bold;
+        font-size: larger;
+    }
+
+    .card-subtitle {
+        font-size: small;
+    }
+
+    .card-content-large {
+        font-size: 11.5pt;
+        line-height: 18pt;
+        display: block;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
+
+    .label {
+        font-size: 9pt;
+        font-weight: bold;
+        color: #676767
+    }
+
+    .sub-title-large {
+        font-size: 18pt;
+        font-weight: bold;
+        height: 50px;
+    }
+
+    .sub-title-small {
+        font-size: 14pt;
+        font-weight: bold;
+        height: 30px;
+    }
+
+    .sub-title-2-large {
+        font-weight: bolder;
+    }
+
+    .sub-title-2-small {
+        font-size: small;
+    }
 
 </style>

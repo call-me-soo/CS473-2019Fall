@@ -228,7 +228,6 @@ export default {
         + this.$route.params.query)
         .then((response) => {
           this.companyInfo = response.data;
-          console.log(this.companyInfo);
       })
   },
   data() {

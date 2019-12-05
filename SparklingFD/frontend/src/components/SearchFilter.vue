@@ -26,20 +26,20 @@
       <v-dialog v-model="showModal" max-width="500px">
         <v-card>
           <v-card-title
-                  class="korean headline grey lighten-2"
+                  class="korean font-weight-bold grey lighten-2"
                   primary-title
           >
             {{this.label}}
           </v-card-title>
 
           <v-card-text  v-if="label === '급여'">
-            <v-row wrap style="height: 100px" align="center" justify="center">
+            <v-row wrap style="height: 100px" align="center">
               <v-text-field
                       v-model="input"
                       class="korean pr-5"
                       solo
                       hide-details
-                      label="180"
+                      label="0"
                       background-color="grey lighten-3"
                       flat
                       clearable
@@ -50,20 +50,21 @@
           </v-card-text>
 
           <v-card-text  v-else>
-            <v-row wrap style="height: 100px" align="center" justify="center">
-              <vue-slider
-                      ref="slider"
-                      v-model="input"
-                      width="90%"
-                      :adsorb="true"
-                      :interval="1"
-                      :data="range"
-                      :marks="true"
-                      :process-dragable="true"
-                      :height="5"
-                      direction="rtl"
-              ></vue-slider>
-            </v-row>
+              <v-row wrap justify="center" align="center" class="sub-title-2-large" style="height: 50px">{{input}} 점 이상</v-row>
+              <v-row wrap style="height: 70px" align="center" justify="center">
+                <vue-slider
+                        ref="slider"
+                        v-model="input"
+                        width="90%"
+                        :adsorb="true"
+                        :interval="1"
+                        :data="range"
+                        :marks="true"
+                        :process-dragable="true"
+                        :height="5"
+                        direction="rtl"
+                ></vue-slider>
+              </v-row>
           </v-card-text>
 
           <v-card-actions>
@@ -140,7 +141,7 @@
   }
 </script>
 
-<style>
+<style scoped>
 
   .button-on {
     background-color: #FFCF57 !important;
@@ -151,20 +152,9 @@
     letter-spacing: -0.05rem;
   }
 
-  .sub-title-large {
-    font-size: 18pt;
-    font-weight: bold;
-    height: 50px;
-  }
-
-  .sub-title-small {
-    font-size: 14pt;
-    font-weight: bold;
-    height: 30px;
-  }
-
   .sub-title-2-large {
     font-weight: bolder;
+    font-size: larger;
   }
 
   .sub-title-2-small {

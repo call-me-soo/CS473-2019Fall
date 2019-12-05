@@ -7,9 +7,6 @@
             height: {
                 default: 150
             },
-            width : {
-                default: 250
-            },
             star: {
                 type: Array,
                 required: true
