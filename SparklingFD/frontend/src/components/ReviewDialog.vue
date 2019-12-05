@@ -1,7 +1,7 @@
 <template>
     <v-dialog v-if="visible" max-width="500px" @click.self="handleWrapperClick">
         <header>
-            <button @click="$emit('update:visible', !visible)">Close</button>
+            <button @click="$emit('update:visible', false)">Close</button>
         </header>
         <v-card class="card korean mt-4 mb-4">
             <v-row class="pl-12 pa-5" wrap>

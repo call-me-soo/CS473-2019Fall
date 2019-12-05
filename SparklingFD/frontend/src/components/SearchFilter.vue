@@ -45,11 +45,11 @@
                       clearable
               >
               </v-text-field>
-              <div class="sub-title-2-large">만원 이상</div>
+              <div class="sub-title-2-large" style="width: 200px">만원 이상</div>
             </v-row>
           </v-card-text>
 
-          <v-card-text  v-if="label !== '급여'">
+          <v-card-text  v-else>
             <v-row wrap style="height: 100px" align="center" justify="center">
               <vue-slider
                       ref="slider"
@@ -165,7 +165,6 @@
 
   .sub-title-2-large {
     font-weight: bolder;
-    width: 200px;
   }
 
   .sub-title-2-small {

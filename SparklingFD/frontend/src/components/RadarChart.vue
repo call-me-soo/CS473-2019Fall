@@ -9,6 +9,10 @@
             },
             width : {
                 default: 250
+            },
+            star: {
+                type: Array,
+                required: true
             }
         },
         name: "RadarChart",
@@ -20,7 +24,7 @@
                     borderColor: '#FFCF57',
                     pointRadius: 0,
                     lineTension: 0,
-                    data: [4, 5, 3, 3, 4]
+                    data: this.star
                 }],
                 options: {
                     legend: {
