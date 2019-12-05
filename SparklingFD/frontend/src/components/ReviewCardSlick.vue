@@ -13,7 +13,8 @@
                      v-for="review in (bestReviews.length > 0 ? bestReviews : placeholder)"
                      :key="bestReviews.indexOf(review)"
               >
-                <v-col class="card">
+                <v-card class="pa-3 card" @click.stop="modalOpen">
+                  <ReviewDialog :visible.sync="modalVisible" :review="review"></ReviewDialog>
                   <v-row wrap
                          class="korean pl-9 pt-3 pa-3"
                   >
@@ -52,7 +53,7 @@
                       </v-row>
                     </v-col>
                   </v-row>
-                </v-col>
+                </v-card>
               </v-row>
               </slick>
           </v-col>
@@ -105,6 +106,7 @@
 <script>
 
   import slick from 'vue-slick';
+  import ReviewDialog from "./ReviewDialog";
   import radarChart from "./RadarChart";
 	export default {
       name: "ReviewCardSlick",
@@ -115,11 +117,11 @@
         },
       },
       components: {
-        slick, radarChart
+        slick, radarChart, ReviewDialog
       },
 		data() {
           return {
-            showModal: false,
+            modalVisible: false,
             placeholder: [{id: 1}],
             slickOptions: {
               accessibility: true,
@@ -166,6 +168,9 @@
         },
         routeToCompany() {
           this.$router.push({path: '../../company/' + this.$parent.id})
+        },
+        modalOpen() {
+          this.modalVisible = true;
         }
       },
       computed: {

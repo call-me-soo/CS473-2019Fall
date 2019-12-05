@@ -95,7 +95,7 @@
                     </v-col>
                     <v-col cols="4">
                         <v-row wrap class="pl-3" justify="center">
-                            <RadarChart></RadarChart>
+                            <RadarChart :star="this.companyInfo.star"></RadarChart>
                         </v-row>
                         <v-row wrap class="pt-2" justify="center" align="baseline">
                             <v-col class="text-center">

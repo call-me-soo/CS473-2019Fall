@@ -88,3 +88,5 @@
         font-weight: bold;
         height: 30px;
     }
+
+</style>
