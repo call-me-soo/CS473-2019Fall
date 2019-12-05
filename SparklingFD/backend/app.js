@@ -19,6 +19,7 @@ var app = express();
 // const usersRouter = require('./routes/users.js')(app, User);
 
 var mongoose    = require('mongoose');
+
 var db = mongoose.connection;
 db.on('error', console.error);
 db.once('open', () => {
