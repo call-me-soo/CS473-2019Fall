@@ -104,96 +104,8 @@
       </v-form>
     </v-dialog>
 
-    <v-btn v-show="!isAuthenticated" @click="signUpOpen=true" class="english" text>Sign up</v-btn>
-    <v-dialog v-model="signUpOpen" max-width="600px">
-      <v-form ref="signUpForm" lazy-validation>
-        <v-card>
-          <v-card-title class="korean headline grey lighten-2" primary-title>
-            <span>회원 가입</span>
-          </v-card-title>
-          <v-card-text>
-            <small>*항목은 필수입니다.</small>
-            <v-container>
-              <v-row>
-                <v-col cols="12" sm="6">
-                  <v-text-field
-                    v-model="email"
-                    :rules="[rules.required,rules.emailForm]"
-                    label="Email*"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6">
-                  <v-text-field
-                    v-model="nickname"
-                    label="Nickname"
-                    hint="공백으로 제출하면 임의로 정해드립니다 :)"
-                    persistent-hint
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="password"
-                    :rules="[rules.required]"
-                    label="Password*"
-                    type="password"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6">
-                  <v-select
-                    v-model="major"
-                    :items="['전산과', '기계과', '전자과', '산디과', '기타']"
-                    :rules="[rules.required]"
-                    label="Major*"
-                    required
-                  ></v-select>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-row>
-              <v-col cols="12">
-                <v-btn
-                  color="white"
-                  class="korean"
-                  @click="signUpOpen=false; signInOpen=true;"
-                  block
-                  depressed
-                  rounded
-                  small
-                >아이디가 이미 있어요!
-                </v-btn>
-              </v-col>
-              <v-col cols="12">
-                <!-- <v-btn
-                  color="#FFCF57"
-                  class="korean"
-                  @click="signUpOpen=false"
-                  depressed
-                  rounded
-                  large
-                >취소
-                </v-btn> -->
-                <v-btn
-                  color="#FFCF57"
-                  class="korean"
-                  :disabled="!valid"
-                  @click="confirmSignUp"
-                  depressed
-                  rounded
-                  large
-                  block
-                >가입하기
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-card-actions>
-        </v-card>
-      </v-form>
-    </v-dialog>
-
+    <v-btn v-show="!isAuthenticated" @click="signUpOpen" class="english" text>Sign up</v-btn>
+    
     </v-app-bar>
 
     <div v-show="filterOpen">
@@ -242,7 +154,7 @@ export default {
 
       isAuthenticated: false,
       signInOpen: false,
-      signUpOpen: false,
+      //signUpOpen: false,
       valid: true,
       email:'',
       password:'',
@@ -257,6 +169,10 @@ export default {
   methods: {
     onCallBack(searchInput){
       this.$emit('update:searchInput', searchInput);
+    },
+
+    signUpOpen () {
+      this.$router.push('../../signup');
     },
 
     getRandomInt (min, max) {
