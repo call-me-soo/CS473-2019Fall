@@ -28,6 +28,7 @@
                                 <v-overflow-btn
                                         class="mr-10"
                                         :items="yearOption"
+                                        v-model="yearOption"
                                         label="년도"
                                         editable
                                         item-value="text"
@@ -36,6 +37,7 @@
                                 <v-overflow-btn
                                         class="mr-5"
                                         :items="seasonOption"
+                                        v-model="seasonOption"
                                         label="학기"
                                         editable
                                         item-value="text"
@@ -79,7 +81,7 @@
                                 <v-rating
                                         class="d-inline"
                                         background-color="#DDDDDD"
-                                        v-model="review.star[0]"
+                                        v-model="review.review.star[0]"
                                         color="#FFCF57"
                                         large
                                         dense
@@ -101,7 +103,7 @@
                                 <v-rating
                                         class="d-inline"
                                         background-color="#DDDDDD"
-                                        v-model="review.star[1]"
+                                        v-model="review.review.star[1]"
                                         color="#FFCF57"
                                         large
                                         dense
@@ -123,7 +125,7 @@
                                 <v-rating
                                         class="d-inline"
                                         background-color="#DDDDDD"
-                                        v-model="review.star[2]"
+                                        v-model="review.review.star[2]"
                                         color="#FFCF57"
                                         large
                                         dense
@@ -145,7 +147,7 @@
                                 <v-rating
                                         class="d-inline"
                                         background-color="#DDDDDD"
-                                        v-model="review.star[3]"
+                                        v-model="review.review.star[3]"
                                         color="#FFCF57"
                                         large
                                         dense
@@ -167,13 +169,15 @@
                                 <v-col cols="9">
                                     <v-textarea
                                             filled
+                                            v-model="review.review.content"
                                     >
                                     </v-textarea>
                                 </v-col>
 
                             </v-row>
                             <v-row wrap justify="center">
-                                <v-btn rounded large @click="routeToCompany">
+                                <v-btn rounded large @click="postPost">
+                                <!-- <v-btn rounded large @click="routeToCompany"> -->
                                     제출하기
                                 </v-btn>
                             </v-row>
@@ -190,6 +194,7 @@
 
 <script>
     import Toolbar from "../components/Toolbar";
+    import axios from 'axios';
 
     export default {
         name: "Review",
@@ -208,6 +213,23 @@
         methods: {
             routeToCompany() {
                 this.$router.push({path: '../../company/' + this.companyInfo.ID})
+            },
+            postPost() {
+                console.log("제발 좀 돼라")
+                this.review.company = this.companyInfo;
+                // this.review.user = this.user;
+                axios.post(`../../api/setReview`, {
+                    body: this.review
+                })
+                .then(response => {console.log(response)})
+                // .then(this.$router.push({path: '../../company/' + this.companyInfo.ID}))
+                .catch(e => {
+                    this.errors.push(e)
+                    console.log("너무 안되는구나")
+                    console.log(this.errors)
+                })
+                console.log("여기는 잘됨")
+                console.log(this.review)
             }
         },
         data() {
@@ -215,13 +237,32 @@
                 companyInfo: {},
                 yearOption: [2019, 2018, 2017, 2016, 2015],
                 seasonOption: ['봄', '여름', '가을', '겨울'],
+                // review: {
+                //     semester: {
+                //         year: "",
+                //         season: ""
+                //     },
+                //     review: {
+                //         aggregate: 0,
+                //         star: [0,0,0,0],
+                //         content: "굳"
+                //     }
+                // }
                 review: {
+                    id: 0,
+                    company: this.companyInfo,
+                    user: {
+                        
+                    },
                     semester: {
                         year: "",
                         season: ""
                     },
-                    star: {
-
+                    like: 0,
+                    review: {
+                        aggregate: 0,
+                        star: [0,0,0,0,0],
+                        content: ""
                     }
                 }
             }
