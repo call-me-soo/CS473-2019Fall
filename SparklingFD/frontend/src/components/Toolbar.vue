@@ -32,9 +32,9 @@
     <v-spacer></v-spacer>
 
     <v-btn @click="usersOpen" class="english" text>Users</v-btn>
-    <v-btn v-show="isAuthenticated" @click="logout" class="english" text>Log Out</v-btn>
-    <v-btn v-show="!isAuthenticated" @click="signInOpen" class="english" text>Sign in</v-btn>
-    <v-btn v-show="!isAuthenticated" @click="signUpOpen" class="english" text>Sign up</v-btn>
+    <v-btn v-show="this.$http.isAuthenticated" @click="logout" class="english" text>Log Out</v-btn>
+    <v-btn v-show="!this.$http.isAuthenticated" @click="signInOpen" class="english" text>Sign in</v-btn>
+    <v-btn v-show="!this.$http.isAuthenticated" @click="signUpOpen" class="english" text>Sign up</v-btn>
     
     </v-app-bar>
 
