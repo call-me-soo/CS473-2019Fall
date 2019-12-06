@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express.Router();
 var bodyParser = require('body-parser');
+var passport = require("../config/passport");
 const User = require('../models/user');
 
 //Index
@@ -50,24 +51,43 @@ function parseError(errors){
 }
 
 
-// //create new user
-// app.post('/add', function(req, res){
-//     var user = new User();
-//     user.email = req.query.email;
-//     user.password = req.query.password;
-//     user.major = req.query.major;
-//     user.nickname = req.query.nickname;
+//signin page
+app.get('/signin', function(req, res){
+    var username = req.flash("username")[0];
+    var errors = req.flash("errors")[0] || {};
+    res.render('/signin', {
+      username: username,
+      errors: errors
+    });
+  })
+  
+//post Login
+app.post('/signin',function(req,res,next){
+    var errors = {};
+    var isValid = true;
+    if(!req.body.username){
+        isValid = false;
+        errors.username = "Username is required!";
+    }
+    if(!req.body.password){
+        isValid = false;
+        errors.password = "Password is required!";
+    }
+    if(isValid){
+        next();
+    } else {
+        req.flash("errors",errors);
+        res.redirect("/signin");
+    }
+}, passport.authenticate("local-login", {
+    successRedirect : "/",
+    failureRedirect : "/signin"
+}));
 
-//     user.save(function(err){
-//         if(err){
-//             console.error(err);
-//             res.json({result: 0});
-//             return;
-//         }
-
-//         res.json({result: 1});
-
-//     });
-// });
+//Logout
+app.get("/logout", function(req, res) {
+    req.logout();
+    res.redirect("/");
+});
 
 module.exports = app;
