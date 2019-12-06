@@ -20,9 +20,9 @@
 
                             <v-col cols="12" sm="6">
                             <v-text-field
-                                v-model="email"
-                                :rules="[rules.required,rules.emailForm]"
-                                label="Email*"
+                                v-model="username"
+                                :rules="[rules.required]"
+                                label="Username*"
                                 required
                             ></v-text-field>
                             </v-col>
@@ -41,6 +41,16 @@
                                 v-model="password"
                                 :rules="[rules.required]"
                                 label="Password*"
+                                type="password"
+                                required
+                            ></v-text-field>
+                            </v-col>
+
+                            <v-col cols="12">
+                            <v-text-field
+                                v-model="passwordConfirmation"
+                                :rules="[rules.required]"
+                                label="Password Confirmation*"
                                 type="password"
                                 required
                             ></v-text-field>
@@ -87,15 +97,15 @@ export default {
     components: { Toolbar },
     data() {
         return{
-            isAuthenticated: false,
+            // isAuthenticated: false,
             signUpOpen: false,
-            email:'',
+            username:'',
             password:'',
+            passwordConfirmation:'',
             nickname:'',
             major: null,
             rules: {
                 required: v => !!v || '필수 입력 항목입니다.',
-                emailForm: v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || '이메일 형식을 올바르게 입력해주세요.'
             }
         }
     },
@@ -109,14 +119,16 @@ export default {
                 var name2 = ['넥타이','수트','조끼','셔츠','모자','슬랙스','목도리','구두','양말','후드티','명함','양복','단추','가방','백팩','지갑','추리닝','선글라스','스카프','장갑','명찰','폰케이스','스커트','턱시도','보타이','멜빵','와이셔츠','청바지','와이드진'];
                 this.nickname = name1[this.getRandomInt(0, name1.length)] + ' ' + name2[this.getRandomInt(0, name2.length)];
             }
-            this.$http.post('../../api/users/add', {
-                userid: this.email,
-                pw: this.password,
+            console.log("before");
+            this.$http.post('../../api/users/', {
+                username: this.username,
+                password: this.password,
+                passwordConfirmation: this.passwordConfirmation,
                 major: this.major,
                 nickname: this.nickname
-            })
-            .then((response) => {
-                this.isAuthenticated=true;
+            }).then((response)=>{
+                // this.isAuthenticated=true;
+                this.$router.push('../../api/users/index');
                 console.log(response);
             }, error => {
                 console.log(error);
@@ -138,6 +150,10 @@ export default {
         font-size: 14pt;
         font-weight: bold;
         height: 30px;
+    }
+    
+    .v-btn {
+        letter-spacing: -0.02px;
     }
 
 </style>
