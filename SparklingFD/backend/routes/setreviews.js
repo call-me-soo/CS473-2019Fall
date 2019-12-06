@@ -25,18 +25,12 @@ const Review = require('../models/review');
 router.post('/', function(req, res){
     var review = new Review();
     console.log("initial");
-    console.log(review);
-    console.log(review.id);
-    review.id = req.body.id;
-    console.log("Them");
-    console.log(review);
-    console.log(req.body.id);
-    console.log(review.id);
-    review.company = req.body.company;
-    review.user = req.body.user;
-    review.semester = req.body.semester;
-    review.like = req.body.like;
-    review.review = req.body.review;
+    review.id = req.body.body.id;
+    review.company = req.body.body.company;
+    review.user = req.body.body.user;
+    review.semester = req.body.body.semester;
+    review.like = req.body.body.like;
+    review.review = req.body.body.review;
     console.log(review);
     console.log(review.id)
     console.log(req.body.id);
