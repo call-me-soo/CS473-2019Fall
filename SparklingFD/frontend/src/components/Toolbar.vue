@@ -91,13 +91,13 @@ export default {
       this.$http.get('../../logout');
     },
     usersOpen() {
-      this.$router.push('../../api/users/index');
+      this.$router.push('../../users');
     },
     signInOpen(){
       this.$router.push('../../signin');
     },
     signUpOpen () {
-      this.$router.push('../../api/users/signup');
+      this.$router.push('../../signup');
     }
   }
 }

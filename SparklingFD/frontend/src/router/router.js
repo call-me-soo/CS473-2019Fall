@@ -32,12 +32,12 @@ const routes = [
     component: Review
   },
   {
-    path: '/api/users/index',
+    path: '/users',
     name: 'users',
     component: Users
   },
   {
-    path: '/api/users/signup',
+    path: '/signup',
     name: 'signup',
     component: SignUp
   },

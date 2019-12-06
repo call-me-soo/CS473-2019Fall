@@ -79,7 +79,6 @@ export default {
     components: { Toolbar },
     data() {
         return{
-            // isAuthenticated: false,
             username:'',
             password:'',
             rules: {
@@ -89,15 +88,16 @@ export default {
     },
     methods: {
         signUpOpen () {
-            this.$router.push('../../api/users/signup');
+            this.$router.push('../../signup');
         },
         confirmSignIn() {
-            this.$http.post('../../signin', {
+            this.$http.post('../../api/users/signin', {
                 username: this.username,
                 password: this.password
             })
             .then((response) => {
-                // this.isAuthenticated = true;
+                console.log(this.$http.isAuthenticated);
+                this.$router.go(-1);
                 console.log(response);
             }, error => {
                 console.log(error);
