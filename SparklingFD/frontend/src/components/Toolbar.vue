@@ -31,79 +31,9 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn v-show="isAuthenticated" @click="isAuthenticated=false" class="english" text>Log Out</v-btn>
-
-    <v-btn v-show="!isAuthenticated" @click="signInOpen=true" class="english" text>Sign in</v-btn>
-    <v-dialog v-model="signInOpen" max-width="600px">
-      <v-form ref="signInForm" lazy-validation>
-        <v-card>
-          <v-card-title class="korean headline grey lighten-2" primary-title>
-            <span>로그인</span>
-          </v-card-title>
-          <v-card-text>
-            <v-container>
-              <v-row>
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="email"
-                    :rules="[rules.required, rules.emailForm]"
-                    label="Email"
-                    required
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field
-                    v-model="password"
-                    :rules="[rules.required]"
-                    label="Password"
-                    type="password"
-                    required
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-row>
-              <v-col cols="12">
-                <v-btn
-                  color="white"
-                  class="korean"
-                  @click="signInOpen=false; signUpOpen=true;"
-                  depressed
-                  small
-                  block
-                >아이디가 없어요!
-                </v-btn>
-              </v-col>
-              <v-col cols="12">
-                <!-- <v-btn
-                  color="#FFCF57"
-                  class="korean"
-                  @click="signInOpen=false"
-                  depressed
-                  rounded
-                  large
-                >취소
-                </v-btn> -->
-                <v-btn
-                  color="#FFCF57"
-                  class="korean"
-                  :disabled="!valid"
-                  @click="confirmSignIn"
-                  depressed
-                  rounded
-                  large
-                  block
-                >로그인하기
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-card-actions>
-        </v-card>
-      </v-form>
-    </v-dialog>
-
+    <v-btn @click="usersOpen" class="english" text>Users</v-btn>
+    <v-btn v-show="isAuthenticated" @click="logout" class="english" text>Log Out</v-btn>
+    <v-btn v-show="!isAuthenticated" @click="signInOpen" class="english" text>Sign in</v-btn>
     <v-btn v-show="!isAuthenticated" @click="signUpOpen" class="english" text>Sign up</v-btn>
     
     </v-app-bar>
@@ -152,9 +82,6 @@ export default {
       filterSelected: [false, false, false, false, false],
       showFilter: false,
 
-      isAuthenticated: false,
-      signInOpen: false,
-      //signUpOpen: false,
       valid: true,
       email:'',
       password:'',
@@ -170,50 +97,17 @@ export default {
     onCallBack(searchInput){
       this.$emit('update:searchInput', searchInput);
     },
-
+    logout(){
+      this.$http.get('../../logout');
+    },
+    usersOpen() {
+      this.$router.push('../../api/users/index');
+    },
+    signInOpen(){
+      this.$router.push('../../signin');
+    },
     signUpOpen () {
-      this.$router.push('../../signup');
-    },
-
-    getRandomInt (min, max) {
-      return Math.floor(Math.random() * (max - min)) + min;
-    },
-    confirmSignIn() {
-      // if (this.$refs.signInForm.validate()) {
-        this.$http.get('../../api/users/', {
-          userid: this.email,
-          pw: this.pw
-        })
-        .then((response) => {
-          this.signInOpen = false;
-          this.isAuthenticated = true;
-          console.log(response);
-        }, error => {
-          console.log(error);
-        });
-      // }
-    },
-    confirmSignUp() {
-      // if (this.$refs.singUpForm.validate()) {
-        this.signInOpen = false;
-        if (this.nickname == '') {
-          var name1 = ['빨간','다홍색','주황','노란','초록','파란','보라색','검정','황금','은빛','반짝이는','꾀죄죄한','구겨진','말끔한','깔끔한','줄무늬','점박이','체크무늬','형광색','귀여운','멋있는','엄청난','큰','작은','굉장한','놀라운','아담한','뻣뻣한'];
-          var name2 = ['넥타이','수트','조끼','셔츠','모자','슬랙스','목도리','구두','양말','후드티','명함','양복','단추','가방','백팩','지갑','추리닝','선글라스','스카프','장갑','명찰','폰케이스','스커트','턱시도','보타이','멜빵','와이셔츠','청바지','와이드진'];
-          this.nickname = name1[this.getRandomInt(0, name1.length)] + ' ' + name2[this.getRandomInt(0, name2.length)];
-        }
-        this.$http.post('../../api/users/add', {
-          userid: this.email,
-          pw: this.password,
-          major: this.major,
-          nickname: this.nickname
-        })
-        .then((response) => {
-          this.isAuthenticated=true;
-          console.log(response);
-        }, error => {
-          console.log(error);
-        });
-      // }
+      this.$router.push('../../api/users/signup');
     }
   }
 }
@@ -224,10 +118,6 @@ export default {
 .cracker{
   color: black;
   text-decoration: none;
-}
-
-.v-btn {
-  letter-spacing: -0.02px;
 }
 
 </style>
