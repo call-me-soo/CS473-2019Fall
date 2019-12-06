@@ -80,17 +80,7 @@ export default {
       filterLabel: ['업무 강도', '분위기', '급여', '배우는 것', '사내복지'],
       filterRating: [0,0,0,0,0],
       filterSelected: [false, false, false, false, false],
-      showFilter: false,
-
-      valid: true,
-      email:'',
-      password:'',
-      nickname:'',
-      major: null,
-      rules: {
-        required: v => !!v || '필수 입력 항목입니다.',
-        emailForm: v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || '이메일 형식을 올바르게 입력해주세요.'
-      }
+      showFilter: false
     }
   },
   methods: {
