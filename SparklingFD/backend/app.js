@@ -38,7 +38,13 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({secret:"JuhoKim", resave:true, saveUninitialized:true}));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
@@ -47,13 +53,6 @@ app.use('/api/searchQuery', searchRouter);
 app.use('/api/getReview', cardsRouter);
 app.use('/api/setReview', setRouter);
 app.use('/api/cards', cardsRouter);
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(flash());
-app.use(session({secret:"JuhoKim", resave:true, saveUninitialized:true}));
-app.use(passport.initialize());
-app.use(passport.session());
 
 // Custom Middlewares
 app.use(function(req,res,next){
