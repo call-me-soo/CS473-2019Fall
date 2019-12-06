@@ -48,7 +48,7 @@
         </v-row>
 
         <reviewCardSlick
-                :bestReviews.sync="bestReviews"
+                :bestReviews="bestReviews"
         ></reviewCardSlick>
 
         <v-row justify="center" align="center" class="mt-10">
@@ -90,13 +90,11 @@ export default {
       this.$http.get('../../api/cards')
       .then((response) => {
               this.bestReviews = response.data;
-              console.log(this.bestReviews)
           })
 
       this.$http.get('../../api/getReview')
           .then((response) => {
               this.recentReviews = response.data;
-              console.log(this.bestReviews)
           })
   },
   data() {

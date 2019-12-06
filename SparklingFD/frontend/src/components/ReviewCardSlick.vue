@@ -13,11 +13,8 @@
                      v-for="review in (bestReviews.length > 0 ? bestReviews : placeholder)"
                      :key="bestReviews.indexOf(review)"
               >
-                <ReviewDialog ref="modal"
-                              :review="review"
-                              :visible="showModal"
-                ></ReviewDialog>
-                <v-col class="card">
+                <v-card class="pa-3 card" @click.stop="modalOpen">
+                  <ReviewDialog :visible.sync="modalVisible" :review="review"></ReviewDialog>
                   <v-row wrap
                          class="korean pl-9 pt-3 pa-3"
                   >
@@ -25,7 +22,7 @@
                       <v-row wrap
                              align="baseline"
                              class="d-inline-flex pb-4">
-                        <v-flex class="card-title-large pr-2" v-on:click="routeToCompany">{{review.company.name}}</v-flex>
+                        <v-flex class="card-title-large pr-2" @click="routeToCompany">{{review.company.name}}</v-flex>
                         <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}</v-flex>
                         <v-btn class="ml-2" rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
                       </v-row>
@@ -56,7 +53,7 @@
                       </v-row>
                     </v-col>
                   </v-row>
-                </v-col>
+                </v-card>
               </v-row>
               </slick>
           </v-col>
@@ -124,7 +121,7 @@
       },
 		data() {
           return {
-            showModal: false,
+            modalVisible: false,
             placeholder: [{id: 1}],
             slickOptions: {
               accessibility: true,
@@ -171,6 +168,9 @@
         },
         routeToCompany() {
           this.$router.push({path: '../../company/' + this.$parent.id})
+        },
+        modalOpen() {
+          this.modalVisible = true;
         }
       },
       computed: {
