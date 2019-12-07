@@ -128,12 +128,17 @@ export default {
                 nickname: this.nickname
             })
             .then((response)=>{
-                this.$router.push('../../users');
                 console.log(response);
+                this.$store.dispatch('LOGIN', {
+                username: this.username,
+                password: this.password
+            })
+            .then((response) => {
+                console.log(response);
+                this.$router.push('../../users');
             }, error => {
-                this.errormsg = error.response.data;
-                console.log(error.response);
-            });
+                console.log(error);
+            })});
         }
     }
 }
