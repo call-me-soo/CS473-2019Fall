@@ -7,17 +7,20 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         _id: null,
-        nickname: null
+        nickname: null,
+        major: null
     },
 
     mutations: {
-        LOGIN (state, { _id, nickname }) {
+        LOGIN (state, { _id, nickname, major }) {
             state._id = _id
             state.nickname = nickname
+            state.major = major
         },
         LOGOUT (state) {
             state._id = null
             state.nickname = null
+            state.major = null
         }
     },
 

@@ -75,14 +75,22 @@ export default {
     });
   },
   computed: {
+    // v-show="isAuthenticated"를 써서 디브가 로그인했을때만 보이게 할 수 있습니당! 
     isAuthenticated() {
       if(this.$store.state._id){
         return true
       }
       return false
     },
+
+    // {{ nickname }}으로 참조하면 됩니당!
     nickname() {
       return this.$store.state.nickname;
+    },
+
+    // {{ major }}로 참조하면 됩니당!
+    major() {
+      return this.$store.state.major;
     }
     
   },

@@ -44,6 +44,7 @@ app.post('/signin', (req, res, next) => {
             return res.json({
                 _id: user._id,
                 nickname: currentUser.nickname,
+                major: currentUser.major
             })
         })
     })(req, res, next)
