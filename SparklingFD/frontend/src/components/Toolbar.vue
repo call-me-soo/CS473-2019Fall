@@ -102,7 +102,7 @@ export default {
       this.$emit('update:searchInput', searchInput);
     },
     logout(){
-      this.$http.get('../../logout');
+      this.$store.dispatch('LOGOUT')
     },
     usersOpen() {
       this.$router.push('../../users');

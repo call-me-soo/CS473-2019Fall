@@ -33,6 +33,7 @@ export default new Vuex.Store({
         },
         LOGOUT ({commit}) {
             commit('LOGOUT')
+            axios.get('../../api/users/logout')
         }
     },
 
