@@ -72,16 +72,16 @@
                         <LineChart></LineChart>
                     </v-col>
                     <v-col cols="3">
-                        <RadarChart></RadarChart>
+                        <RadarChart :star="companyInfo.star"></RadarChart>
                     </v-col>
                 </v-row>
+
 
                 <v-row wrap justify="center">
                     <v-col cols="10">
                         <v-divider></v-divider>
                     </v-col>
                 </v-row>
-
 
 
                 <v-row wrap class="pt-5" justify="center" align="center" >
@@ -97,11 +97,12 @@
                                     dense
                                     rounded
                                     class="button-toggle"
-                                    v-model="toggle_exclusive"
+                                    v-model="sortCards"
                                     mandatory
+                                    @change="toggleSort"
                             >
-                                <v-btn>최신순</v-btn>
-                                <v-btn>추천순</v-btn>
+                                <v-btn value="date">최신순</v-btn>
+                                <v-btn value="recommend">추천순</v-btn>
                             </v-btn-toggle>
                         </v-row>
                     </v-col>
@@ -109,8 +110,8 @@
 
                 <v-row wrap justify="center">
                     <v-col cols="9">
-                        <ReviewCardBig v-for="review in companyInfo.reviews"
-                                       :key="companyInfo.reviews.indexOf(review)"
+                        <ReviewCardBig v-for="review in sortedReview"
+                                       :key="sortedReview.indexOf(review)"
                                        :review="review"
                         >
 
@@ -136,21 +137,37 @@
         methods: {
             routeToReview() {
                 this.$router.push({path: '../../review/' + this.companyInfo.ID})
+            },
+            toggleSort() {
+                if (this.sortCards === 'date'){
+                    this.sortedReview = this.companyInfo.reviews.sort((b, a) => {
+                        if (a['semester']['year'] === b['semester']['year']) {
+                            return a['semester']['season'] - b['semester']['season']
+                        } else {
+                            return a['semester']['year'] - b['semester']['year']
+                        }
+                    })
+                } else {
+                    this.sortedReview = this.companyInfo.reviews.sort((b, a) => {
+                        return a['like'] - b['like']
+                    })
+                }
             }
         },
         created () {
             this.$http.get('../../api/getCompanyInfo/' + this.$route.params.companyId)
                 .then((response) => {
-                    console.log(response.data);
                     this.companyInfo = response.data;
-                })
+                    this.toggleSort('date')
+                });
         },
         data () {
             return {
                 companyInfo: {},
                 value: ['이전', '2019 가을'],
                 range: ['이전', '2017 봄', '2017 여름', '2017 가을', '2017 겨울', '2018 봄', '2018 여름', '2018 가을', '2018 겨울', '2019 봄', '2019 여름', '2019 가을'],
-                toggle_exclusive: undefined
+                sortCards: 'date',
+                sortedReview: {}
                 }
             }
         }
