@@ -34,6 +34,23 @@ app.post("/", function(req, res){
     });
 });
 
+//post Login
+app.post('/signin', (req, res, next) => {
+    passport.authenticate("local-login", (err, user, info) => {
+        console.log(err, user, info)
+        if (err) res.json(401, 'fuck!! bitch')
+        if (!user) res.json(404, `there's no one you find out bitch`)
+
+        res.json(user)
+    })(req, res, next)
+})
+
+//Logout
+app.get("/logout", function(req, res) {
+    req.logout();
+    res.redirect("/");
+});
+
 // Functions
 function parseError(errors){
     var parsed = {};
@@ -49,45 +66,5 @@ function parseError(errors){
     }
     return parsed;
 }
-
-
-//signin page
-app.get('/signin', function(req, res){
-    var username = req.flash("username")[0];
-    var errors = req.flash("errors")[0] || {};
-    res.render('/signin', {
-      username: username,
-      errors: errors
-    });
-  })
-  
-//post Login
-app.post('/signin',function(req,res,next){
-    var errors = {};
-    var isValid = true;
-    if(!req.body.username){
-        isValid = false;
-        errors.username = "Username is required!";
-    }
-    if(!req.body.password){
-        isValid = false;
-        errors.password = "Password is required!";
-    }
-    if(isValid){
-        next();
-    } else {
-        req.flash("errors",errors);
-        res.redirect("/signin");
-    }
-}, passport.authenticate("local-login", {
-    successRedirect : "/",
-    failureRedirect : "/signin"
-}));
-
-//Logout
-app.get("/logout", function(req, res) {
-    req.logout();
-    res.redirect("/");
-});
 
 module.exports = app;

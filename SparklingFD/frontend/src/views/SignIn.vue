@@ -91,12 +91,11 @@ export default {
             this.$router.push('../../signup');
         },
         confirmSignIn() {
-            this.$http.post('../../api/users/signin', {
+            this.$store.dispatch('LOGIN', {
                 username: this.username,
                 password: this.password
             })
             .then((response) => {
-                console.log(this.$http.isAuthenticated);
                 this.$router.go(-1);
                 console.log(response);
             }, error => {

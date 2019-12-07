@@ -6,24 +6,26 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        accessToken: null
+        _id: null
     },
 
     mutations: {
-        LOGIN (state, {accessToken}) {
-            state.accessToken = accessToken
+        LOGIN (state, { _id }) {
+            state._id = _id
         },
         LOGOUT (state) {
-            state.accessToken = null
+            state._id = null
         }
     },
 
     actions: {
         LOGIN ({commit}, {username, password}) {
-            return axios.post('http://localhost:3000/api/users/signin', {username, password})
+            return axios.post('../../api/users/signin', {username, password})
             .then(({data}) => {
-                console.log("post test")
                 return commit('LOGIN', data)
+            })
+            .catch(({error}) => {
+                console.log(error)
             })
         },
         LOGOUT ({commit}) {
