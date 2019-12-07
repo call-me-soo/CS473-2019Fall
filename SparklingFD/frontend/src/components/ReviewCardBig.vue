@@ -20,7 +20,7 @@
                     </v-col>
                     <v-col cols="4">
                         <v-row wrap class="pl-3" justify="center">
-                            <RadarChart :star="review.review.star"></RadarChart>
+                            <RadarChart v-bind:data="review.review.star"></RadarChart>
                         </v-row>
                         <v-row wrap class="pt-2" justify="center" align="baseline">
                             <v-col class="text-center">
@@ -52,7 +52,7 @@
 
     export default {
         name: "ReviewCardBig",
-        components: { RadarChart, ReviewDialog},
+        components: { RadarChart, ReviewDialog },
         props: {
           review: {
               type: Object,
@@ -61,7 +61,7 @@
         },
         data () {
             return {
-                modalVisible: false
+                modalVisible: false,
             }
         },
         methods: {

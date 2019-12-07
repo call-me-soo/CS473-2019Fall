@@ -72,7 +72,7 @@
                         <LineChart></LineChart>
                     </v-col>
                     <v-col cols="3">
-                        <RadarChart :star="companyInfo.star"></RadarChart>
+                        <RadarChart :data="this.companyInfo.star"></RadarChart>
                     </v-col>
                 </v-row>
 
@@ -112,7 +112,7 @@
                     <v-col cols="9">
                         <ReviewCardBig v-for="review in sortedReview"
                                        :key="sortedReview.indexOf(review)"
-                                       :review="review"
+                                       v-bind:review="review"
                         >
 
                         </ReviewCardBig>
@@ -152,7 +152,8 @@
                         return a['like'] - b['like']
                     })
                 }
-            }
+            },
+
         },
         created () {
             this.$http.get('../../api/getCompanyInfo/' + this.$route.params.companyId)
@@ -167,10 +168,10 @@
                 value: ['이전', '2019 가을'],
                 range: ['이전', '2017 봄', '2017 여름', '2017 가을', '2017 겨울', '2018 봄', '2018 여름', '2018 가을', '2018 겨울', '2019 봄', '2019 여름', '2019 가을'],
                 sortCards: 'date',
-                sortedReview: {}
-                }
+                sortedReview: {},
             }
         }
+    }
 </script>
 
 <style scoped>
