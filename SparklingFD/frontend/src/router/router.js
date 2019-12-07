@@ -2,7 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Search from "../views/Search";
-// import Signup from "../views/Signup";
+import SignUp from "../views/SignUp";
+import SignIn from "../views/SignIn";
+import Users from "../views/Users";
 import Company from "../views/Company";
 import Review from "../views/Review";
 
@@ -19,11 +21,6 @@ const routes = [
     name: 'search',
     component: Search,
   },
-  // {
-  //   path: '/signup',
-  //   name: 'signup',
-  //   component: Signup
-  // },
   {
     path: '/company/:companyId',
     name: 'company',
@@ -33,6 +30,21 @@ const routes = [
     path: '/review/:companyId',
     name: 'review',
     component: Review
+  },
+  {
+    path: '/users',
+    name: 'users',
+    component: Users
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: SignUp
+  },
+  {
+    path: '/signin',
+    name: 'signin',
+    component: SignIn
   }
 ]
 

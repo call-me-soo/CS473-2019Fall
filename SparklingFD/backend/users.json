@@ -1,13 +1,13 @@
 [
     {
-        "userid": "sana",
-        "pw": "tksktksk",
+        "username": "sana",
+        "password": "tksktksk",
         "major": "전산학부",
         "nickname": "빨간 넥타이"
     },
     {
-        "userid": "cs473",
-        "pw": "sohard",
+        "username": "cs473",
+        "password": "sohard",
         "major": "전산학부",
         "nickname": "검은 호랑이"
     }
