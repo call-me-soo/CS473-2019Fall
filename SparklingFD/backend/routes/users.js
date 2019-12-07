@@ -37,11 +37,15 @@ app.post("/", function(req, res){
 //post Login
 app.post('/signin', (req, res, next) => {
     passport.authenticate("local-login", (err, user, info) => {
-        console.log(err, user, info)
         if (err) res.json(401, 'fuck!! bitch')
         if (!user) res.json(404, `there's no one you find out bitch`)
-
-        res.json(user)
+        User.findOne({_id: user._id})
+        .then(currentUser => {
+            return res.json({
+                _id: user._id,
+                nickname: currentUser.nickname,
+            })
+        })
     })(req, res, next)
 })
 

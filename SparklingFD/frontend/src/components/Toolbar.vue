@@ -31,7 +31,7 @@
 
     <v-spacer></v-spacer>
 
-    <v-btn v-show="isAuthenticated" text>안녕, {{nickname}}님</v-btn>
+    <v-btn v-show="isAuthenticated" text style="letter-spacing: -0.05px">안녕, '{{nickname}}'님!</v-btn>
     <v-btn v-show="isAuthenticated" @click="logout" class="english" text>Log Out</v-btn>
     <v-btn v-show="!isAuthenticated" @click="signInOpen" class="english" text>Sign in</v-btn>
     <v-btn v-show="!isAuthenticated" @click="signUpOpen" class="english" text>Sign up</v-btn>
@@ -80,6 +80,9 @@ export default {
         return true
       }
       return false
+    },
+    nickname() {
+      return this.$store.state.nickname;
     }
     
   },
