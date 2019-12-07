@@ -17,7 +17,6 @@
         },
         computed: {
             chartData () {
-                console.log("computed")
                 return this.data
             }
         },

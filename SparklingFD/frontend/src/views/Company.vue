@@ -114,7 +114,6 @@
                                        :key="sortedReview.indexOf(review)"
                                        v-bind:review="review"
                         >
-
                         </ReviewCardBig>
 
                     </v-col>
@@ -134,6 +133,9 @@
     export default {
         name: "Company",
         components: { Toolbar, LineChart, VueSlider, RadarChart, ReviewCardBig },
+        mounted() {
+
+        },
         methods: {
             routeToReview() {
                 this.$router.push({path: '../../review/' + this.companyInfo.ID})
@@ -153,20 +155,43 @@
                     })
                 }
             },
+            processData() {
+
+            },
+            numbertoSeason(number){
+                if (number===1){
+                    return '봄';
+                } else if (number===2){
+                    return '여름';
+                } else if (number===3){
+                    return '가을';
+                } else {
+                    return '겨울';
+                }
+            },
 
         },
         created () {
             this.$http.get('../../api/getCompanyInfo/' + this.$route.params.companyId)
                 .then((response) => {
                     this.companyInfo = response.data;
-                    this.toggleSort('date')
+                    this.toggleSort('date');
+                    const range = new Set();
+                    this.companyInfo.reviews.forEach(
+                        element => range.add(`${element.semester.year}${element.semester.season}`)
+                    );
+                    this.range = Array.from(range).sort();
+                    this.range = this.range.map(function (element) {
+                        return element.substring(0,4) + ' ' + this.numbertoSeason(element.substring(4,5));
+                    }.bind(this));
+                    this.value = [this.range[0], this.range[this.range.length-1]]
                 });
         },
         data () {
             return {
                 companyInfo: {},
-                value: ['이전', '2019 가을'],
-                range: ['이전', '2017 봄', '2017 여름', '2017 가을', '2017 겨울', '2018 봄', '2018 여름', '2018 가을', '2018 겨울', '2019 봄', '2019 여름', '2019 가을'],
+                value: [],
+                range: [],
                 sortCards: 'date',
                 sortedReview: {},
             }
