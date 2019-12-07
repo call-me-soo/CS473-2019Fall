@@ -15,14 +15,15 @@
             <v-row wrap justify="center" align="center">
                 <v-col cols="5">
                     <v-form ref="signUpForm" lazy-validation>
-                        <small>*항목은 필수입니다.</small>    
+                        <v-row><small class="alert">( * ) 항목은 필수입니다.</small></v-row>
+                        <v-row><small class="alert"> {{ errormsg }} </small></v-row> 
                         <v-row>
 
                             <v-col cols="12" sm="6">
                             <v-text-field
                                 v-model="username"
                                 :rules="[rules.required]"
-                                label="Username*"
+                                label="User ID*"
                                 required
                             ></v-text-field>
                             </v-col>
@@ -97,7 +98,6 @@ export default {
     components: { Toolbar },
     data() {
         return{
-            // isAuthenticated: false,
             signUpOpen: false,
             username:'',
             password:'',
@@ -106,7 +106,8 @@ export default {
             major: null,
             rules: {
                 required: v => !!v || '필수 입력 항목입니다.',
-            }
+            },
+            errormsg: ''
         }
     },
     methods: {
@@ -125,11 +126,13 @@ export default {
                 passwordConfirmation: this.passwordConfirmation,
                 major: this.major,
                 nickname: this.nickname
-            }).then((response)=>{
+            })
+            .then((response)=>{
                 this.$router.push('../../users');
                 console.log(response);
             }, error => {
-                console.log(error);
+                this.errormsg = error.response.data;
+                console.log(error.response);
             });
         }
     }
@@ -152,6 +155,10 @@ export default {
 
     .v-btn {
         letter-spacing: -0.02px;
+    }
+
+    .alert {
+        color: red;
     }
 
 </style>

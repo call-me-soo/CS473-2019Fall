@@ -24,14 +24,28 @@ app.get("/signup", function(req, res){
 
 // create
 app.post("/", function(req, res){
-    User.create(req.body, function(err, user){
-        if(err) {
-            req.flash("user", req.body);
-            req.flash("errors", parseError(err));
-            return res.json(err);
+    if(req.body.username == '' || req.body.password == '' || req.body.passwordConfirmation == '' || req.body.major == ''){
+        return res.status(400).send("필수 항목을 입력해주세요.")
+    }
+    User.findOne({username: req.body.username}, function(err, doc){
+        if (err) {
+            return res.status(500).send("MongoDB Error");
+        } else if (doc){
+            return res.status(400).send("이미 존재하는 ID입니다.");
+        } else {
+            if (req.body.password !== req.body.passwordConfirmation){
+                return res.status(400).send("확인 비밀번호가 일치하지 않습니다.");
+            }
+            User.create(req.body, function(err, user){
+                if (err){
+                    req.flash("user", req.body);
+                    req.flash("errors", parseError(err));
+                    return res.redirect('/signup');
+                }
+                return res.json({result: 1});
+            });
         }
-        res.json({result: 1});
-    });
+    })
 });
 
 //post Login
