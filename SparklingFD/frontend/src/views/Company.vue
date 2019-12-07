@@ -62,6 +62,7 @@
                                 :marks="true"
                                 :process-dragable="true"
                                 :height="5"
+                                @change="processData"
                         >
                         </vue-slider>
                     </v-col>
@@ -69,7 +70,7 @@
 
                 <v-row wrap class="pt-3 pb-3" justify="center" align="center">
                     <v-col cols="6">
-                        <LineChart></LineChart>
+                        <LineChart :data="this.processed" :label="this.label"></LineChart>
                     </v-col>
                     <v-col cols="3">
                         <RadarChart :data="this.companyInfo.star"></RadarChart>
@@ -156,7 +157,50 @@
                 }
             },
             processData() {
+                this.label = this.range.slice(this.range.indexOf(this.value[0]), this.range.indexOf(this.value[1]) + 1);
+                const temp = [];
+                const items = ['hardness', 'atmosphere', 'salary', 'learning', 'welfare'];
+                for (let i = 0; i < this.label.length; i++) {
+                    temp.push(0);
+                    this.processed['aggregate'].push(0);
+                    items.forEach(
+                        label => this.processed[label].push(0)
 
+                    )
+                }
+
+                this.companyInfo.reviews.forEach(
+                    element => {
+                        const index = this.label.indexOf(this.formatSemester(element.semester));
+                        temp[index] += 1;
+                        items.forEach(
+                            (label, id) => {
+                                this.processed[label][index] += element.review.star[id]
+                            }
+                        )
+                    }
+                );
+
+                items.forEach(
+                    label => {
+                        this.processed[label] = this.processed[label].map(function (element, index) {
+                            return element / temp[index];
+                        })
+                    }
+                );
+
+
+                for (let i = 0; i < this.range.length; i++){
+                    items.forEach(
+                        element => {
+                            this.processed['aggregate'][i] += this.processed[element][i]
+                        }
+                    )
+                    this.processed['aggregate'][i] = this.processed['aggregate'][i]/5
+                }
+            },
+            formatSemester(semester){
+                return semester.year + ' ' + this.numbertoSeason(semester.season)
             },
             numbertoSeason(number){
                 if (number===1){
@@ -168,7 +212,7 @@
                 } else {
                     return '겨울';
                 }
-            },
+            }
 
         },
         created () {
@@ -176,21 +220,45 @@
                 .then((response) => {
                     this.companyInfo = response.data;
                     this.toggleSort('date');
-                    const range = new Set();
+
                     this.companyInfo.reviews.forEach(
-                        element => range.add(`${element.semester.year}${element.semester.season}`)
+                        review => {
+                            this.range.push(review.semester)
+                        }
                     );
-                    this.range = Array.from(range).sort();
+
+                    this.range = this.range.filter((item, index) => this.range.indexOf(item) === index);
+
+                    this.range.sort((a, b) => {
+                        if (a['year'] === b['year']) {
+                            return a['season'] - b['season']
+                        } else {
+                            return a['year'] - b['year']
+                        }
+                    });
+
                     this.range = this.range.map(function (element) {
-                        return element.substring(0,4) + ' ' + this.numbertoSeason(element.substring(4,5));
+                        return this.formatSemester(element)
                     }.bind(this));
-                    this.value = [this.range[0], this.range[this.range.length-1]]
+
+                    this.value = [this.range[0], this.range[this.range.length-1]];
+                    this.label = this.range;
+                    this.processData();
                 });
         },
         data () {
             return {
                 companyInfo: {},
+                processed: {
+                    aggregate: [],
+                    hardness: [],
+                    atmosphere: [],
+                    salary: [],
+                    learning: [],
+                    welfare: []
+                },
                 value: [],
+                label: [],
                 range: [],
                 sortCards: 'date',
                 sortedReview: {},
