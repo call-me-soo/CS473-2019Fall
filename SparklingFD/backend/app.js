@@ -54,7 +54,7 @@ app.use('/api/getReview', cardsRouter);
 app.use('/api/setReview', setRouter);
 app.use('/api/cards', cardsRouter);
 
-// Custom Middlewares
+// middlewares
 app.use(function(req,res,next){
   res.locals.isAuthenticated = req.isAuthenticated();
   res.locals.currentUser = req.user;
