@@ -119,7 +119,6 @@ export default {
                 var name2 = ['넥타이','수트','조끼','셔츠','모자','슬랙스','목도리','구두','양말','후드티','명함','양복','단추','가방','백팩','지갑','추리닝','선글라스','스카프','장갑','명찰','폰케이스','스커트','턱시도','보타이','멜빵','와이셔츠','청바지','와이드진'];
                 this.nickname = name1[this.getRandomInt(0, name1.length)] + ' ' + name2[this.getRandomInt(0, name2.length)];
             }
-            console.log("before");
             this.$http.post('../../api/users/', {
                 username: this.username,
                 password: this.password,
@@ -127,8 +126,7 @@ export default {
                 major: this.major,
                 nickname: this.nickname
             }).then((response)=>{
-                // this.isAuthenticated=true;
-                this.$router.push('../../api/users/index');
+                this.$router.push('../../users');
                 console.log(response);
             }, error => {
                 console.log(error);
@@ -151,7 +149,7 @@ export default {
         font-weight: bold;
         height: 30px;
     }
-    
+
     .v-btn {
         letter-spacing: -0.02px;
     }
