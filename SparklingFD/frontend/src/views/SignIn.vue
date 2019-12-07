@@ -21,7 +21,7 @@
                                 <v-text-field
                                     v-model="username"
                                     :rules="[rules.required]"
-                                    label="username"
+                                    label="User ID"
                                     required
                                 ></v-text-field>
                             </v-col>
