@@ -12,9 +12,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var companiesRouter = require('./routes/companies');
 var searchRouter = require('./routes/searches')
-var cardsRouter = require('./routes/cards');
-var setRouter = require('./routes/setreviews');
-
+var reviewsRouter = require('./routes/reviews');
 
 var app = express();
 
@@ -50,9 +48,7 @@ app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/getCompanyInfo', companiesRouter);
 app.use('/api/searchQuery', searchRouter);
-app.use('/api/getReview', cardsRouter);
-app.use('/api/setReview', setRouter);
-app.use('/api/cards', cardsRouter);
+app.use('/api/reviews', reviewsRouter);
 
 // middlewares
 app.use(function(req,res,next){
