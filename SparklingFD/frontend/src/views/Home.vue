@@ -83,12 +83,12 @@ export default {
   name: 'home',
   components: {ToolBar, ReviewCardSlick, logo, searchBar, searchFilter, reviewCardSmall },
   mounted() {
-      this.$http.get('../../api/cards')
+      this.$http.get('../../api/reviews/best')
       .then((response) => {
               this.bestReviews = response.data;
           });
 
-      this.$http.get('../../api/getReview')
+      this.$http.get('../../api/reviews/')
           .then((response) => {
               this.recentReviews = response.data;
           });
