@@ -30,7 +30,7 @@
             <v-row wrap class="pt-5">
                 <v-col cols="4">
                     <v-row wrap class="pl-3" justify="center">
-                        <RadarChart :star="review.review.star" style="width:200px"></RadarChart>
+                        <RadarChart :data="review.review.star" style="width:200px"></RadarChart>
                     </v-row>
                     <v-row wrap class="pt-2" justify="center" align="baseline">
                         <v-col class="text-center">
@@ -132,6 +132,9 @@
     export default {
         name: "ReviewDialog",
         components: {RadarChart},
+        mounted() {
+          console.log("mounted");
+        },
         props: {
             visible: {
                 type: Boolean,
