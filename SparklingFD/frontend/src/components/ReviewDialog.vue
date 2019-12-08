@@ -132,9 +132,6 @@
     export default {
         name: "ReviewDialog",
         components: {RadarChart},
-        mounted() {
-          console.log("mounted");
-        },
         props: {
             visible: {
                 type: Boolean,

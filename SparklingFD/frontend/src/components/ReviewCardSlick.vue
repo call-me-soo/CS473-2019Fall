@@ -175,11 +175,6 @@
           this.modalVisible = true;
           this.review = review;
         }
-      },
-      computed: {
-      },
-      mounted() {
-
       }
     }
 </script>
