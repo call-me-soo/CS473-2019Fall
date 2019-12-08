@@ -19,7 +19,7 @@ router.get('/best', function(req, res){
     Review.find().sort({like:-1}).limit(10).exec(function(err, doc){
         if (err) return res.status(500).send("MongoDB error");
         if (!doc) return res.status(404).send("Review not found");
-        res.json({doc});
+        res.json(doc);
     })
 })
 
@@ -29,7 +29,7 @@ router.get('/:id', function(req, res){
     Review.findOne({id: req.params.id}, function(err, doc){
         if (err) return res.status(500).send("MongoDB error");
         if (!doc) return res.status(404).send("Review not found");
-        res.json({doc});
+        res.json(doc);
     })
 })
 
