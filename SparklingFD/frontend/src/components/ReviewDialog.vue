@@ -73,7 +73,7 @@
                 </v-col>
                 <v-col cols="8">
                     <v-row class="pb-3">
-                        <div class="sub-title-2-large pr-2">급여</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{review.review.salary}}</div>
+                        <div class="sub-title-2-large pr-2">급여</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{review.review.salary}}만원 ( 상위 {{review.review.salaryPercent}}% )</div>
                     </v-row>
                     <v-row wrap align="baseline">
                         <v-col cols="6">
