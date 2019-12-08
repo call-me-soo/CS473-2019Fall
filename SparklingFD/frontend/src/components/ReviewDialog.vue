@@ -12,7 +12,30 @@
                            class="d-inline-flex pb-4">
                         <v-flex class="card-title-large pr-2">{{review.company.name}}</v-flex>
                         <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}</v-flex>
-                        <v-btn class="ml-2" rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
+                        <v-btn-toggle
+                            v-model="like"
+                            class="ml-2"
+                            color="#FFCF57"
+                            group
+                            rounded
+                        >
+                            <v-btn
+                                :disabled="!isAuthenticated"
+                                small
+                                outlined
+                                rounded
+                                text
+                                @click="updateLike"
+                            >
+                                <v-icon
+                                    class="mr-1"
+                                    small   
+                                >
+                                    mdi-thumb-up
+                                </v-icon>
+                                {{review.like}}
+                            </v-btn>
+                        </v-btn-toggle>
                     </v-row>
                     <v-row wrap>
                         <v-flex class="card-content-large">
@@ -142,8 +165,28 @@
                 required: true
             }
         },
+        computed: {
+            // v-show="isAuthenticated"를 써서 디브가 로그인했을때만 보이게 할 수 있습니당! 
+            isAuthenticated() {
+            if(this.$store.state._id){
+                return true
+            }
+            return false
+            },
+
+            // {{ nickname }}으로 참조하면 됩니당!
+            nickname() {
+            return this.$store.state.nickname;
+            },
+
+            // {{ major }}로 참조하면 됩니당!
+            major() {
+            return this.$store.state.major;
+            }
+        },
         data () {
             return {
+                like: 1
             }
         },
         methods: {
@@ -163,6 +206,9 @@
             },
             close() {
                 this.$emit('update:visible', false)
+            },
+            updateLike() {
+                this.$http.put('../../api/reviews/like/' + this.review.id);
             }
         }
     }

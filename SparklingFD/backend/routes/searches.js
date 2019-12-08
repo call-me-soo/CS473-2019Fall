@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var reviews = require('../reviews.json');
-var companies = require('../companies.json');
+var reviews = require('../exampleReviews.json');
+var companies = require('../exampleCompanies.json');
 var bodyParser = require('body-parser');
 const Company = require('../models/company');
 
