@@ -3,6 +3,9 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 const Review = require('../models/review');
 
+var sumReview = 0;
+var sumSalary = [];
+
 //모든 리뷰 불러오기
 router.get('/', function(req, res){
     Review.find(function(err, reviews){
@@ -52,14 +55,27 @@ router.get("/new", function(req, res){
 
 //리뷰 제출하기
 router.post('/', function(req, res){
-    Review.create(req.body.body, function(err, review){
+    req.body.id = sumReview + 1; // id
+
+    var sumSalaryTemp = sumSalary;
+    sumSalaryTemp[sumReview] = req.body.salary
+    sumSalaryTemp.sort((n, m) => n - m);
+    var normalizedSalary = (sumSalaryTemp.indexOf(req.body.salary) + 1) / (sumReview + 1)
+    req.body.review.star[4] = 5 * normalizedSalary; // star[4]
+    req.body.review.salaryPercent = (1 - normalizedSalary) * 100; // salaryPercent
+
+    req.body.review.aggregate = req.body.review.star.reduce((a, b) => a + b, 0) / 5; //aggregate
+
+    Review.create(req.body, function(err, review){
         if (err) {
-            req.flash("review", req.body.body);
+            req.flash("review", req.body);
             req.flash("error", err);
             return res.redirect('/reviews/new');
         }
+        sumReview++;
+        sumSalary = sumSalaryTemp;
         return res.json({result: 1});
-    })
+    });
 })
 
 //한 회사에 대한 리뷰 불러오기
