@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="visible" max-width="1000px" @click:outside="handleWrapperClick">
+    <v-dialog v-model="visible" max-width="1000px" @click:outside="handleWrapperClick" @keydown.esc="handleWrapperClick">
         <v-card class="card korean">
             <v-row wrap>
                 <v-spacer></v-spacer>
