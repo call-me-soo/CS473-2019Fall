@@ -1,6 +1,8 @@
 <template>
   <v-app>
-    <ToolBar @keydown.enter.native="search"></ToolBar>
+    <ToolBar ref="ToolBar"
+      @keydown.enter.native="search"
+    ></ToolBar>
     <v-content>
       <v-container
               fluid
@@ -45,7 +47,9 @@
           </v-col>
         </v-row>
 
-        <ReviewCardSlick :bestReviews.sync="bestReviews"></ReviewCardSlick>
+        <reviewCardSlick
+                :bestReviews="bestReviews"
+        ></reviewCardSlick>
 
         <v-row justify="center" align="center" class="mt-10">
           <v-col cols="11">
@@ -74,24 +78,24 @@
   import logo from "../components/Logo";
   import searchBar from "../components/SearchBar";
   import searchFilter from "../components/SearchFilter"
-  import ReviewCardSlick from "../components/ReviewCardSlick";
+  import reviewCardSlick from "../components/ReviewCardSlick";
   import reviewCardSmall from "../components/ReviewCardSmall";
 
   import "../assets/css/style.css";
 
 export default {
   name: 'home',
-  components: {ToolBar, ReviewCardSlick, logo, searchBar, searchFilter, reviewCardSmall },
+  components: {ToolBar, reviewCardSlick, logo, searchBar, searchFilter, reviewCardSmall },
   mounted() {
       this.$http.get('../../api/cards')
       .then((response) => {
               this.bestReviews = response.data;
-          });
+          })
 
       this.$http.get('../../api/getReview')
           .then((response) => {
               this.recentReviews = response.data;
-          });
+          })
   },
   data() {
         return {

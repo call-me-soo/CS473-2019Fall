@@ -81,6 +81,7 @@ export default {
     // {{ department }}로 참조하면 됩니당!
     department() {
       return this.$store.state.department;
+      
     // reference as {{ major }}
     major() {
       return this.$store.state.major;
