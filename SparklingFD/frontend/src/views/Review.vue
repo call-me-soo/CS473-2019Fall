@@ -28,7 +28,7 @@
                                 <v-overflow-btn
                                         class="mr-10"
                                         :items="yearOption"
-                                        v-model="yearOption"
+                                        v-model="review.semester.year"
                                         label="년도"
                                         editable
                                         item-value="text"
@@ -37,7 +37,7 @@
                                 <v-overflow-btn
                                         class="mr-5"
                                         :items="seasonOption"
-                                        v-model="seasonOption"
+                                        v-model="review.semester.season"
                                         label="학기"
                                         editable
                                         item-value="text"
@@ -228,6 +228,7 @@
                 this.review.company.id = this.companyInfo.ID;
                 this.review.company.name = this.companyInfo.name;
                 this.review.company.src = this.companyInfo.src;
+                this.review.id = this.companyInfo.reviews.length;
                 this.review.review.aggregate = (this.review.review.star[0] + this.review.review.star[1] + this.review.review.star[2] + this.review.review.star[3]) / 4;
                 // this.review.user = this.user;
                 axios.post(`../../api/setReview`, {
