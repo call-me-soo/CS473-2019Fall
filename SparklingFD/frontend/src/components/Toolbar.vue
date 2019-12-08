@@ -88,9 +88,9 @@ export default {
       return this.$store.state.nickname;
     },
 
-    // {{ department }}로 참조하면 됩니당!
-    department() {
-      return this.$store.state.department;
+    // {{ major }}로 참조하면 됩니당!
+    major() {
+      return this.$store.state.major;
     }
     
   },

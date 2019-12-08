@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
     username: {type: String, required: [true, "Username is required"], unique: true},
     password: {type: String, required: [true, "Password is required"], select: false},
-    department: {type: String, required: [true, "department is required"]},
+    major: {type: String, required: [true, "major is required"]},
     nickname: {type: String, required: [true, "Nickname is required"]}
 }, {
     toObject: {virtuals: true}

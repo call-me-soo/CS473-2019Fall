@@ -8,19 +8,19 @@ export default new Vuex.Store({
     state: {
         _id: null,
         nickname: null,
-        department: null
+        major: null
     },
 
     mutations: {
-        LOGIN (state, { _id, nickname, department }) {
+        LOGIN (state, { _id, nickname, major }) {
             state._id = _id
             state.nickname = nickname
-            state.department = department
+            state.major = major
         },
         LOGOUT (state) {
             state._id = null
             state.nickname = null
-            state.department = null
+            state.major = null
         }
     },
 

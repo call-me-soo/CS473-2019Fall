@@ -214,9 +214,9 @@
                 return this.$store.state.nickname;
             },
 
-            // {{ department }}로 참조하면 됩니당!
-            department() {
-                return this.$store.state.department;
+            // {{ major }}로 참조하면 됩니당!
+            major() {
+                return this.$store.state.major;
             }
         },
         methods: {
@@ -281,7 +281,7 @@
                         src: ""
                     },
                     user: {
-                        department: this.$store.state.department,
+                        major: this.$store.state.major,
                         nickname: this.$store.state.nickname
                     },
                     semester: {
