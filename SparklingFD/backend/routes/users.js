@@ -24,7 +24,7 @@ app.get("/signup", function(req, res){
 
 // create
 app.post("/", function(req, res){
-    if(req.body.username == '' || req.body.password == '' || req.body.passwordConfirmation == '' || req.body.major == ''){
+    if(req.body.username == '' || req.body.password == '' || req.body.passwordConfirmation == '' || req.body.department == ''){
         return res.status(400).send("필수 항목을 입력해주세요.")
     }
     User.findOne({username: req.body.username}, function(err, doc){
@@ -58,7 +58,7 @@ app.post('/signin', (req, res, next) => {
             return res.json({
                 _id: user._id,
                 nickname: currentUser.nickname,
-                major: currentUser.major
+                department: currentUser.department
             })
         })
     })(req, res, next)

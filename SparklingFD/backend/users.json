@@ -2,13 +2,13 @@
     {
         "username": "sana",
         "password": "tksktksk",
-        "major": "전산학부",
+        "department": "전산학부",
         "nickname": "빨간 넥타이"
     },
     {
         "username": "cs473",
         "password": "sohard",
-        "major": "전산학부",
+        "department": "전산학부",
         "nickname": "검은 호랑이"
     }
 ]

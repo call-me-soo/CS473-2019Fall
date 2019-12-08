@@ -208,6 +208,15 @@
         computed: {
             param: function () {
                 return this.$route.params;
+            },
+            // {{ nickname }}으로 참조하면 됩니당!
+            nickname() {
+                return this.$store.state.nickname;
+            },
+
+            // {{ department }}로 참조하면 됩니당!
+            department() {
+                return this.$store.state.department;
             }
         },
         methods: {
@@ -216,19 +225,34 @@
             },
             postPost() {
                 console.log("제발 좀 돼라")
-                this.review.company = this.companyInfo;
+                this.review.company.id = this.companyInfo.ID;
+                this.review.company.name = this.companyInfo.name;
+                this.review.company.src = this.companyInfo.src;
+                this.review.review.aggregate = (this.review.review.star[0] + this.review.review.star[1] + this.review.review.star[2] + this.review.review.star[3]) / 4;
                 // this.review.user = this.user;
                 axios.post(`../../api/setReview`, {
                     body: this.review
                 })
-                .then(response => {console.log(response)})
-                // .then(this.$router.push({path: '../../company/' + this.companyInfo.ID}))
+                // .then(response => {console.log(response)})
+                .then(this.$router.push({path: '../../company/' + this.companyInfo.ID}))
                 .catch(e => {
                     this.errors.push(e)
                     console.log("너무 안되는구나")
                     console.log(this.errors)
                 })
                 console.log("여기는 잘됨")
+                console.log(this.review)
+                axios.put(`../../api/getCompanyInfo/mod/`+this.companyInfo.ID, {
+                    body: this.review
+                })
+                // .then(response => {console.log(response)})
+                .then(this.$router.push({path: '../../company/' + this.companyInfo.ID}))
+                .catch(e => {
+                    this.errors.push(e)
+                    console.log("너무 안되는구나2")
+                    console.log(this.errors)
+                })
+                console.log("여기는 잘됨2")
                 console.log(this.review)
             }
         },
@@ -250,12 +274,17 @@
                 // }
                 review: {
                     id: 0,
-                    company: this.companyInfo,
+                    company: {
+                        id: 0,
+                        name: "",
+                        src: ""
+                    },
                     user: {
-                        
+                        department: this.$store.state.department,
+                        nickname: this.$store.state.nickname
                     },
                     semester: {
-                        year: "",
+                        year: 0,
                         season: ""
                     },
                     like: 0,

@@ -59,10 +59,10 @@
 
                             <v-col cols="12" sm="6">
                             <v-select
-                                v-model="major"
+                                v-model="department"
                                 :items="['전산과', '기계과', '전자과', '산디과', '기타']"
                                 :rules="[rules.required]"
-                                label="Major*"
+                                label="department*"
                                 required
                             ></v-select>
                             </v-col>
@@ -103,7 +103,7 @@ export default {
             password:'',
             passwordConfirmation:'',
             nickname:'',
-            major: null,
+            department: null,
             rules: {
                 required: v => !!v || '필수 입력 항목입니다.',
             },
@@ -124,7 +124,7 @@ export default {
                 username: this.username,
                 password: this.password,
                 passwordConfirmation: this.passwordConfirmation,
-                major: this.major,
+                department: this.department,
                 nickname: this.nickname
             })
             .then((response)=>{

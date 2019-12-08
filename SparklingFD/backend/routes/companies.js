@@ -41,6 +41,42 @@ router.post('/add', function(req, res){
 
   });
 });
+router.put('/mod/:companyId', function(req, res){
+  console.log("컴패니 아이디는");
+  console.log(req.params.companyId);
+  console.log("내용은");
+  console.log(req.body.body);
+  console.log(req.body.body.review);
+  Company.findOneAndUpdate({ID: req.params.companyId}, {$push: {reviews: req.body.body}}, function(err, company){
+    console.log("찾으면");
+    console.log(company);
+    if(err) return res.status(500).json({ error: 'database failure' });
+    if(!company) return res.status(404).json({ error: 'company not found' });
+  })
+  // Company.findOne({ID: req.params.companyId} {$push: {reviews: req.body.body.review}}, function(err, company){
+  //   console.log("찾으면");
+  //   console.log(company);
+  //   if(err) return res.status(500).json({ error: 'database failure' });
+  //   if(!company) return res.status(404).json({ error: 'company not found' });
+
+  //   if(req.body.body.review) company.reviews = company.reviews.append(req.body.body.review);
+  //   console.log("들어갈땐");
+  //   console.log(company.reviews);
+  //     company.save(function(err){
+  //     if(err){
+  //         console.error(err);
+  //         res.json({result: 0});
+  //         return;
+  //     }
+
+  //     res.json({result: 1});
+  //   })
+  // })
+
+});
+// { _id: req.body.id }, 
+//    { $push: { friends: objFriends  } },
+
 // router.get('/', function(req, res, next) {
 //   res.send(companies)
 // });

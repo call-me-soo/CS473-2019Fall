@@ -2,7 +2,7 @@
     {
         "id": 1,
         "company": {"id": 1, "name": "SK하이닉스", "src": "/"},
-        "user": {"id": 1, "major": "전산학부", "nickname": "빨간 넥타이"},
+        "user": {"id": 1, "department": "전산학부", "nickname": "빨간 넥타이"},
         "semester": {"year": 2019, "season": 1},
         "like": 57,
         "review": {
@@ -14,7 +14,7 @@
     {
         "id": 2,
         "company": {"id": 2, "name": "삼성", "src": "/"},
-        "user": {"id": 2, "major": "전산학부", "nickname": "검은 호랑이"},
+        "user": {"id": 2, "department": "전산학부", "nickname": "검은 호랑이"},
         "semester": {"year": 2018, "season": 2},
         "like": 33,
         "review": {

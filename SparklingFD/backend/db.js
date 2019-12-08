@@ -9,4 +9,4 @@
 // });
 
 // // mongoose.connect('mongodb://localhost/mongodb_tutorial');
-// mongoose.connect('mongodb+srv://sana:tksktksk@cluster0-dz2oh.mongodb.net/test?retryWrites=true&w=majority');
+// mongoose.connect('mongodb+srv://sana:tksktksk@cluster0-dz2oh.mongodb.net/test?retryWrites=true&w=departmentity');

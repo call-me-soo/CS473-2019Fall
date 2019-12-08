@@ -113,7 +113,6 @@
                                        :key="companyInfo.reviews.indexOf(review)"
                                        :review="review"
                         >
-
                         </ReviewCardBig>
 
                     </v-col>
