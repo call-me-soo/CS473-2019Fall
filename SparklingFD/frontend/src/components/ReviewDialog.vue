@@ -208,7 +208,7 @@
                 this.$emit('update:visible', false)
             },
             updateLike() {
-                this.$http.put('../../api/reviews/like' + this.$route.params.id);
+                this.$http.put('../../api/reviews/like/' + this.review.id);
             }
         }
     }
