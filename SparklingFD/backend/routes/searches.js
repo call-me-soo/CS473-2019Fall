@@ -20,24 +20,15 @@ router.get('/userinput', function (req, res){
     var salary_start = parseInt(req.query.salary)
     var learn_start = parseInt(req.query.learn)
     var welfare_start = parseInt(req.query.welfare)
-    if(req.query.input == "aa"){
-        Company.find({$and: [{"star.0":{$gte:harness_start}},
-                                    {"star.1":{$gte:atmosphere_start}},
-                                    {"star.2":{$gte:salary_start}},
-                                    {"star.3":{$gte:learn_start}},
-                                    {"star.4":{$gte:welfare_start}}]}, function(err, companies) {
-            if(err) return res.status(500).json({error: err});
-            if(!companies) return res.status(404).json({error: 'company not found'});
-            res.json(companies);
-        })
-    }
-    else{
-        Company.find({"name":req.query.input}, function(err, companies) {
-            if(err) return res.status(500).json({error: err});
-            if(!companies) return res.status(404).json({error: 'company not found'});
-            res.json(companies);
-        })
-    }
+    Company.find({$or: [{$and: [{"star.0":{$gte:harness_start}},
+    {"star.1":{$gte:atmosphere_start}},
+    {"star.2":{$gte:salary_start}},
+    {"star.3":{$gte:learn_start}},
+    {"star.4":{$gte:welfare_start}}]}, {"name":req.query.input}]}, function(err, companies) {
+        if(err) return res.status(500).json({error: err});
+        if(!companies) return res.status(404).json({error: 'company not found'});
+        res.json(companies);
+    })
 })
 // router.get('/', function(req, res, next) {
 //   res.send(reviews)
