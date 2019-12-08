@@ -13,7 +13,8 @@
                      v-for="review in (bestReviews.length > 0 ? bestReviews : placeholder)"
                      :key="bestReviews.indexOf(review)"
               >
-                <v-card class="pa-3 card" @click.stop="modalOpen(review)">
+                <v-card class="pa-3 card" @click.stop="modalOpen">
+                  <ReviewDialog :visible.sync="modalVisible" :review="review"></ReviewDialog>
                   <v-row wrap
                          class="korean pl-9 pt-3 pa-3"
                   >
@@ -33,7 +34,7 @@
                     </v-col>
                     <v-col cols="4">
                       <v-row wrap class="pl-3" justify="center">
-                        <radarChart :data="review.review.star"></radarChart>
+                        <radarChart :star="review.review.star"></radarChart>
                       </v-row>
                       <v-row wrap class="pt-2" justify="center" align="baseline">
                         <v-col class="text-center">
@@ -57,8 +58,6 @@
               </slick>
           </v-col>
       </v-row>
-      <ReviewDialog :visible.sync="modalVisible" :review="this.review"></ReviewDialog>
-
     </div>
     <div class="d-md-none">
       <v-row justify="center">
@@ -122,7 +121,6 @@
       },
 		data() {
           return {
-            review: {},
             modalVisible: false,
             placeholder: [{id: 1}],
             slickOptions: {
@@ -171,10 +169,14 @@
         routeToCompany() {
           this.$router.push({path: '../../company/' + this.$parent.id})
         },
-        modalOpen(review) {
+        modalOpen() {
           this.modalVisible = true;
-          this.review = review;
         }
+      },
+      computed: {
+      },
+      mounted() {
+
       }
     }
 </script>

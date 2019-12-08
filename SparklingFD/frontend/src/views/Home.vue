@@ -110,7 +110,6 @@ export default {
   },
   methods: {
     search () {
-      console.log(this.searchInput)
       if (this.filterSelected[0]) {
         this.searchQuery['harness'] = this.filterRating[0]
       }

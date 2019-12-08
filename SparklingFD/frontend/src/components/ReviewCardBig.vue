@@ -1,8 +1,7 @@
 <template>
     <v-flex>
         <div class="d-none d-md-inline">
-            <ReviewDialog :visible.sync="modalVisible" :review="review"></ReviewDialog>
-            <v-card class="card korean mt-4 mb-4" @click.stop="modalOpen">
+            <v-card class="card korean mt-4 mb-4">
                 <v-row class="pl-12 pa-5" wrap>
                     <v-col class="korean" cols="8">
                         <v-row wrap
@@ -13,14 +12,14 @@
                             <v-btn class="ml-2" rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
                         </v-row>
                         <v-row wrap>
-                            <v-flex class="card-content-large">
+                            <v-flex class="card-content-large" @click="$refs.modal.showModal=true">
                                 {{review.review.content}}
                             </v-flex>
                         </v-row>
                     </v-col>
                     <v-col cols="4">
                         <v-row wrap class="pl-3" justify="center">
-                            <RadarChart v-bind:data="review.review.star"></RadarChart>
+                            <radarChart></radarChart>
                         </v-row>
                         <v-row wrap class="pt-2" justify="center" align="baseline">
                             <v-col class="text-center">
@@ -41,18 +40,22 @@
 
             </v-card>
         </div>
+
+        <ReviewDialog ref="modal"
+                      :review.sync="review"
+        ></ReviewDialog>
     </v-flex>
 
 </template>
 
 <script>
 
-    import RadarChart from '../components/RadarChart';
+    import radarChart from '../components/RadarChart';
     import ReviewDialog from "./ReviewDialog";
 
     export default {
         name: "ReviewCardBig",
-        components: { RadarChart, ReviewDialog },
+        components: { radarChart, ReviewDialog },
         props: {
           review: {
               type: Object,
@@ -61,23 +64,19 @@
         },
         data () {
             return {
-                modalVisible: false,
             }
         },
         methods: {
             numbertoSeason(number){
-                if (number===1){
+                if (number==1){
                     return '봄';
-                } else if (number===2){
+                } else if (number==2){
                     return '여름';
-                } else if (number===3){
+                } else if (number==3){
                     return '가을';
                 } else {
                     return '겨울';
                 }
-            },
-            modalOpen() {
-                this.modalVisible = true;
             }
         }
     }
@@ -87,9 +86,6 @@
     .card {
         height: 260px;
         background-color: white;
-        border-radius: 10px !important;
-        box-shadow: 0 4px 10px rgba(0,0,0, 0.08) !important;
-        width: 98% !important;
     }
 
     .card-title-large {

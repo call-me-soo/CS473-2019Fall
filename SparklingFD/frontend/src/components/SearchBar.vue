@@ -2,7 +2,6 @@
   <v-flex class="flex-grow-1">
     <v-flex class="d-none d-md-flex">
       <v-text-field
-              v-model="userInput"
               class="search korean"
               solo
               flat
@@ -11,13 +10,12 @@
               label="회사명 또는 지역을 입력해주세요 :)"
               background-color="white"
               prepend-inner-icon="mdi-magnify"
-              @input="onCallBack"
+              @change="onCallBack"
       >
       </v-text-field>
     </v-flex>
     <v-flex class="d-md-none">
       <v-text-field
-              v-model="userInput"
               class="search korean"
               solo
               flat
@@ -26,7 +24,7 @@
               label="회사명 또는 지역"
               background-color="white"
               prepend-inner-icon="mdi-magnify"
-              @input="onCallBack"
+              @change="onCallBack"
       >
       </v-text-field>
     </v-flex>
@@ -46,12 +44,12 @@
     },
     data() {
       return {
-        userInput: ''
+        // userInput: ''
       }
     },
     methods: {
-      onCallBack(){
-        this.$emit('update:searchInput', this.userInput);
+      onCallBack(searchInput){
+        this.$emit('update:searchInput', searchInput);
       }
     }
 

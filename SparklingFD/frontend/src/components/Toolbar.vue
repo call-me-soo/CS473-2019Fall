@@ -9,10 +9,20 @@
 
       <v-col cols="7" v-show="!isHome">
         <v-row align="center">
-          <searchBar
-                  :searchInput.sync="searchInput"
-                  @keydown.enter.native="search"
-          ></searchBar>
+          <v-flex class="d-none d-md-flex">
+            <v-text-field
+                    class="search korean"
+                    solo
+                    flat
+                    rounded
+                    hide-details
+                    label="회사명 또는 지역을 입력해주세요 :)"
+                    background-color="white"
+                    prepend-inner-icon="mdi-magnify"
+                    @change="onCallBack"
+            >
+            </v-text-field>
+          </v-flex>
             <v-btn @click="filterOpen=!filterOpen" class="ml-5" color="white" small fab depressed>
               <v-icon>mdi-filter-variant</v-icon>
             </v-btn>
@@ -46,12 +56,12 @@
 
 <script>
 
-import SearchBar from "./SearchBar";
+// import SearchBar from "./SearchBar";
 import searchFilter from "./SearchFilter";
 import "../assets/css/style.css";
 export default {
   name: "Toolbar",
-  components: { searchFilter, SearchBar },
+  components: { searchFilter },
   created() {
     if (this.$route.path == '/') this.isHome = true;
     else this.isHome = false;
@@ -65,7 +75,7 @@ export default {
     });
   },
   computed: {
-    // only show when v-show="isAuthenticated"
+    // v-show="isAuthenticated"를 써서 디브가 로그인했을때만 보이게 할 수 있습니당! 
     isAuthenticated() {
       if(this.$store.state._id){
         return true
@@ -73,7 +83,7 @@ export default {
       return false
     },
 
-    // reference as {{ nickname }}
+    // {{ nickname }}으로 참조하면 됩니당!
     nickname() {
       return this.$store.state.nickname;
     },
@@ -81,10 +91,6 @@ export default {
     // {{ department }}로 참조하면 됩니당!
     department() {
       return this.$store.state.department;
-      
-    // reference as {{ major }}
-    major() {
-      return this.$store.state.major;
     }
     
   },
@@ -97,7 +103,6 @@ export default {
       filterRating: [0,0,0,0,0],
       filterSelected: [false, false, false, false, false],
       showFilter: false,
-      searchQuery: {},
     }
   },
   methods: {
@@ -115,45 +120,6 @@ export default {
     },
     signUpOpen () {
       this.$router.push('../../signup');
-    },
-    search () {
-      if (this.filterSelected[0]) {
-        this.searchQuery['harness'] = this.filterRating[0]
-      }
-      if(this.searchQuery.harness == undefined){
-        this.searchQuery.harness = 5
-      }
-      if (this.filterSelected[1]) {
-        this.searchQuery['atmosphere'] = this.filterRating[1]
-      }
-      if(this.searchQuery.atmosphere == undefined){
-        this.searchQuery.atmosphere = 5
-      }
-      if (this.filterSelected[2]) {
-        this.searchQuery['salary'] = this.filterRating[2]
-      }
-      if(this.searchQuery.salary == undefined){
-        this.searchQuery.salary = 5
-      }
-      if (this.filterSelected[3]) {
-        this.searchQuery['learn'] = this.filterRating[3]
-      }
-      if(this.searchQuery.learn == undefined){
-        this.searchQuery.learn = 5
-      }
-      if (this.filterSelected[4]) {
-        this.searchQuery['welfare'] = this.filterRating[4]
-      }
-      if(this.searchQuery.welfare == undefined){
-        this.searchQuery.welfare = 5
-      }
-      if(this.searchInput == '' || this.searchInput == undefined){
-        console.log('undefined')
-        this.$router.push({path: '/search/' + 'aa' + '/harness=' + this.searchQuery.harness + '&atmosphere=' + this.searchQuery.atmosphere + '&salary=' + this.searchQuery.salary + '&learn=' + this.searchQuery.learn + '&welfare=' + this.searchQuery.welfare})
-      }else {
-        console.log('asdf')
-        this.$router.push({path: '/search/' + this.searchInput + '/harness=' + this.searchQuery.harness + '&atmosphere=' + this.searchQuery.atmosphere + '&salary=' + this.searchQuery.salary + '&learn=' + this.searchQuery.learn + '&welfare=' + this.searchQuery.welfare})
-      }
     }
   }
 }
