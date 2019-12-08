@@ -87,6 +87,9 @@
     .card {
         height: 260px;
         background-color: white;
+        border-radius: 10px !important;
+        box-shadow: 0 4px 10px rgba(0,0,0, 0.08) !important;
+        width: 98% !important;
     }
 
     .card-title-large {

@@ -55,7 +55,7 @@
                     <v-col cols="9">
                         <vue-slider
                                 ref="slider"
-                                v-model="value"
+                                v-model="inputRange"
                                 :adsorb="true"
                                 :interval="1"
                                 :data="range"
@@ -73,7 +73,7 @@
                         <LineChart :data="this.processed" :label="this.label"></LineChart>
                     </v-col>
                     <v-col cols="3">
-                        <RadarChart :data="this.companyInfo.star"></RadarChart>
+                        <RadarChart :data="this.star"></RadarChart>
                     </v-col>
                 </v-row>
 
@@ -157,7 +157,7 @@
                 }
             },
             processData() {
-                this.label = this.range.slice(this.range.indexOf(this.value[0]), this.range.indexOf(this.value[1]) + 1);
+                this.label = this.range.slice(this.range.indexOf(this.inputRange[0]), this.range.indexOf(this.inputRange[1]) + 1);
                 const temp = [];
                 const items = ['hardness', 'atmosphere', 'salary', 'learning', 'welfare'];
                 for (let i = 0; i < this.label.length; i++) {
@@ -198,6 +198,13 @@
                     )
                     this.processed['aggregate'][i] = this.processed['aggregate'][i]/5
                 }
+
+                items.forEach(
+                    (element, index) => {
+                        this.star[index] = this.processed[element].reduce((a,b) => a + b, 0) / this.processed[element].length;
+
+                    }
+                )
             },
             formatSemester(semester){
                 return semester.year + ' ' + this.numbertoSeason(semester.season)
@@ -241,7 +248,7 @@
                         return this.formatSemester(element)
                     }.bind(this));
 
-                    this.value = [this.range[0], this.range[this.range.length-1]];
+                    this.inputRange = [this.range[0], this.range[this.range.length-1]];
                     this.label = this.range;
                     this.processData();
                 });
@@ -257,9 +264,10 @@
                     learning: [],
                     welfare: []
                 },
-                value: [],
-                label: [],
-                range: [],
+                inputRange: [], //user input about semester range
+                label: [], //sliced range for line chart
+                range: [], //review exist range
+                star: [0,0,0,0,0], //star for radar chart
                 sortCards: 'date',
                 sortedReview: {},
             }
