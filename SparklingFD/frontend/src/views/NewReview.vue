@@ -218,7 +218,7 @@
                 console.log("제발 좀 돼라")
                 this.review.company = this.companyInfo;
                 // this.review.user = this.user;
-                axios.post(`../../api/setReview`, {
+                axios.post(`../../api/reviews/`, {
                     body: this.review
                 })
                 .then(response => {console.log(response)})
