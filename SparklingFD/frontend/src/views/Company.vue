@@ -139,7 +139,7 @@
         },
         methods: {
             routeToReview() {
-                this.$router.push({path: '../../review/new/company' + this.companyInfo.ID})
+                this.$router.push({path: '../../newreview/company/' + this.companyInfo.ID})
             },
             toggleSort() {
                 if (this.sortCards === 'date'){
