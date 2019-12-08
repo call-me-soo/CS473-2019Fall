@@ -3,7 +3,6 @@
         <v-content>
             <Toolbar ref="toolbar"
                     :searchInput.sync="searchInput"
-                    @keydown.enter.native="search"
             ></Toolbar>
             <v-container>
                 <v-row wrap class="pt-5" justify="center" align="center" >
@@ -53,23 +52,28 @@
         name: "Search",
         components: {Toolbar, CompanyCard },
         created() {
-            console.log(this.$route.params.userInput)
-            this.$http.get('../../api/searchQuery/userinput?input='
-                + this.$route.params.userInput + '&'
-                + this.$route.params.query)
-                .then((response) => {
-                    this.companyInfo = response.data;
-                    console.log(this.companyInfo);
-                })
+            this.load()
+        },
+        methods: {
+            load: function(){
+                this.$http.get('../../api/searchQuery/userinput?input='
+                    + this.$route.params.userInput + '&'
+                    + this.$route.params.query)
+                    .then((response) => {
+                        this.companyInfo = response.data;
+                    });
+            }
         },
         data () {
             return {
                 filters: ['전체 평점', '업무 강도', '분위기', '급여', '배우는 것', '사내 복지'],
                 companyInfo: [],
+
             }
         },
-        methods: {
-            search() {
+        watch: {
+            '$route.params': function() {
+                this.load()
             }
         }
     }
