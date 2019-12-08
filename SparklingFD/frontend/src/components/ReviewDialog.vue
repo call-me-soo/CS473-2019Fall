@@ -73,7 +73,7 @@
                 </v-col>
                 <v-col cols="8">
                     <v-row class="pb-3">
-                        <div class="sub-title-2-large pr-2">급여</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">200만원, 상위 25%</div>
+                        <div class="sub-title-2-large pr-2">급여</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{review.review.salary}}</div>
                     </v-row>
                     <v-row wrap align="baseline">
                         <v-col cols="6">
@@ -117,13 +117,13 @@
                                         class="d-inline pr-3"
                                         background-color="#DDDDDD"
                                         readonly
-                                        v-model="review.review.star[3]"
+                                        v-model="review.review.star[2]"
                                         color="#FFCF57"
                                         medium
                                         dense
                                         half-increments
                                 ></v-rating>
-                                <span class="label d-inline">{{review.review.star[3]}}</span>
+                                <span class="label d-inline">{{review.review.star[2]}}</span>
                             </v-row>
                         </v-col>
                         <v-col cols="6">
@@ -133,13 +133,13 @@
                                         class="d-inline pr-3"
                                         background-color="#DDDDDD"
                                         readonly
-                                        v-model="review.review.star[4]"
+                                        v-model="review.review.star[3]"
                                         color="#FFCF57"
                                         medium
                                         dense
                                         half-increments
                                 ></v-rating>
-                                <span class="label d-inline">{{review.review.star[4]}}</span>
+                                <span class="label d-inline">{{review.review.star[3]}}</span>
                             </v-row>
                         </v-col>
                     </v-row>
@@ -166,22 +166,11 @@
             }
         },
         computed: {
-            // v-show="isAuthenticated"를 써서 디브가 로그인했을때만 보이게 할 수 있습니당! 
             isAuthenticated() {
-            if(this.$store.state._id){
-                return true
-            }
-            return false
-            },
-
-            // {{ nickname }}으로 참조하면 됩니당!
-            nickname() {
-            return this.$store.state.nickname;
-            },
-
-            // {{ major }}로 참조하면 됩니당!
-            major() {
-            return this.$store.state.major;
+                if(this.$store.state._id){
+                    return true
+                }
+                return false
             }
         },
         data () {
