@@ -176,8 +176,7 @@
 
                             </v-row>
                             <v-row wrap justify="center">
-                                <v-btn rounded large @click="postPost">
-                                <!-- <v-btn rounded large @click="routeToCompany"> -->
+                                <v-btn rounded large @click="postPost" :disabled="!isAuthenticated">
                                     제출하기
                                 </v-btn>
                             </v-row>
@@ -208,6 +207,12 @@
         computed: {
             param: function () {
                 return this.$route.params;
+            },
+            isAuthenticated() {
+                if(this.$store.state._id){
+                    return true
+                }
+                return false
             }
         },
         methods: {
@@ -217,12 +222,14 @@
             postPost() {
                 console.log("제발 좀 돼라")
                 this.review.company = this.companyInfo;
-                // this.review.user = this.user;
-                axios.post(`../../api/reviews/`, {
+                this.review.user = this.$store.state;
+                axios.post('../../api/reviews/', {
                     body: this.review
                 })
-                .then(response => {console.log(response)})
-                // .then(this.$router.push({path: '../../company/' + this.companyInfo.ID}))
+                .then(response => {
+                    console.log(response);
+                    this.$router.go(-1);
+                })
                 .catch(e => {
                     this.errors.push(e)
                     console.log("너무 안되는구나")
