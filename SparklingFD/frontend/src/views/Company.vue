@@ -55,13 +55,14 @@
                     <v-col cols="9">
                         <vue-slider
                                 ref="slider"
-                                v-model="value"
+                                v-model="inputRange"
                                 :adsorb="true"
                                 :interval="1"
                                 :data="range"
                                 :marks="true"
                                 :process-dragable="true"
                                 :height="5"
+                                @change="processData"
                         >
                         </vue-slider>
                     </v-col>
@@ -69,19 +70,19 @@
 
                 <v-row wrap class="pt-3 pb-3" justify="center" align="center">
                     <v-col cols="6">
-                        <LineChart></LineChart>
+                        <LineChart :data="this.processed" :label="this.label"></LineChart>
                     </v-col>
                     <v-col cols="3">
-                        <RadarChart></RadarChart>
+                        <RadarChart :data="this.star"></RadarChart>
                     </v-col>
                 </v-row>
+
 
                 <v-row wrap justify="center">
                     <v-col cols="10">
                         <v-divider></v-divider>
                     </v-col>
                 </v-row>
-
 
 
                 <v-row wrap class="pt-5" justify="center" align="center" >
@@ -97,11 +98,12 @@
                                     dense
                                     rounded
                                     class="button-toggle"
-                                    v-model="toggle_exclusive"
+                                    v-model="sortCards"
                                     mandatory
+                                    @change="toggleSort"
                             >
-                                <v-btn>최신순</v-btn>
-                                <v-btn>추천순</v-btn>
+                                <v-btn value="date">최신순</v-btn>
+                                <v-btn value="recommend">추천순</v-btn>
                             </v-btn-toggle>
                         </v-row>
                     </v-col>
@@ -109,9 +111,9 @@
 
                 <v-row wrap justify="center">
                     <v-col cols="9">
-                        <ReviewCardBig v-for="review in companyInfo.reviews"
-                                       :key="companyInfo.reviews.indexOf(review)"
-                                       :review="review"
+                        <ReviewCardBig v-for="review in sortedReview"
+                                       :key="sortedReview.indexOf(review)"
+                                       v-bind:review="review"
                         >
                         </ReviewCardBig>
 
@@ -132,27 +134,145 @@
     export default {
         name: "Company",
         components: { Toolbar, LineChart, VueSlider, RadarChart, ReviewCardBig },
+        mounted() {
+
+        },
         methods: {
             routeToReview() {
                 this.$router.push({path: '../../review/' + this.companyInfo.ID})
+            },
+            toggleSort() {
+                if (this.sortCards === 'date'){
+                    this.sortedReview = this.companyInfo.reviews.sort((b, a) => {
+                        if (a['semester']['year'] === b['semester']['year']) {
+                            return a['semester']['season'] - b['semester']['season']
+                        } else {
+                            return a['semester']['year'] - b['semester']['year']
+                        }
+                    })
+                } else {
+                    this.sortedReview = this.companyInfo.reviews.sort((b, a) => {
+                        return a['like'] - b['like']
+                    })
+                }
+            },
+            processData() {
+                this.label = this.range.slice(this.range.indexOf(this.inputRange[0]), this.range.indexOf(this.inputRange[1]) + 1);
+                const temp = [];
+                const items = ['hardness', 'atmosphere', 'salary', 'learning', 'welfare'];
+                for (let i = 0; i < this.label.length; i++) {
+                    temp.push(0);
+                    this.processed['aggregate'].push(0);
+                    items.forEach(
+                        label => this.processed[label].push(0)
+
+                    )
+                }
+
+                this.companyInfo.reviews.forEach(
+                    element => {
+                        const index = this.label.indexOf(this.formatSemester(element.semester));
+                        temp[index] += 1;
+                        items.forEach(
+                            (label, id) => {
+                                this.processed[label][index] += element.review.star[id]
+                            }
+                        )
+                    }
+                );
+
+                items.forEach(
+                    label => {
+                        this.processed[label] = this.processed[label].map(function (element, index) {
+                            return element / temp[index];
+                        })
+                    }
+                );
+
+
+                for (let i = 0; i < this.range.length; i++){
+                    items.forEach(
+                        element => {
+                            this.processed['aggregate'][i] += this.processed[element][i]
+                        }
+                    )
+                    this.processed['aggregate'][i] = this.processed['aggregate'][i]/5
+                }
+
+                items.forEach(
+                    (element, index) => {
+                        this.star[index] = this.processed[element].reduce((a,b) => a + b, 0) / this.processed[element].length;
+
+                    }
+                )
+            },
+            formatSemester(semester){
+                return semester.year + ' ' + this.numbertoSeason(semester.season)
+            },
+            numbertoSeason(number){
+                if (number===1){
+                    return '봄';
+                } else if (number===2){
+                    return '여름';
+                } else if (number===3){
+                    return '가을';
+                } else {
+                    return '겨울';
+                }
             }
+
         },
         created () {
             this.$http.get('../../api/getCompanyInfo/' + this.$route.params.companyId)
                 .then((response) => {
-                    console.log(response.data);
                     this.companyInfo = response.data;
-                })
+                    this.toggleSort('date');
+
+                    this.companyInfo.reviews.forEach(
+                        review => {
+                            this.range.push(review.semester)
+                        }
+                    );
+
+                    this.range = this.range.filter((item, index) => this.range.indexOf(item) === index);
+
+                    this.range.sort((a, b) => {
+                        if (a['year'] === b['year']) {
+                            return a['season'] - b['season']
+                        } else {
+                            return a['year'] - b['year']
+                        }
+                    });
+
+                    this.range = this.range.map(function (element) {
+                        return this.formatSemester(element)
+                    }.bind(this));
+
+                    this.inputRange = [this.range[0], this.range[this.range.length-1]];
+                    this.label = this.range;
+                    this.processData();
+                });
         },
         data () {
             return {
                 companyInfo: {},
-                value: ['이전', '2019 가을'],
-                range: ['이전', '2017 봄', '2017 여름', '2017 가을', '2017 겨울', '2018 봄', '2018 여름', '2018 가을', '2018 겨울', '2019 봄', '2019 여름', '2019 가을'],
-                toggle_exclusive: undefined
-                }
+                processed: {
+                    aggregate: [],
+                    hardness: [],
+                    atmosphere: [],
+                    salary: [],
+                    learning: [],
+                    welfare: []
+                },
+                inputRange: [], //user input about semester range
+                label: [], //sliced range for line chart
+                range: [], //review exist range
+                star: [0,0,0,0,0], //star for radar chart
+                sortCards: 'date',
+                sortedReview: {},
             }
         }
+    }
 </script>
 
 <style scoped>
