@@ -125,7 +125,7 @@
                                 <v-rating
                                         class="d-inline"
                                         background-color="#DDDDDD"
-                                        v-model="review.review.star[2]"
+                                        v-model="review.review.star[3]"
                                         color="#FFCF57"
                                         large
                                         dense
@@ -147,7 +147,7 @@
                                 <v-rating
                                         class="d-inline"
                                         background-color="#DDDDDD"
-                                        v-model="review.review.star[3]"
+                                        v-model="review.review.star[4]"
                                         color="#FFCF57"
                                         large
                                         dense
@@ -229,7 +229,7 @@
                 this.review.company.name = this.companyInfo.name;
                 this.review.company.src = this.companyInfo.src;
                 this.review.id = this.companyInfo.reviews.length;
-                this.review.review.aggregate = (this.review.review.star[0] + this.review.review.star[1] + this.review.review.star[2] + this.review.review.star[3]) / 4;
+                this.review.review.aggregate = (this.review.review.star[0] + this.review.review.star[1] + this.review.review.star[3] + this.review.review.star[4]) / 4;
                 // this.review.user = this.user;
                 axios.post(`../../api/setReview`, {
                     body: this.review
