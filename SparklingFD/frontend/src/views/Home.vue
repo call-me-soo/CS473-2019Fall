@@ -1,8 +1,6 @@
 <template>
   <v-app>
-    <ToolBar ref="ToolBar"
-      @keydown.enter.native="search"
-    ></ToolBar>
+    <ToolBar @keydown.enter.native="search"></ToolBar>
     <v-content>
       <v-container
               fluid
@@ -47,9 +45,7 @@
           </v-col>
         </v-row>
 
-        <reviewCardSlick
-                :bestReviews="bestReviews"
-        ></reviewCardSlick>
+        <ReviewCardSlick :bestReviews.sync="bestReviews"></ReviewCardSlick>
 
         <v-row justify="center" align="center" class="mt-10">
           <v-col cols="11">
@@ -78,24 +74,24 @@
   import logo from "../components/Logo";
   import searchBar from "../components/SearchBar";
   import searchFilter from "../components/SearchFilter"
-  import reviewCardSlick from "../components/ReviewCardSlick";
+  import ReviewCardSlick from "../components/ReviewCardSlick";
   import reviewCardSmall from "../components/ReviewCardSmall";
 
   import "../assets/css/style.css";
 
 export default {
   name: 'home',
-  components: {ToolBar, reviewCardSlick, logo, searchBar, searchFilter, reviewCardSmall },
+  components: {ToolBar, ReviewCardSlick, logo, searchBar, searchFilter, reviewCardSmall },
   mounted() {
       this.$http.get('../../api/reviews/best')
       .then((response) => {
               this.bestReviews = response.data;
-          })
+          });
 
       this.$http.get('../../api/reviews/')
           .then((response) => {
               this.recentReviews = response.data;
-          })
+          });
   },
   data() {
         return {
@@ -110,6 +106,7 @@ export default {
   },
   methods: {
     search () {
+      console.log(this.searchInput)
       if (this.filterSelected[0]) {
         this.searchQuery['harness'] = this.filterRating[0]
       }
