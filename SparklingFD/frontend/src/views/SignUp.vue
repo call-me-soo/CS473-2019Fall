@@ -62,7 +62,7 @@
                                 v-model="major"
                                 :items="['전산과', '기계과', '전자과', '산디과', '기타']"
                                 :rules="[rules.required]"
-                                label="Major*"
+                                label="major*"
                                 required
                             ></v-select>
                             </v-col>

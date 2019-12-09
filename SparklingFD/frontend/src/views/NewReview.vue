@@ -28,7 +28,7 @@
                                 <v-overflow-btn
                                         class="mr-10"
                                         :items="yearOption"
-                                        v-model="yearOption"
+                                        v-model="review.semester.year"
                                         label="년도"
                                         editable
                                         item-value="text"
@@ -37,7 +37,7 @@
                                 <v-overflow-btn
                                         class="mr-5"
                                         :items="seasonOption"
-                                        v-model="seasonOption"
+                                        v-model="review.semester.season"
                                         label="학기"
                                         editable
                                         item-value="text"
@@ -126,7 +126,7 @@
                                 <v-rating
                                         class="d-inline"
                                         background-color="#DDDDDD"
-                                        v-model="review.review.star[2]"
+                                        v-model="review.review.star[3]"
                                         color="#FFCF57"
                                         large
                                         dense
@@ -148,7 +148,7 @@
                                 <v-rating
                                         class="d-inline"
                                         background-color="#DDDDDD"
-                                        v-model="review.review.star[3]"
+                                        v-model="review.review.star[4]"
                                         color="#FFCF57"
                                         large
                                         dense
@@ -208,6 +208,15 @@
         computed: {
             param: function () {
                 return this.$route.params;
+            },
+            // {{ nickname }}으로 참조하면 됩니당!
+            nickname() {
+                return this.$store.state.nickname;
+            },
+
+            // {{ major }}로 참조하면 됩니당!
+            major() {
+                return this.$store.state.major;
 
             },
             isAuthenticated() {
@@ -223,8 +232,13 @@
             },
             postPost() {
 
-                this.review.company = this.companyInfo;
-                this.review.user = this.$store.state;
+                // this.review.company = this.companyInfo;
+                // this.review.user = this.$store.state;
+                this.review.company.id = this.companyInfo.ID;
+                this.review.company.name = this.companyInfo.name;
+                this.review.company.src = this.companyInfo.src;
+                this.review.id = this.companyInfo.reviews.length;
+                this.review.review.aggregate = (this.review.review.star[0] + this.review.review.star[1] + this.review.review.star[3] + this.review.review.star[4]) / 4;
                 axios.post('../../api/reviews/', this.review)
                 .then(response => {
                     console.log(response);
@@ -234,6 +248,18 @@
                     this.errors.push(e)
                     console.log(this.errors)
                 })
+                console.log(this.review)
+                axios.put(`../../api/getCompanyInfo/mod/`+this.companyInfo.ID, {
+                    body: this.review
+                })
+                // .then(response => {console.log(response)})
+                .then(this.$router.push({path: '../../company/' + this.companyInfo.ID}))
+                .catch(e => {
+                    this.errors.push(e)
+                    console.log("너무 안되는구나2")
+                    console.log(this.errors)
+                })
+                console.log("여기는 잘됨2")
                 console.log(this.review)
             }
         },
@@ -245,10 +271,17 @@
 
                 review: {
                     id: 0,
-                    company: null,
-                    user: null,
+                    company: {
+                        id: 0,
+                        name: "",
+                        src: ""
+                    },
+                    user: {
+                        major: this.$store.state.major,
+                        nickname: this.$store.state.nickname
+                    },
                     semester: {
-                        year: "",
+                        year: 0,
                         season: ""
                     },
                     like: 0,
