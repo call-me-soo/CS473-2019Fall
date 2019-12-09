@@ -1,7 +1,10 @@
 <template>
     <v-flex>
         <div class="d-none d-md-inline">
-            <ReviewDialog :visible.sync="modalVisible" :review="review"></ReviewDialog>
+            <div v-if="modalVisible">
+                <ReviewDialog :visible.sync="modalVisible" :review="review"></ReviewDialog>
+            </div>
+
             <v-card class="card korean mt-4 mb-4" @click.stop="modalOpen">
                 <v-row class="pl-12 pa-5" wrap>
                     <v-col class="korean" cols="8">
@@ -10,7 +13,7 @@
                                class="d-inline-flex pb-4">
                             <v-flex class="card-title-large pr-2">{{review.company.name}}</v-flex>
                             <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}</v-flex>
-                            <v-btn class="ml-2" rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
+                            <v-btn class="ml-2" rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like[0]}}</v-btn>
                         </v-row>
                         <v-row wrap>
                             <v-flex class="card-content-large">

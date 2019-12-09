@@ -67,6 +67,7 @@
                 if (this.sortFilter === '전체 평점'){
                     this.sortedCompany = this.companyInfo.sort((b, a) => {
                         if (a['aggregate'] === b['aggregate']) {
+                            console.log(a)
                             return a['name'] - b['name']
                         } else {
                             return a['aggregate'] - b['aggregate']

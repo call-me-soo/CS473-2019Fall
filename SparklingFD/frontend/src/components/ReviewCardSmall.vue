@@ -1,6 +1,8 @@
 <template>
     <v-card class="card korean mb-3 mr-3 ml-3" @click.stop="modalOpen">
-        <ReviewDialog :visible.sync="modalVisible" :review="review"></ReviewDialog>
+        <div v-if="modalVisible">
+         <ReviewDialog :visible.sync="modalVisible" :review="review"></ReviewDialog>
+        </div>
         <v-row wrap
                class="justify-center pt-5"
         >
@@ -23,7 +25,7 @@
                     </v-flex>
                     <v-flex class="label pr-1">{{review.review.aggregate}}</v-flex>
                     <v-spacer></v-spacer>
-                    <v-flex><v-btn rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn></v-flex>
+                    <v-flex><v-btn rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like[0]}}</v-btn></v-flex>
                 </v-row>
 
             </v-col>

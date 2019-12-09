@@ -5,11 +5,11 @@
       <div wrap class="d-none d-md-inline">
         <v-btn @click="showModal=true"
              class="filter-button korean mt-2 ml-1 mr-1 lighten-2"
-             :class="isFilterOn ? 'button-on' : 'grey grey--text text--darken-1'"
+             :class="selected_child ? 'button-on' : 'grey grey--text text--darken-1'"
              rounded
              medium
              depressed
-        >{{label}} {{isFilterOn ? ((label === '급여')? ' ( ' + rating + '만원이상 )': ' ( ' + rating + '이상 )' ): ''}}
+        >{{label}} {{selected_child ? ((label === '급여')? ' ( ' + rating + '만원이상 )': ' ( ' + rating + '이상 )' ): ''}}
         </v-btn>
       </div>
       <v-row wrap
@@ -18,7 +18,13 @@
       >
         <v-flex style="justify-content: space-between">
           <div class="text-center">
-            <v-btn @click="showModal=true" class="korean mr-1 grey lighten-2 grey--text text--darken-1" small depressed rounded>{{rating}}</v-btn>
+            <v-btn @click="showModal=true"
+                   class="korean mr-1 grey lighten-2 grey--text text--darken-1"
+                   :class="selected_child ? 'button-on' : 'grey grey--text text--darken-1'"
+                   small
+                   depressed
+                   rounded
+            >{{label}} {{selected_child ? ((label === '급여')? ' ( ' + rating + '만원이상 )': ' ( ' + rating + '이상 )' ): ''}}</v-btn>
           </div>
         </v-flex>
       </v-row>
@@ -35,7 +41,7 @@
           <v-card-text  v-if="label === '급여'">
             <v-row wrap style="height: 100px" align="center">
               <v-text-field
-                      v-model="input"
+                      v-model="rating_child"
                       class="korean pr-5"
                       solo
                       hide-details
@@ -50,11 +56,11 @@
           </v-card-text>
 
           <v-card-text  v-else>
-              <v-row wrap justify="center" align="center" class="sub-title-2-large" style="height: 50px">{{input}} 점 이상</v-row>
+              <v-row wrap justify="center" align="center" class="sub-title-2-large" style="height: 50px">{{rating_child}} 점 이상</v-row>
               <v-row wrap style="height: 70px" align="center" justify="center">
                 <vue-slider
                         ref="slider"
-                        v-model="input"
+                        v-model="rating_child"
                         width="90%"
                         :adsorb="true"
                         :interval="1"
@@ -116,9 +122,9 @@
     data () {
       return {
         showModal: false,
-        input: 0,
-        range: [5,4,3,2,1,0],
-        isFilterOn: false
+        rating_child: 0,
+        selected_child: false,
+        range: [5,4,3,2,1,0]
       }
     },
     methods: {
@@ -127,14 +133,12 @@
         this.$emit('update:selected', selected);
       },
       confirmModal() {
-        this.rating = this.input;
-        this.selected = true;
-        this.onCallBack(this.input, true);
+        this.selected_child = true;
+        this.onCallBack(this.rating_child, this.selected_child);
         this.showModal = false;
-        this.isFilterOn = true;
       },
       cancelModal() {
-        this.input = this.rating;
+        this.rating_child = this.rating
         this.showModal = false;
       }
     }
