@@ -54,7 +54,6 @@
         components: {Toolbar, CompanyCard },
         created() {
             this.load();
-            this.sortFilter = '전체 평점';
         },
         methods: {
             load: function(){
@@ -63,6 +62,8 @@
                     + this.$route.params.query)
                     .then((response) => {
                         this.companyInfo = response.data;
+                        this.sortFilter = '전체 평점';
+                        this.toggleSort()
                     });
             },
             toggleSort(){
