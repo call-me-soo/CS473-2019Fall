@@ -254,6 +254,23 @@
                     console.log(this.errors)
                 });
                 console.log(this.review);
+
+                //너가 작업중인 부분
+                // axios.put('../../api/getCompanyInfo/mod/update/'+this.companyInfo.ID, {
+                //     salary: this.review.review.salary,
+                //     star: this.review.review.star
+                // })
+                // .then(response => {
+                //     console.log(response);
+                //     this.$router.go(-1);
+                // })
+                // .catch(e => {
+                //     this.errors.push(e)
+                //     console.log("너무 안되는구나3")
+                //     console.log(this.errors)
+                // })
+                // console.log("여기는 잘됨3")
+                // console.log(this.review)
             }
         },
         data() {

@@ -21,7 +21,8 @@ const companySchema = new Schema({
     location: String,
     recommend: Array,
     star: Array,
-    salary: String,
+    salary: Number,
+    salaryPercent: Number,
     reviews: [reviewSchema]
 });
 
