@@ -1,1 +1,1 @@
-{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"Cracker.companies"}],"uuid":"6cd1777d39414ae09d4efab3689d03ff"}
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"Cracker.companies"}],"uuid":"19c642df16c04f458a0765b2612e6a9e"}
