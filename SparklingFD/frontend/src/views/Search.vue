@@ -33,9 +33,6 @@
                                      >
 
                         </CompanyCard>
-                        <h1>{{company}}</h1>
-                        <h1>{{sortedCompany}}</h1>
-                        <h1>{{companyInfo}}</h1>
                     </v-col>
                 </v-row>
             </v-container>
@@ -63,6 +60,8 @@
                     + this.$route.params.query)
                     .then((response) => {
                         this.companyInfo = response.data;
+                        this.sortFilter = '전체 평점';
+                        this.toggleSort()
                     });
             },
             toggleSort(){

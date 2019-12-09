@@ -26,8 +26,10 @@ router.post('/add', function(req, res){
   company.field = req.query.field;
   company.location = req.query.location;
   company.recommend = req.query.recommend;
-  company.star = req.query.star;
-  company.salary = req.query.salary;
+  // company.star = req.query.star;
+  // company.salary = req.query.salary;
+  company.star = [0, 0, 0, 0, 0];
+  company.salary = 0;
   company.reviews = req.query.reviews;
 
   company.save(function(err){
@@ -41,6 +43,63 @@ router.post('/add', function(req, res){
 
   });
 });
+// router.put('/mod/updatestar/:companyId', function(req, res){
+//   Company.findOne({ID: req.params.companyId}, function(err, company){
+//     console.log("찾으면");
+//     console.log(company);
+//     if(err) return res.status(500).json({ error: 'database failure' });
+//     if(!company) return res.status(404).json({ error: 'company not found' });
+//     console.log("들어갈땐");
+//     console.log(company.star);
+//     var numofreviews = company.reviews.length
+//     company.star[0] = ((company.star[0] * numofreviews) + req.body.body[0]) / numofreviews
+//     company.star[1] = ((company.star[1] * numofreviews) + req.body.body[1]) / numofreviews
+//     company.star[2] = ((company.star[2] * numofreviews) + req.body.body[2]) / numofreviews
+//     company.star[3] = ((company.star[3] * numofreviews) + req.body.body[3]) / numofreviews
+//     company.star[4] = ((company.star[4] * numofreviews) + req.body.body[4]) / numofreviews
+//     console.log("들어갈땐");
+//     console.log(company.star);
+//     company.save(function(err){
+//       if(err){
+//           console.error(err);
+//           res.json({result: 0});
+//           return;
+//       }
+//       res.json({result: 1});
+//     })
+//   })
+// })
+router.put('/mod/update/:companyId', function(req, res){
+  Company.findOne({ID: req.params.companyId}, function(err, company){
+    console.log("찾으면");
+    console.log(company);
+    if(err) return res.status(500).json({ error: 'database failure' });
+    if(!company) return res.status(404).json({ error: 'company not found' });
+    console.log("들어갈땐1");
+    console.log(req.body.salary);
+    console.log(parseInt(req.body.salary));
+    console.log(company.salary);
+    var numofreviews = company.reviews.length
+    company.salary = ((company.salary * numofreviews) + parseInt(req.body.salary)) / numofreviews
+    company.salarypercent = String(company.salary) + "%"
+    company.star[0] = ((company.star[0] * numofreviews) + req.body.star[0]) / numofreviews
+    company.star[1] = ((company.star[1] * numofreviews) + req.body.star[1]) / numofreviews
+    company.star[2] = ((company.star[2] * numofreviews) + req.body.star[2]) / numofreviews
+    company.star[3] = ((company.star[3] * numofreviews) + req.body.star[3]) / numofreviews
+    company.star[4] = ((company.star[4] * numofreviews) + req.body.star[4]) / numofreviews
+    console.log("들어갈땐2");
+    console.log(company.star);
+    console.log(company.salary);
+    company.save(function(err){
+      if(err){
+          console.error(err);
+          res.json({result: 0});
+          return;
+      }
+      res.json({result: 1});
+    })
+  })
+})
 router.put('/mod/:companyId', function(req, res){
   console.log("컴패니 아이디는");
   console.log(req.params.companyId);

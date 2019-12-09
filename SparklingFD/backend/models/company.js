@@ -9,7 +9,8 @@ const companySchema = new Schema({
     location: String,
     recommend: Array,
     star: Array,
-    salary: String,
+    salary: Number,
+    salarypercent: String,
     reviews: Array
 });
 

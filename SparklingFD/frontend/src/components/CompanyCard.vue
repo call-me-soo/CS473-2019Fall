@@ -21,7 +21,7 @@
                             <div class="sub-title-2-large pr-2">추천학과</div><div class="sub-title-2-large pr-1 text--darken-1 grey--text">{{companyInfo.recommend.toString()}}</div>
                         </v-row>
                         <v-row class="pt-2" style="height: 40px;">
-                            <div class="sub-title-large pr-2">급여</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{(1-parseFloat(companyInfo.salary)/100.0) * 300}}만원, 상위 {{companyInfo.salary}}</div>
+                            <div class="sub-title-large pr-2">급여</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{companyInfo.salary}}만원, 상위 {{companyInfo.salarypercent}}</div>
                         </v-row>
                         <v-row wrap align="baseline" style="height: 40px">
                             <v-col cols="6">
@@ -65,13 +65,13 @@
                                             class="d-inline pr-3"
                                             background-color="#DDDDDD"
                                             readonly
-                                            v-model="this.companyInfo.star[2]"
+                                            v-model="this.companyInfo.star[3]"
                                             color="#FFCF57"
                                             medium
                                             dense
                                             half-increments
                                     ></v-rating>
-                                    <span class="label d-inline">{{this.companyInfo.star[2]}}</span>
+                                    <span class="label d-inline">{{this.companyInfo.star[3]}}</span>
                                 </v-row>
                             </v-col>
                             <v-col cols="6">
@@ -81,13 +81,13 @@
                                             class="d-inline pr-3"
                                             background-color="#DDDDDD"
                                             readonly
-                                            v-model="this.companyInfo.star[3]"
+                                            v-model="this.companyInfo.star[4]"
                                             color="#FFCF57"
                                             medium
                                             dense
                                             half-increments
                                     ></v-rating>
-                                    <span class="label d-inline">{{this.companyInfo.star[3]}}</span>
+                                    <span class="label d-inline">{{this.companyInfo.star[4]}}</span>
                                 </v-row>
                             </v-col>
                         </v-row>
