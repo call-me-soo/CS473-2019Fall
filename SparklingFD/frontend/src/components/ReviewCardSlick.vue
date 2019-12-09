@@ -23,7 +23,7 @@
                              class="d-inline-flex pb-4">
                         <v-flex class="card-title-large pr-2">{{review.company.name}}</v-flex>
                         <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}</v-flex>
-                        <v-btn class="ml-2" rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like[0]}}</v-btn>
+                        <v-btn class="ml-2" rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
                       </v-row>
                       <v-row wrap>
                         <v-flex class="card-content-large" @click="showModal=true">
@@ -57,9 +57,7 @@
               </slick>
           </v-col>
       </v-row>
-      <div v-if="modalVisible">
-        <ReviewDialog :visible.sync="modalVisible" :review="this.review"></ReviewDialog>
-      </div>
+      <ReviewDialog :visible.sync="modalVisible" :review="this.review"></ReviewDialog>
 
     </div>
     <div class="d-md-none">

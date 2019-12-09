@@ -67,8 +67,6 @@ router.post('/', function(req, res){
     req.body.review.salaryPercent = Number(((1 - normalizedSalary) * 100).toFixed(2)); // salaryPercent
 
     req.body.review.aggregate = Number((req.body.review.star.reduce((a, b) => a + b, 0) / 5).toFixed(2)); //aggregate
-    console.log(req.body.review.star);
-    console.log(req.body.review.aggregate);
 
     Review.create(req.body, function(err, review){
         if (err) {

@@ -65,13 +65,13 @@
                                             class="d-inline pr-3"
                                             background-color="#DDDDDD"
                                             readonly
-                                            v-model="this.companyInfo.star[3]"
+                                            v-model="this.companyInfo.star[2]"
                                             color="#FFCF57"
                                             medium
                                             dense
                                             half-increments
                                     ></v-rating>
-                                    <span class="label d-inline">{{this.companyInfo.star[3]}}</span>
+                                    <span class="label d-inline">{{this.companyInfo.star[2]}}</span>
                                 </v-row>
                             </v-col>
                             <v-col cols="6">
@@ -81,13 +81,13 @@
                                             class="d-inline pr-3"
                                             background-color="#DDDDDD"
                                             readonly
-                                            v-model="this.companyInfo.star[4]"
+                                            v-model="this.companyInfo.star[3]"
                                             color="#FFCF57"
                                             medium
                                             dense
                                             half-increments
                                     ></v-rating>
-                                    <span class="label d-inline">{{this.companyInfo.star[4]}}</span>
+                                    <span class="label d-inline">{{this.companyInfo.star[3]}}</span>
                                 </v-row>
                             </v-col>
                         </v-row>
