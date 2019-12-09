@@ -57,6 +57,7 @@
                                     </div>
                                 </v-col>
                                 <v-text-field
+                                        v-model="review.review.salary"
                                         class="korean pr-5"
                                         solo
                                         hide-details
@@ -176,8 +177,7 @@
 
                             </v-row>
                             <v-row wrap justify="center">
-                                <v-btn rounded large @click="postPost">
-                                <!-- <v-btn rounded large @click="routeToCompany"> -->
+                                <v-btn rounded large @click="postPost" :disabled="!isAuthenticated">
                                     제출하기
                                 </v-btn>
                             </v-row>
@@ -208,6 +208,13 @@
         computed: {
             param: function () {
                 return this.$route.params;
+
+            },
+            isAuthenticated() {
+                if(this.$store.state._id){
+                    return true
+                }
+                return false
             }
         },
         methods: {
@@ -215,20 +222,18 @@
                 this.$router.push({path: '../../company/' + this.companyInfo.ID})
             },
             postPost() {
-                console.log("제발 좀 돼라")
+
                 this.review.company = this.companyInfo;
-                // this.review.user = this.user;
-                axios.post(`../../api/reviews/`, {
-                    body: this.review
+                this.review.user = this.$store.state;
+                axios.post('../../api/reviews/', this.review)
+                .then(response => {
+                    console.log(response);
+                    this.$router.go(-1);
                 })
-                .then(response => {console.log(response)})
-                // .then(this.$router.push({path: '../../company/' + this.companyInfo.ID}))
                 .catch(e => {
                     this.errors.push(e)
-                    console.log("너무 안되는구나")
                     console.log(this.errors)
                 })
-                console.log("여기는 잘됨")
                 console.log(this.review)
             }
         },
@@ -237,23 +242,11 @@
                 companyInfo: {},
                 yearOption: [2019, 2018, 2017, 2016, 2015],
                 seasonOption: ['봄', '여름', '가을', '겨울'],
-                // review: {
-                //     semester: {
-                //         year: "",
-                //         season: ""
-                //     },
-                //     review: {
-                //         aggregate: 0,
-                //         star: [0,0,0,0],
-                //         content: "굳"
-                //     }
-                // }
+
                 review: {
                     id: 0,
-                    company: this.companyInfo,
-                    user: {
-                        
-                    },
+                    company: null,
+                    user: null,
                     semester: {
                         year: "",
                         season: ""
@@ -261,7 +254,9 @@
                     like: 0,
                     review: {
                         aggregate: 0,
-                        star: [0,0,0,0,0],
+                        salary: 0,
+                        salaryPercent : 0,
+                        star: [0, 0, 0, 0, 0],
                         content: ""
                     }
                 }

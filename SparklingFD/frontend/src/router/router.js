@@ -27,7 +27,7 @@ const routes = [
     component: Company
   },
   {
-    path: '/review/new/company/:companyId',
+    path: '/newreview/company/:companyId',
     name: 'newReview',
     component: NewReview
   },
