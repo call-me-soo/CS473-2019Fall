@@ -41,6 +41,16 @@ router.post('/add', function(req, res){
 
   });
 });
+
+router.put('/mod/:companyId', function(req, res){
+  Company.findOneAndUpdate({ID: req.params.companyId}, {$push: {reviews: req.body}}, function(err, company){
+    if(err) return res.status(500).json({ error: 'database failure' });
+    if(!company) return res.status(404).json({ error: 'company not found' });
+    res.json({result:1});
+  })
+});
+
+
 // router.get('/', function(req, res, next) {
 //   res.send(companies)
 // });
