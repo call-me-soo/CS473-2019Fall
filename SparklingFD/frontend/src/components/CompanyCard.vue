@@ -10,7 +10,7 @@
                             <div>
                                 <v-avatar class="pr-5 pb-2" size="40">
                                     <img
-                                            src="https://cdn.vuetifyjs.com/images/john.jpg"
+                                            v-bind:src="this.companyInfo.logosrc"
                                             alt="John"
                                     >
                                 </v-avatar>
