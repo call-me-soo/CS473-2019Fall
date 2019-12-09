@@ -33,7 +33,9 @@
                                      >
 
                         </CompanyCard>
-
+                        <h1>{{company}}</h1>
+                        <h1>{{sortedCompany}}</h1>
+                        <h1>{{companyInfo}}</h1>
                     </v-col>
                 </v-row>
             </v-container>
