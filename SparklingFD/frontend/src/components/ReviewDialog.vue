@@ -10,7 +10,7 @@
                     <v-row wrap
                            align="baseline"
                            class="d-inline-flex pb-4">
-                        <v-flex class="card-title-large pr-2">{{review.company.name}}</v-flex>
+                        <v-flex class="card-title-large pr-2" @click="routeToCompany">{{review.company.name}}</v-flex>
                         <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}</v-flex>
                         <v-btn-toggle
                             v-model="like"
@@ -196,6 +196,10 @@
             close() {
                 this.$emit('update:visible', false)
             },
+            routeToCompany() {
+                this.$router.push({path: '../../company/' + this.review.company.id})
+            },
+
             updateLike() {
                 this.$http.put('../../api/reviews/like/' + this.review.id);
             }

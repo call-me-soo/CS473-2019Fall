@@ -3,6 +3,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 const Review = require('../models/review');
 
+
 var sumReview = 0;
 var sumSalary = [];
 
@@ -23,6 +24,7 @@ router.get('/best', function(req, res){
         if (err) return res.status(500).send("MongoDB error");
         if (!doc) return res.status(404).send("Review not found");
         res.json(doc);
+
     })
 })
 

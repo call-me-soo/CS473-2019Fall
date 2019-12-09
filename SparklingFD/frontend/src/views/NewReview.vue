@@ -208,6 +208,7 @@
         computed: {
             param: function () {
                 return this.$route.params;
+
             },
             isAuthenticated() {
                 if(this.$store.state._id){
@@ -221,6 +222,7 @@
                 this.$router.push({path: '../../company/' + this.companyInfo.ID})
             },
             postPost() {
+
                 this.review.company = this.companyInfo;
                 this.review.user = this.$store.state;
                 axios.post('../../api/reviews/', this.review)
@@ -240,6 +242,7 @@
                 companyInfo: {},
                 yearOption: [2019, 2018, 2017, 2016, 2015],
                 seasonOption: ['봄', '여름', '가을', '겨울'],
+
                 review: {
                     id: 0,
                     company: null,
