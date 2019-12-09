@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="visible" max-width="1000px" @click:outside="handleWrapperClick">
+    <v-dialog v-model="visible" max-width="1000px" @click:outside="handleWrapperClick" @keydown.esc="handleWrapperClick">
         <v-card class="card korean">
             <v-row wrap>
                 <v-spacer></v-spacer>
@@ -10,9 +10,32 @@
                     <v-row wrap
                            align="baseline"
                            class="d-inline-flex pb-4">
-                        <v-flex class="card-title-large pr-2">{{review.company.name}}</v-flex>
+                        <v-flex class="card-title-large pr-2" @click="routeToCompany">{{review.company.name}}</v-flex>
                         <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}</v-flex>
-                        <v-btn class="ml-2" rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
+                        <v-btn-toggle
+                            v-model="like"
+                            class="ml-2"
+                            color="#FFCF57"
+                            group
+                            rounded
+                        >
+                            <v-btn
+                                :disabled="!isAuthenticated"
+                                small
+                                outlined
+                                rounded
+                                text
+                                @click="updateLike"
+                            >
+                                <v-icon
+                                    class="mr-1"
+                                    small   
+                                >
+                                    mdi-thumb-up
+                                </v-icon>
+                                {{review.like}}
+                            </v-btn>
+                        </v-btn-toggle>
                     </v-row>
                     <v-row wrap>
                         <v-flex class="card-content-large">
@@ -30,7 +53,7 @@
             <v-row wrap class="pt-5">
                 <v-col cols="4">
                     <v-row wrap class="pl-3" justify="center">
-                        <RadarChart :star="review.review.star" style="width:200px"></RadarChart>
+                        <RadarChart :data="review.review.star" style="width:200px"></RadarChart>
                     </v-row>
                     <v-row wrap class="pt-2" justify="center" align="baseline">
                         <v-col class="text-center">
@@ -50,7 +73,7 @@
                 </v-col>
                 <v-col cols="8">
                     <v-row class="pb-3">
-                        <div class="sub-title-2-large pr-2">급여</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">200만원, 상위 25%</div>
+                        <div class="sub-title-2-large pr-2">급여</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{review.review.salary}}만원 ( 상위 {{review.review.salaryPercent}}% )</div>
                     </v-row>
                     <v-row wrap align="baseline">
                         <v-col cols="6">
@@ -94,13 +117,13 @@
                                         class="d-inline pr-3"
                                         background-color="#DDDDDD"
                                         readonly
-                                        v-model="review.review.star[3]"
+                                        v-model="review.review.star[2]"
                                         color="#FFCF57"
                                         medium
                                         dense
                                         half-increments
                                 ></v-rating>
-                                <span class="label d-inline">{{review.review.star[3]}}</span>
+                                <span class="label d-inline">{{review.review.star[2]}}</span>
                             </v-row>
                         </v-col>
                         <v-col cols="6">
@@ -110,13 +133,13 @@
                                         class="d-inline pr-3"
                                         background-color="#DDDDDD"
                                         readonly
-                                        v-model="review.review.star[4]"
+                                        v-model="review.review.star[3]"
                                         color="#FFCF57"
                                         medium
                                         dense
                                         half-increments
                                 ></v-rating>
-                                <span class="label d-inline">{{review.review.star[4]}}</span>
+                                <span class="label d-inline">{{review.review.star[3]}}</span>
                             </v-row>
                         </v-col>
                     </v-row>
@@ -142,8 +165,17 @@
                 required: true
             }
         },
+        computed: {
+            isAuthenticated() {
+                if(this.$store.state._id){
+                    return true
+                }
+                return false
+            }
+        },
         data () {
             return {
+                like: 1
             }
         },
         methods: {
@@ -163,6 +195,13 @@
             },
             close() {
                 this.$emit('update:visible', false)
+            },
+            routeToCompany() {
+                this.$router.push({path: '../../company/' + this.review.company.id})
+            },
+
+            updateLike() {
+                this.$http.put('../../api/reviews/like/' + this.review.id);
             }
         }
     }

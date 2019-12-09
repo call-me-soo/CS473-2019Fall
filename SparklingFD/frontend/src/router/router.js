@@ -6,7 +6,7 @@ import SignUp from "../views/SignUp";
 import SignIn from "../views/SignIn";
 import Users from "../views/Users";
 import Company from "../views/Company";
-import Review from "../views/Review";
+import NewReview from "../views/NewReview";
 
 Vue.use(VueRouter);
 
@@ -27,9 +27,9 @@ const routes = [
     component: Company
   },
   {
-    path: '/review/:companyId',
-    name: 'review',
-    component: Review
+    path: '/newreview/company/:companyId',
+    name: 'newReview',
+    component: NewReview
   },
   {
     path: '/users',

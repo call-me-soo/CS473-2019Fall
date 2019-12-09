@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var companies = require('../companies.json');
+var companies = require('../exampleCompanies.json');
 var bodyParser = require('body-parser');
 const Company = require('../models/company');
 
