@@ -117,13 +117,13 @@
                                         class="d-inline pr-3"
                                         background-color="#DDDDDD"
                                         readonly
-                                        v-model="review.review.star[2]"
+                                        v-model="review.review.star[3]"
                                         color="#FFCF57"
                                         medium
                                         dense
                                         half-increments
                                 ></v-rating>
-                                <span class="label d-inline">{{review.review.star[2]}}</span>
+                                <span class="label d-inline">{{review.review.star[3]}}</span>
                             </v-row>
                         </v-col>
                         <v-col cols="6">
@@ -133,13 +133,13 @@
                                         class="d-inline pr-3"
                                         background-color="#DDDDDD"
                                         readonly
-                                        v-model="review.review.star[3]"
+                                        v-model="review.review.star[4]"
                                         color="#FFCF57"
                                         medium
                                         dense
                                         half-increments
                                 ></v-rating>
-                                <span class="label d-inline">{{review.review.star[3]}}</span>
+                                <span class="label d-inline">{{review.review.star[4]}}</span>
                             </v-row>
                         </v-col>
                     </v-row>
