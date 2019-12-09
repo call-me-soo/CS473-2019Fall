@@ -194,7 +194,6 @@
 
 <script>
     import Toolbar from "../components/Toolbar";
-    import axios from 'axios';
 
     export default {
         name: "Review",
@@ -231,36 +230,30 @@
                 this.$router.push({path: '../../company/' + this.companyInfo.ID})
             },
             postPost() {
-
-                // this.review.company = this.companyInfo;
-                // this.review.user = this.$store.state;
-                this.review.company.id = this.companyInfo.ID;
-                this.review.company.name = this.companyInfo.name;
-                this.review.company.src = this.companyInfo.src;
-                this.review.id = this.companyInfo.reviews.length;
-                this.review.review.aggregate = (this.review.review.star[0] + this.review.review.star[1] + this.review.review.star[3] + this.review.review.star[4]) / 4;
-                axios.post('../../api/reviews/', this.review)
+                this.review.company = this.companyInfo;
+                console.log(this.companyInfo);
+                // this.review.company.id = this.companyInfo.ID;
+                // this.review.company.name = this.companyInfo.name;
+                // this.review.company.logosrc = this.companyInfo.logosrc;
+                this.review.user = this.$store.state;
+                this.$http.post('../../api/reviews/', this.review)
                 .then(response => {
                     console.log(response);
-                    this.$router.go(-1);
+                    this.$http.put('../../api/getCompanyInfo/mod/' + this.companyInfo.ID, this.review)
+                    .then(response => {
+                        console.log(response);
+                        this.$router.go(-1);
+                    })
+                    .catch(e => {
+                        this.errors.push(e);
+                        console.log(this.errors);
+                    });
                 })
                 .catch(e => {
                     this.errors.push(e)
                     console.log(this.errors)
-                })
-                console.log(this.review)
-                axios.put(`../../api/getCompanyInfo/mod/`+this.companyInfo.ID, {
-                    body: this.review
-                })
-                // .then(response => {console.log(response)})
-                .then(this.$router.push({path: '../../company/' + this.companyInfo.ID}))
-                .catch(e => {
-                    this.errors.push(e)
-                    console.log("너무 안되는구나2")
-                    console.log(this.errors)
-                })
-                console.log("여기는 잘됨2")
-                console.log(this.review)
+                });
+                console.log(this.review);
             }
         },
         data() {
