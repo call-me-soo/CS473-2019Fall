@@ -208,6 +208,16 @@
             param: function () {
                 return this.$route.params;
             },
+            // {{ nickname }}으로 참조하면 됩니당!
+            nickname() {
+                return this.$store.state.nickname;
+            },
+
+            // {{ major }}로 참조하면 됩니당!
+            major() {
+                return this.$store.state.major;
+
+            },
             isAuthenticated() {
                 if(this.$store.state._id){
                     return true
@@ -244,19 +254,6 @@
                     console.log(this.errors)
                 });
                 console.log(this.review);
-
-                // axios.put(`../../api/getCompanyInfo/mod/`+this.companyInfo.ID, {
-                //     body: this.review
-                // })
-                // .then(response => {console.log(response)})
-                // .then(this.$router.push({path: '../../company/' + this.companyInfo.ID}))
-                // .catch(e => {
-                //     this.errors.push(e)
-                //     console.log("너무 안되는구나2")
-                //     console.log(this.errors)
-                // })
-                // console.log("여기는 잘됨2")
-                // console.log(this.review)
             }
         },
         data() {
@@ -264,10 +261,18 @@
                 companyInfo: {},
                 yearOption: [2019, 2018, 2017, 2016, 2015],
                 seasonOption: ['봄', '여름', '가을', '겨울'],
+
                 review: {
                     id: 0,
-                    company: null,
-                    user: null,
+                    company: {
+                        id: 0,
+                        name: "",
+                        src: ""
+                    },
+                    user: {
+                        major: this.$store.state.major,
+                        nickname: this.$store.state.nickname
+                    },
                     semester: {
                         year: 0,
                         season: ""
