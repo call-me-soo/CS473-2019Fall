@@ -63,10 +63,10 @@ router.post('/', function(req, res){
     sumSalaryTemp[sumReview] = req.body.salary
     sumSalaryTemp.sort((n, m) => n - m);
     var normalizedSalary = (sumSalaryTemp.indexOf(req.body.salary) + 1) / (sumReview + 1)
-    req.body.review.star[2] = 5 * normalizedSalary; // star[2]
-    req.body.review.salaryPercent = (1 - normalizedSalary) * 100; // salaryPercent
+    req.body.review.star[2] = Number((5 * normalizedSalary).toFixed(2)); // star[2]
+    req.body.review.salaryPercent = Number(((1 - normalizedSalary) * 100).toFixed(2)); // salaryPercent
 
-    req.body.review.aggregate = req.body.review.star.reduce((a, b) => a + b, 0) / 5; //aggregate
+    req.body.review.aggregate = Number((req.body.review.star.reduce((a, b) => a + b, 0) / 5).toFixed(2)); //aggregate
     console.log(req.body.review.star);
     console.log(req.body.review.aggregate);
 
