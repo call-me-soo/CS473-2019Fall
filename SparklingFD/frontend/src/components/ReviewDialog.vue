@@ -33,7 +33,7 @@
                                 >
                                     mdi-thumb-up
                                 </v-icon>
-                                {{review.like}}
+                                {{review.like[0]}}
                             </v-btn>
                         </v-btn-toggle>
                     </v-row>

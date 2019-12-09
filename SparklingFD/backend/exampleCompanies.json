@@ -6,8 +6,9 @@
         "field": ["IT", "반도체"],
         "location": "이천",
         "recommend": ["CS", "EE"],
-        "star": [3, 5, 4, 5, 3],
-        "salary": "20%",        
+        "star": [0, 0, 0, 0, 0],
+        "salary": 0,        
+        "salarypercent": "20%",        
         "reviews": []
     },
     {
@@ -17,8 +18,21 @@
         "field": ["IT", "반도체"],
         "location": "삼성역",
         "recommend": ["CS", "EE"],
-        "star": [3, 4, 3, 4, 4],
-        "salary": "35%",        
+        "star": [0, 0, 0, 0, 0],
+        "salary": 0,        
+        "salarypercent": "10%",        
+        "reviews": []
+    },
+    {
+        "ID": 3,
+        "name": "네이버",
+        "logosrc": "/",
+        "field": ["IT", "반도체"],
+        "location": "삼성역",
+        "recommend": ["CS", "EE"],
+        "star": [0, 0, 0, 0, 0],
+        "salary": 0,        
+        "salarypercent": "15%",        
         "reviews": []
     }
 ]
