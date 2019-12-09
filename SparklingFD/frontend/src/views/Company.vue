@@ -22,7 +22,7 @@
                             <div class="sub-title-2-large pr-2">기업리뷰</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{companyInfo.reviews.length}}</div>
                             <div class="sub-title-2-large pr-2">추천학과</div><div class="sub-title-2-large pr-1 text--darken-1 grey--text">{{companyInfo.recommend.toString()}}</div>
                             <v-spacer></v-spacer>
-                            <v-btn rounded @click="routeToReview" :disabled="!isAuthenticated">
+                            <v-btn rounded @click="routeToReview" :disabled="!isAuthenticated" color="#FFCF57" depressed large>
                                 리뷰 작성
                             </v-btn>
                         </v-row>
@@ -51,7 +51,20 @@
                     </v-col>
                 </v-row>
 
-                <v-row wrap class="pa-3" justify="center">
+                <v-row v-show="isReviewsEmpty" wrap class="pt-5 justify-center" align="center" >
+                    <v-col cols="9">
+                        <v-row wrap align="center">
+                            <div class="korean sub-title-large d-none d-md-inline-block">
+                                아직 리뷰가 없네요.<br/> 당신의 소중한 경험을 공유해주세요~ ( ᐛ )و 
+                            </div>
+                            <div class="korean sub-title-small d-md-none">
+                                아직 리뷰가 없네요.<br/> 당신의 소중한 경험을 공유해주세요~ ( ᐛ )و 
+                            </div>
+                        </v-row>
+                    </v-col>
+                </v-row>
+
+                <v-row v-show="!isReviewsEmpty" wrap class="pa-3" justify="center">
                     <v-col cols="9">
                         <vue-slider
                                 ref="slider"
@@ -68,7 +81,7 @@
                     </v-col>
                 </v-row>
 
-                <v-row wrap class="pt-3 pb-3" justify="center" align="center">
+                <v-row v-show="!isReviewsEmpty" wrap class="pt-3 pb-3" justify="center" align="center">
                     <v-col cols="6">
                         <LineChart :data="this.processed" :label="this.label"></LineChart>
                     </v-col>
@@ -78,14 +91,14 @@
                 </v-row>
 
 
-                <v-row wrap justify="center">
+                <v-row v-show="!isReviewsEmpty" wrap justify="center">
                     <v-col cols="10">
                         <v-divider></v-divider>
                     </v-col>
                 </v-row>
 
 
-                <v-row wrap class="pt-5" justify="center" align="center" >
+                <v-row v-show="!isReviewsEmpty" wrap class="pt-5" justify="center" align="center" >
                     <v-col cols="9">
                         <v-row wrap align="center">
                             <div class="korean sub-title-large d-none d-md-inline-block">리뷰</div>
@@ -109,7 +122,7 @@
                     </v-col>
                 </v-row>
 
-                <v-row wrap justify="center">
+                <v-row v-show="!isReviewsEmpty" wrap justify="center">
                     <v-col cols="9">
                         <ReviewCardBig v-for="review in sortedReview"
                                        :key="sortedReview.indexOf(review)"
@@ -135,6 +148,10 @@
         name: "Company",
         components: { Toolbar, LineChart, VueSlider, RadarChart, ReviewCardBig },
         computed: {
+            isReviewsEmpty() {
+                if (this.companyInfo.reviews.length == 0) return true;
+                return false;
+            },
             isAuthenticated() {
                 if(this.$store.state._id) return true
                 return false
