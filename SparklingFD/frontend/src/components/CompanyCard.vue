@@ -10,7 +10,7 @@
                             <div>
                                 <v-avatar class="pr-5 pb-2" size="40">
                                     <img
-                                            src="https://cdn.vuetifyjs.com/images/john.jpg"
+                                            v-bind:src="this.companyInfo.logosrc"
                                             alt="John"
                                     >
                                 </v-avatar>
@@ -21,7 +21,7 @@
                             <div class="sub-title-2-large pr-2">추천학과</div><div class="sub-title-2-large pr-1 text--darken-1 grey--text">{{companyInfo.recommend.toString()}}</div>
                         </v-row>
                         <v-row class="pt-2" style="height: 40px;">
-                            <div class="sub-title-large pr-2">급여</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{companyInfo.salary}}만원, 상위 {{companyInfo.salarypercent}}</div>
+                            <div class="sub-title-large pr-2">급여</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{companyInfo.salary}}만원, 상위 {{companyInfo.salarypercent}} %</div>
                         </v-row>
                         <v-row wrap align="baseline" style="height: 40px">
                             <v-col cols="6">
@@ -130,6 +130,9 @@
                 type: Object,
                 required: true
             }
+        },
+        mounted() {
+            console.log(this.companyInfo)
         },
         computed: {
             aggregate() {

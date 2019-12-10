@@ -250,11 +250,10 @@
 
                     this.companyInfo.reviews.forEach(
                         review => {
-                            this.range.push(review.semester)
+                            this.range.push(review.semester);
+                            review.review.star[2] = (1-review.review.salaryPercent) * 5
                         }
                     );
-
-                    this.range = this.range.filter((item, index) => this.range.indexOf(item) === index);
 
                     this.range.sort((a, b) => {
                         if (a['year'] === b['year']) {
@@ -267,6 +266,8 @@
                     this.range = this.range.map(function (element) {
                         return this.formatSemester(element)
                     }.bind(this));
+
+                    this.range = this.range.filter((item, index, array) => { return index == array.indexOf(item) });
 
                     this.inputRange = [this.range[0], this.range[this.range.length-1]];
                     this.label = this.range;

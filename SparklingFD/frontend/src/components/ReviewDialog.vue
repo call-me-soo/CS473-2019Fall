@@ -173,6 +173,9 @@
                 return false
             }
         },
+        mounted() {
+          console.log(this.review)  ;
+        },
         data () {
             return {
                 like: 1

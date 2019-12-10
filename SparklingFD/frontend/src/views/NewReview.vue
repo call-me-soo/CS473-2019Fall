@@ -257,10 +257,8 @@
                 .then(this.$router.push({path: '../../company/' + this.companyInfo.ID}))
                 .catch(e => {
                     this.errors.push(e)
-                    console.log("너무 안되는구나2")
                     console.log(this.errors)
                 })
-                console.log("여기는 잘됨2")
                 console.log(this.review)
             }
         },

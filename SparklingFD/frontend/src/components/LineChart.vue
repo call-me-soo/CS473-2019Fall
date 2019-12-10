@@ -123,7 +123,6 @@
         },
         computed: {
             chartData () {
-                console.log(this.data)
                 return this.data
             },
             chartLabel () {
