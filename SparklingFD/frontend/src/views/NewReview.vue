@@ -239,10 +239,21 @@
                 this.review.company.src = this.companyInfo.src;
                 this.review.id = this.companyInfo.reviews.length;
                 this.review.review.aggregate = (this.review.review.star[0] + this.review.review.star[1] + this.review.review.star[3] + this.review.review.star[4]) / 4;
+                if(this.review.semester.season === "봄"){
+                    this.review.semester.season = 1
+                }
+                if(this.review.semester.season === "여름"){
+                    this.review.semester.season = 2
+                }
+                if(this.review.semester.season === "가을"){
+                    this.review.semester.season = 3
+                }
+                if(this.review.semester.season === "겨울"){
+                    this.review.semester.season = 4
+                }
                 axios.post('../../api/reviews/', this.review)
                 .then(response => {
                     console.log(response);
-                    this.$router.go(-1);
                 })
                 .catch(e => {
                     this.errors.push(e)
@@ -253,8 +264,11 @@
                     body: this.review,
                     salary: this.review.review.salary
                 })
-                // .then(response => {console.log(response)})
-                .then(this.$router.push({path: '../../company/' + this.companyInfo.ID}))
+                .then(response => {
+                    console.log(response);
+                    this.$router.go(-1);
+                })
+                // .then(this.$router.push({path: '../../company/' + this.companyInfo.ID}))
                 .catch(e => {
                     this.errors.push(e)
                     console.log(this.errors)
@@ -265,7 +279,7 @@
         data() {
             return {
                 companyInfo: {},
-                yearOption: [2019, 2018, 2017, 2016, 2015],
+                yearOption: [2019, 2018, 2017],
                 seasonOption: ['봄', '여름', '가을', '겨울'],
 
                 review: {

@@ -202,6 +202,7 @@
 
             updateLike() {
                 this.$http.put('../../api/reviews/like/' + this.review.id);
+                this.review.like += 1;
             }
         }
     }

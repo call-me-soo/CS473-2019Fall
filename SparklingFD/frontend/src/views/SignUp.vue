@@ -60,7 +60,7 @@
                             <v-col cols="12" sm="6">
                             <v-select
                                 v-model="major"
-                                :items="['전산과', '기계과', '전자과', '산디과', '기타']"
+                                :items="['전산', '기계', '전자', '산디', '생화공', '신소재', '기경', '수학']"
                                 :rules="[rules.required]"
                                 label="major*"
                                 required

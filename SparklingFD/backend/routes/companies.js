@@ -11,6 +11,7 @@ router.get('/', function(req, res){
   })
 })
 
+var stars
 router.get('/:ID', function(req, res){
   Company.findOne({ID: req.params.ID}, function(err, company){
     if(err) return res.status(500).json({error: err});
@@ -41,8 +42,13 @@ router.get('/:ID', function(req, res){
       company.star[2] = two / company.reviews.length
       company.star[3] = three / company.reviews.length
       company.star[4] = four / company.reviews.length
+      stars = company.star
     }
     res.json(company);
+  })
+  Company.findOneAndUpdate({ID: req.params.ID}, {$set: {star: stars}}, function(err, company){
+    if(err) return res.status(500).json({ error: 'database failure' });
+    if(!company) return res.status(404).json({ error: 'company not found' });
   })
 })
 
@@ -137,7 +143,7 @@ router.put('/mod/:companyId', function(req, res){
         totalreview = totalreview + company.reviews[i].review.star[2]
       }
     }
-    company.salarypercent = (totalreview / numofreviews) * 20
+    company.salarypercent = (totalreview / numofreviews) * 20;
     // company.star[0] = ((company.star[0] * numofreviews) + req.body.star[0]) / numofreviews
     // company.star[1] = ((company.star[1] * numofreviews) + req.body.star[1]) / numofreviews
     // company.star[2] = ((company.star[2] * numofreviews) + req.body.star[2]) / numofreviews

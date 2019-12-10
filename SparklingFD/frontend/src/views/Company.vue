@@ -35,8 +35,8 @@
                             <div>
                                 <v-avatar class="mr-5 mb-2" size="40">
                                     <img
-                                            src="https://cdn.vuetifyjs.com/images/john.jpg"
-                                            alt="John"
+                                            v-bind:src="this.companyInfo.logosrc"
+                                            alt="img"
                                     >
                                 </v-avatar>
                             </div>

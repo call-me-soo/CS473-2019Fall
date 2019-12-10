@@ -61,8 +61,12 @@
                     .then((response) => {
                         this.companyInfo = response.data;
                         this.sortFilter = '전체 평점';
-                        this.toggleSort()
+                        this.toggleSort();
+                        console.log(this.sortedCompany)
                     });
+            },
+            aggregateReview: function() {
+
             },
             toggleSort(){
                 if (this.sortFilter === '전체 평점'){
