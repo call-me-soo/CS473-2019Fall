@@ -133,8 +133,11 @@
             this.renderLineChart()
         },
         watch: {
-            data: function() {
-                this.renderLineChart();
+            data: {
+                deep: true,
+                handler() {
+                    this.renderLineChart();
+                }
             }
         }
 

@@ -177,9 +177,20 @@
                 }
             },
             processData() {
-                this.label = this.range.slice(this.range.indexOf(this.inputRange[0]), this.range.indexOf(this.inputRange[1]) + 1);
+
                 const temp = [];
                 const items = ['hardness', 'atmosphere', 'salary', 'learning', 'welfare'];
+
+                //initialize
+                this.processed['aggregate'] = [];
+                items.forEach(
+                    label => this.processed[label] = []
+                )
+
+                console.log(this.processed)
+
+                this.label = this.range.slice(this.range.indexOf(this.inputRange[0]), this.range.indexOf(this.inputRange[1]) + 1);
+
                 for (let i = 0; i < this.label.length; i++) {
                     temp.push(0);
                     this.processed['aggregate'].push(0);
@@ -225,6 +236,8 @@
 
                     }
                 )
+                console.log(this.processed)
+
             },
             formatSemester(semester){
                 return semester.year + ' ' + this.numbertoSeason(semester.season)
