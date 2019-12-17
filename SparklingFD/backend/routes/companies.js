@@ -46,14 +46,8 @@ router.post('/add', function(req, res){
 
 router.put('/mod/update/:companyId', function(req, res){
   Company.findOne({ID: req.params.companyId}, function(err, company){
-    console.log("찾으면");
-    console.log(company);
     if(err) return res.status(500).json({ error: 'database failure' });
     if(!company) return res.status(404).json({ error: 'company not found' });
-    console.log("들어갈땐1");
-    console.log(req.body.salary);
-    console.log(parseInt(req.body.salary));
-    console.log(company.salary);
     var numofreviews = company.reviews.length
     company.salary = ((company.salary * numofreviews) + parseInt(req.body.salary)) / numofreviews
     company.salarypercent = String(company.salary) + "%"
@@ -62,9 +56,6 @@ router.put('/mod/update/:companyId', function(req, res){
     company.star[2] = ((company.star[2] * numofreviews) + req.body.star[2]) / numofreviews
     company.star[3] = ((company.star[3] * numofreviews) + req.body.star[3]) / numofreviews
     company.star[4] = ((company.star[4] * numofreviews) + req.body.star[4]) / numofreviews
-    console.log("들어갈땐2");
-    console.log(company.star);
-    console.log(company.salary);
     company.save(function(err){
       if(err){
           console.error(err);
