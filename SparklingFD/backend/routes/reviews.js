@@ -57,29 +57,47 @@ router.get("/new", function(req, res){
 
 //리뷰 제출하기
 router.post('/', function(req, res){
-    req.body.id = sumReview + 1; // id
+    
+    //구조
+    //req.body.company -> id, name, logosrc
+    //req.body.user -> _id, username, nickname, major
+    //req.body.semester.year
+    //req.body.semester.season
+    //req.body.review.salary
+    //req.body.review.star[0][1][3][4]
+    //req.body.review.content
 
-    var sumSalaryTemp = sumSalary;
-    sumSalaryTemp[sumReview] = req.body.salary
-    sumSalaryTemp.sort((n, m) => n - m);
-    var normalizedSalary = (sumSalaryTemp.indexOf(req.body.salary) + 1) / (sumReview + 1)
-    req.body.review.star[2] = Number((5 * normalizedSalary).toFixed(2)); // star[2]
-    req.body.review.salaryPercent = Number(((1 - normalizedSalary) * 100).toFixed(2)); // salaryPercent
-
-    req.body.review.aggregate = Number((req.body.review.star.reduce((a, b) => a + b, 0) / 5).toFixed(2)); //aggregate
-    console.log(req.body.review.star);
-    console.log(req.body.review.aggregate);
-
-    Review.create(req.body, function(err, review){
+    Review.create(req.body, (err, review) => {
         if (err) {
             req.flash("review", req.body);
             req.flash("error", err);
             return res.redirect('/reviews/new');
         }
-        sumReview++;
-        sumSalary = sumSalaryTemp;
-        return res.json({result: 1});
-    });
+        console.log(review);
+        Review.find((err, doc) => {
+            if (err) return res.status(500);
+            var salaries = new Set(Object.keys(doc).map(key => doc[key].review.salary)); // Set {100, 300, 200}
+            console.log(salaries);
+            var orderedSalaries = Array.from(salaries).sort((a,b) => b-a); // [300, 200, 100]
+            console.log(orderedSalaries);
+            var updates = [];
+            Object.keys(doc).forEach((key) => {
+                var review = doc[key];
+                console.log(orderedSalaries.indexOf(review.review.salary));
+                var updatePromise = Review.update(
+                    {"_id": review._id},
+                    {$set: {
+                        "review.salaryPercent": Number((orderedSalaries.indexOf(review.review.salary) / (orderedSalaries.length - 1) * 100).toFixed(2)),
+                        "review.star.2": Number(((1 - orderedSalaries.indexOf(review.review.salary) / (orderedSalaries.length - 1)) * 5).toFixed(2)),
+                        "review.aggregate": Number((review.review.star.reduce((a, b) => a + b, 0) / 5).toFixed(2))
+                    }});
+                updates.push(updatePromise);
+            });
+            Promise.all(updates).then(function(results){
+                res.send(results);
+            });
+        })
+    })
 })
 
 //한 회사에 대한 리뷰 불러오기

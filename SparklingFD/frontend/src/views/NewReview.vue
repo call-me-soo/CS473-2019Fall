@@ -230,11 +230,10 @@
                 this.$router.push({path: '../../company/' + this.companyInfo.ID})
             },
             postPost() {
-                this.review.company = this.companyInfo;
-                console.log(this.companyInfo);
-                // this.review.company.id = this.companyInfo.ID;
-                // this.review.company.name = this.companyInfo.name;
-                // this.review.company.logosrc = this.companyInfo.logosrc;
+                // this.review.company = this.companyInfo;
+                this.review.company.id = this.companyInfo.ID;
+                this.review.company.name = this.companyInfo.name;
+                this.review.company.logosrc = this.companyInfo.logosrc;
                 this.review.user = this.$store.state;
                 this.$http.post('../../api/reviews/', this.review)
                 .then(response => {
