@@ -147,7 +147,7 @@
     export default {
         name: "Company",
         components: { Toolbar, LineChart, VueSlider, RadarChart, ReviewCardBig },
-        created () {
+        mounted () {
             this.$http.get('../../api/getCompanyInfo/' + this.$route.params.companyId)
             .then((response) => {
                 this.companyInfo = response.data;
