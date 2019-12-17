@@ -1,15 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var bodyParser = require('body-parser');
 const Review = require('../models/review');
 
-
-var sumReview = 0;
-var sumSalary = [];
-
-//모든 리뷰 불러오기
+//모든 리뷰 불러오기 (최신순)
 router.get('/', function(req, res){
-    Review.find(function(err, reviews){
+    Review.find().sort({_id: -1}).exec(function(err, reviews){
         if(err){
             console.log('database failure error');
             return res.status(500).send({error: 'database failure'});
@@ -60,7 +55,7 @@ router.post('/', function(req, res){
     
     //구조
     //req.body.company -> id, name, logosrc
-    //req.body.user -> _id, username, nickname, major
+    //req.body.user -> _id, nickname, major
     //req.body.semester.year
     //req.body.semester.season
     //req.body.review.salary
@@ -83,14 +78,11 @@ router.post('/', function(req, res){
                 if (err) return res.status(500);
 
                 var salaries = new Set(Object.keys(doc).map(key => doc[key].review.salary)); // Set {100, 300, 200}
-                console.log(salaries);
                 var orderedSalaries = Array.from(salaries).sort((a,b) => b-a); // [300, 200, 100]
-                console.log(orderedSalaries);
                 var updates = [];
                 Object.keys(doc).forEach((key) => {
                     var review = doc[key];
-                    console.log(orderedSalaries.indexOf(review.review.salary));
-                    var updatePromise = Review.update(
+                    var updatePromise = Review.updateOne(
                         {"_id": review._id},
                         {$set: {
                             "review.salaryPercent": Number((orderedSalaries.indexOf(review.review.salary) / (orderedSalaries.length - 1) * 100).toFixed(2)),
@@ -110,10 +102,11 @@ router.post('/', function(req, res){
 
 //한 회사에 대한 리뷰 불러오기
 router.get('/company/:id', function(req, res){
-    Review.find({company: {id: req.params.id}}, function(err, doc){
+    Review.find({'company.id': Number(req.params.id)}, function(err, doc){
         if (err) return res.status(500).send("MongoDB error");
-        if (!doc) return res.status(404).send("review not found");
+        if (!doc) return res.status(404).send("reviews not found");
         return res.json(doc);
     })
 })
+
 module.exports = router;

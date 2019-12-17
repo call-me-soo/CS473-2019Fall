@@ -244,18 +244,20 @@
         },
         created () {
             this.$http.get('../../api/getCompanyInfo/' + this.$route.params.companyId)
-                .then((response) => {
-                    this.companyInfo = response.data;
-                    this.toggleSort('date');
+            .then((response) => {
+                this.companyInfo = response.data;
 
+                this.$http.get('../../api/reviews/company/' + this.$route.params.companyId)
+                .then((response) => {
+                    this.companyInfo.reviews = response.data;
+                    
+                    this.toggleSort('date');
                     this.companyInfo.reviews.forEach(
                         review => {
                             this.range.push(review.semester)
                         }
                     );
-
                     this.range = this.range.filter((item, index) => this.range.indexOf(item) === index);
-
                     this.range.sort((a, b) => {
                         if (a['year'] === b['year']) {
                             return a['season'] - b['season']
@@ -263,15 +265,14 @@
                             return a['year'] - b['year']
                         }
                     });
-
                     this.range = this.range.map(function (element) {
                         return this.formatSemester(element)
                     }.bind(this));
-
                     this.inputRange = [this.range[0], this.range[this.range.length-1]];
                     this.label = this.range;
                     this.processData();
-                });
+                })
+            });
         },
         data () {
             return {
