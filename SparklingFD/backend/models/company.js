@@ -8,7 +8,7 @@ const companySchema = new Schema({
     field: Array,
     location: String,
     recommend: Array,
-    star: Array,
+    star: [Number],
     salary: Number,
     salaryPercent: Number,
     reviews: Schema.Types.Mixed

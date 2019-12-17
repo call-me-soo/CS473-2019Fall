@@ -77,11 +77,10 @@ router.post('/', function(req, res){
             Review.find((err, doc) => {
                 if (err) return res.status(500);
 
-                var salaries = new Set(Object.keys(doc).map(key => doc[key].review.salary)); // Set {100, 300, 200}
+                var salaries = new Set(doc.map(review => review.review.salary)); // Set {100, 300, 200}
                 var orderedSalaries = Array.from(salaries).sort((a,b) => b-a); // [300, 200, 100]
                 var updates = [];
-                Object.keys(doc).forEach((key) => {
-                    var review = doc[key];
+                doc.map(review => {
                     var updatePromise = Review.updateOne(
                         {"_id": review._id},
                         {$set: {
