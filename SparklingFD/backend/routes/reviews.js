@@ -92,7 +92,7 @@ router.post('/', function(req, res){
                     updates.push(updatePromise);
                 });
                 Promise.all(updates).then(function(results){
-                    res.send(results);
+                    return res.send(results);
                 });
             })
         })

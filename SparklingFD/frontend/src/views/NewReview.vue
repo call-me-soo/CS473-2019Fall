@@ -237,9 +237,20 @@
                 this.$http.post('../../api/reviews/', this.review)
                 .then(response => {
                     console.log(response);
-                    this.$router.go(-1);
-                })
-                .catch(error => {
+                    this.$http.put('../../api/getCompanyInfo/' + this.companyInfo.ID)
+                    .then(response => {
+                        console.log(response);
+                        this.$http.put('../../api/getCompanyInfo/', {})
+                        .then(response => {
+                            console.log(response);
+                            this.$router.go(-1);
+                        }).catch(err => {
+                            console.log(err);
+                        })
+                    }).catch(error=>{
+                        console.log(error);
+                    })
+                }).catch(error => {
                     console.log(error)
                 });
             }
