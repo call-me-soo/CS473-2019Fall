@@ -67,37 +67,45 @@ router.post('/', function(req, res){
     //req.body.review.star[0][1][3][4]
     //req.body.review.content
 
-    Review.create(req.body, (err, review) => {
-        if (err) {
-            req.flash("review", req.body);
-            req.flash("error", err);
-            return res.redirect('/reviews/new');
-        }
-        console.log(review);
-        Review.find((err, doc) => {
-            if (err) return res.status(500);
-            var salaries = new Set(Object.keys(doc).map(key => doc[key].review.salary)); // Set {100, 300, 200}
-            console.log(salaries);
-            var orderedSalaries = Array.from(salaries).sort((a,b) => b-a); // [300, 200, 100]
-            console.log(orderedSalaries);
-            var updates = [];
-            Object.keys(doc).forEach((key) => {
-                var review = doc[key];
-                console.log(orderedSalaries.indexOf(review.review.salary));
-                var updatePromise = Review.update(
-                    {"_id": review._id},
-                    {$set: {
-                        "review.salaryPercent": Number((orderedSalaries.indexOf(review.review.salary) / (orderedSalaries.length - 1) * 100).toFixed(2)),
-                        "review.star.2": Number(((1 - orderedSalaries.indexOf(review.review.salary) / (orderedSalaries.length - 1)) * 5).toFixed(2)),
-                        "review.aggregate": Number((review.review.star.reduce((a, b) => a + b, 0) / 5).toFixed(2))
-                    }});
-                updates.push(updatePromise);
-            });
-            Promise.all(updates).then(function(results){
-                res.send(results);
-            });
+    Review.count({}, (err, count) => {
+        if (err) res.redirect('/reviews/new');
+        req.body.id = count + 1;
+
+        Review.create(req.body, (err, review) => {
+            if (err) {
+                req.flash("review", req.body);
+                req.flash("error", err);
+                return res.redirect('/reviews/new');
+            }
+
+            console.log(review);
+            Review.find((err, doc) => {
+                if (err) return res.status(500);
+
+                var salaries = new Set(Object.keys(doc).map(key => doc[key].review.salary)); // Set {100, 300, 200}
+                console.log(salaries);
+                var orderedSalaries = Array.from(salaries).sort((a,b) => b-a); // [300, 200, 100]
+                console.log(orderedSalaries);
+                var updates = [];
+                Object.keys(doc).forEach((key) => {
+                    var review = doc[key];
+                    console.log(orderedSalaries.indexOf(review.review.salary));
+                    var updatePromise = Review.update(
+                        {"_id": review._id},
+                        {$set: {
+                            "review.salaryPercent": Number((orderedSalaries.indexOf(review.review.salary) / (orderedSalaries.length - 1) * 100).toFixed(2)),
+                            "review.star.2": Number(((1 - orderedSalaries.indexOf(review.review.salary) / (orderedSalaries.length - 1)) * 5).toFixed(2)),
+                            // "review.aggregate": Number((review.review.star.reduce((a, b) => a + b, 0) / 5).toFixed(2))
+                            "review.aggregate": Number(((review.review.star[0] + review.review.star[1] + review.review.star[3] + review.review.star[4] + Number(((1 - orderedSalaries.indexOf(review.review.salary) / (orderedSalaries.length - 1)) * 5).toFixed(2))) / 5).toFixed(2))
+                        }});
+                    updates.push(updatePromise);
+                });
+                Promise.all(updates).then(function(results){
+                    res.send(results);
+                });
+            })
         })
-    })
+    });
 })
 
 //한 회사에 대한 리뷰 불러오기

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const reviewSchema = new Schema({
-    // id: Number,
+    id: Number,
     company: {type: Schema.Types.Mixed, required: true},
     user: {type: Schema.Types.Mixed, required: true},
     semester: {type: Schema.Types.Mixed, required: true},
