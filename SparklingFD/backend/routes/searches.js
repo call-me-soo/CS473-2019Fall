@@ -1,8 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var reviews = require('../exampleReviews.json');
-var companies = require('../exampleCompanies.json');
-var bodyParser = require('body-parser');
 const Company = require('../models/company');
 
 router.get('/', function(req, res){
@@ -13,8 +10,6 @@ router.get('/', function(req, res){
 })
 
 router.get('/userinput', function (req, res){
-    var numofrev = 0
-    var revcards = []
     var harness_start = parseInt(req.query.harness)
     var atmosphere_start = parseInt(req.query.atmosphere)
     var salary_start = parseInt(req.query.salary)

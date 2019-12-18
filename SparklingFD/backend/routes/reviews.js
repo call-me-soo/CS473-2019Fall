@@ -1,15 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var bodyParser = require('body-parser');
 const Review = require('../models/review');
 
-
-var sumReview = 0;
-var sumSalary = [];
-
-//모든 리뷰 불러오기
+//모든 리뷰 불러오기 (최신순)
 router.get('/', function(req, res){
-    Review.find(function(err, reviews){
+    Review.find().sort({_id: -1}).exec(function(err, reviews){
         if(err){
             console.log('database failure error');
             return res.status(500).send({error: 'database failure'});
@@ -57,37 +52,51 @@ router.get("/new", function(req, res){
 
 //리뷰 제출하기
 router.post('/', function(req, res){
-    req.body.id = sumReview + 1; // id
+    
+    Review.count({}, (err, count) => {
+        if (err) res.redirect('/reviews/new');
+        req.body.id = count + 1;
 
-    var sumSalaryTemp = sumSalary;
-    sumSalaryTemp[sumReview] = req.body.salary
-    sumSalaryTemp.sort((n, m) => n - m);
-    var normalizedSalary = (sumSalaryTemp.indexOf(req.body.salary) + 1) / (sumReview + 1)
-    req.body.review.star[2] = Number((5 * normalizedSalary).toFixed(2)); // star[2]
-    req.body.review.salaryPercent = Number(((1 - normalizedSalary) * 100).toFixed(2)); // salaryPercent
+        Review.create(req.body, (err, review) => {
+            if (err) {
+                req.flash("review", req.body);
+                req.flash("error", err);
+                return res.redirect('/reviews/new');
+            }
 
-    req.body.review.aggregate = Number((req.body.review.star.reduce((a, b) => a + b, 0) / 5).toFixed(2)); //aggregate
-    console.log(req.body.review.star);
-    console.log(req.body.review.aggregate);
+            console.log(review);
+            Review.find((err, doc) => {
+                if (err) return res.status(500);
 
-    Review.create(req.body, function(err, review){
-        if (err) {
-            req.flash("review", req.body);
-            req.flash("error", err);
-            return res.redirect('/reviews/new');
-        }
-        sumReview++;
-        sumSalary = sumSalaryTemp;
-        return res.json({result: 1});
+                var salaries = new Set(doc.map(review => review.review.salary)); // Set {100, 300, 200}
+                var orderedSalaries = Array.from(salaries).sort((a,b) => b-a); // [300, 200, 100]
+                var updates = [];
+                doc.map(review => {
+                    var updatePromise = Review.updateOne(
+                        {"_id": review._id},
+                        {$set: {
+                            "review.salaryPercent": Number((orderedSalaries.indexOf(review.review.salary) / (orderedSalaries.length - 1) * 100).toFixed(2)),
+                            "review.star.2": Number(((1 - orderedSalaries.indexOf(review.review.salary) / (orderedSalaries.length - 1)) * 5).toFixed(2)),
+                            // "review.aggregate": Number((review.review.star.reduce((a, b) => a + b, 0) / 5).toFixed(2))
+                            "review.aggregate": Number(((review.review.star[0] + review.review.star[1] + review.review.star[3] + review.review.star[4] + Number(((1 - orderedSalaries.indexOf(review.review.salary) / (orderedSalaries.length - 1)) * 5).toFixed(2))) / 5).toFixed(2))
+                        }});
+                    updates.push(updatePromise);
+                });
+                Promise.all(updates).then(function(results){
+                    return res.send(results);
+                });
+            })
+        })
     });
 })
 
 //한 회사에 대한 리뷰 불러오기
 router.get('/company/:id', function(req, res){
-    Review.find({company: {id: req.params.id}}, function(err, doc){
+    Review.find({'company.id': Number(req.params.id)}).sort({_id:-1}).exec(function(err, doc){
         if (err) return res.status(500).send("MongoDB error");
-        if (!doc) return res.status(404).send("review not found");
+        if (!doc) return res.status(404).send("reviews not found");
         return res.json(doc);
     })
 })
+
 module.exports = router;

@@ -230,47 +230,29 @@
                 this.$router.push({path: '../../company/' + this.companyInfo.ID})
             },
             postPost() {
-                this.review.company = this.companyInfo;
-                console.log(this.companyInfo);
-                // this.review.company.id = this.companyInfo.ID;
-                // this.review.company.name = this.companyInfo.name;
-                // this.review.company.logosrc = this.companyInfo.logosrc;
+                this.review.company.id = this.companyInfo.ID;
+                this.review.company.name = this.companyInfo.name;
+                this.review.company.logosrc = this.companyInfo.logosrc;
                 this.review.user = this.$store.state;
                 this.$http.post('../../api/reviews/', this.review)
                 .then(response => {
                     console.log(response);
-                    this.$http.put('../../api/getCompanyInfo/mod/' + this.companyInfo.ID, this.review)
+                    this.$http.put('../../api/getCompanyInfo/' + this.companyInfo.ID)
                     .then(response => {
                         console.log(response);
-                        this.$router.go(-1);
+                        this.$http.put('../../api/getCompanyInfo/', {})
+                        .then(response => {
+                            console.log(response);
+                            this.$router.go(-1);
+                        }).catch(err => {
+                            console.log(err);
+                        })
+                    }).catch(error=>{
+                        console.log(error);
                     })
-                    .catch(e => {
-                        this.errors.push(e);
-                        console.log(this.errors);
-                    });
-                })
-                .catch(e => {
-                    this.errors.push(e)
-                    console.log(this.errors)
+                }).catch(error => {
+                    console.log(error)
                 });
-                console.log(this.review);
-
-                //너가 작업중인 부분
-                // axios.put('../../api/getCompanyInfo/mod/update/'+this.companyInfo.ID, {
-                //     salary: this.review.review.salary,
-                //     star: this.review.review.star
-                // })
-                // .then(response => {
-                //     console.log(response);
-                //     this.$router.go(-1);
-                // })
-                // .catch(e => {
-                //     this.errors.push(e)
-                //     console.log("너무 안되는구나3")
-                //     console.log(this.errors)
-                // })
-                // console.log("여기는 잘됨3")
-                // console.log(this.review)
             }
         },
         data() {
@@ -278,21 +260,21 @@
                 companyInfo: {},
                 yearOption: [2019, 2018, 2017, 2016, 2015],
                 seasonOption: ['봄', '여름', '가을', '겨울'],
-
                 review: {
                     id: 0,
                     company: {
                         id: 0,
-                        name: "",
-                        src: ""
+                        name: '',
+                        logosrc: ''
                     },
                     user: {
-                        major: this.$store.state.major,
-                        nickname: this.$store.state.nickname
+                        _id: '',
+                        major: '',
+                        nickname: '',
                     },
                     semester: {
                         year: 0,
-                        season: ""
+                        season: ''
                     },
                     like: 0,
                     review: {
@@ -300,7 +282,7 @@
                         salary: 0,
                         salaryPercent : 0,
                         star: [0, 0, 0, 0, 0],
-                        content: ""
+                        content: ''
                     }
                 }
             }

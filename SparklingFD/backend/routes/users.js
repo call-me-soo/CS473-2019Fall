@@ -1,6 +1,5 @@
 var express = require('express');
 var app = express.Router();
-var bodyParser = require('body-parser');
 var passport = require("../config/passport");
 const User = require('../models/user');
 
@@ -51,8 +50,8 @@ app.post("/", function(req, res){
 //post Login
 app.post('/signin', (req, res, next) => {
     passport.authenticate("local-login", (err, user, info) => {
-        if (err) res.json(401, 'fuck!! bitch')
-        if (!user) res.json(404, `there's no one you find out bitch`)
+        if (err) res.status(500).send('MongoDB error')
+        if (!user) res.status(404).send('계정이 존재하지 않습니다.')
         User.findOne({_id: user._id})
         .then(currentUser => {
             return res.json({
@@ -60,6 +59,8 @@ app.post('/signin', (req, res, next) => {
                 nickname: currentUser.nickname,
                 major: currentUser.major
             })
+        }, error => {
+            res.status(400).send('다시 시도해주세요.')
         })
     })(req, res, next)
 })
