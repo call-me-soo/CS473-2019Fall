@@ -55,8 +55,8 @@
         </v-row>
 
         <v-row wrap justify="center">
-          <v-col cols="10">
-            <v-row wrap>
+          <v-col cols="10" class="text-center">
+            <v-row wrap justify="center" align="center">
               <reviewCardSmall v-for="review in recentReviews" :key="recentReviews.indexOf(review)"
                       :review="review"
               ></reviewCardSmall>
