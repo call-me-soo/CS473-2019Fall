@@ -147,7 +147,7 @@
     export default {
         name: "Company",
         components: { Toolbar, LineChart, VueSlider, RadarChart, ReviewCardBig },
-        mounted () {
+        created () {
             this.$http.get('../../api/getCompanyInfo/' + this.$route.params.companyId)
             .then((response) => {
                 this.companyInfo = response.data;
@@ -176,7 +176,7 @@
                     this.inputRange = [this.range[0], this.range[this.range.length-1]];
                     this.label = this.range;
                     this.processData();
-                })
+                });
             });
         },
         computed: {

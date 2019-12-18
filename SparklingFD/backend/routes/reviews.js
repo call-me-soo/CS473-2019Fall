@@ -53,15 +53,6 @@ router.get("/new", function(req, res){
 //리뷰 제출하기
 router.post('/', function(req, res){
     
-    //구조
-    //req.body.company -> id, name, logosrc
-    //req.body.user -> _id, nickname, major
-    //req.body.semester.year
-    //req.body.semester.season
-    //req.body.review.salary
-    //req.body.review.star[0][1][3][4]
-    //req.body.review.content
-
     Review.count({}, (err, count) => {
         if (err) res.redirect('/reviews/new');
         req.body.id = count + 1;
@@ -101,7 +92,7 @@ router.post('/', function(req, res){
 
 //한 회사에 대한 리뷰 불러오기
 router.get('/company/:id', function(req, res){
-    Review.find({'company.id': Number(req.params.id)}, function(err, doc){
+    Review.find({'company.id': Number(req.params.id)}).sort({_id:-1}).exec(function(err, doc){
         if (err) return res.status(500).send("MongoDB error");
         if (!doc) return res.status(404).send("reviews not found");
         return res.json(doc);

@@ -17,7 +17,7 @@
                             </div>
                             <div class="card-title-large pr-5">{{companyInfo.name}}</div>
                             <div class="sub-title-2-large pr-7 text--darken-1 grey--text">{{companyInfo.field.toString()}} | {{companyInfo.location}}</div>
-                            <div class="sub-title-2-large pr-2">기업리뷰</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{companyInfo.reviews.length}}</div>
+                            <div class="sub-title-2-large pr-2">기업리뷰</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{numReviews}}</div>
                             <div class="sub-title-2-large pr-2">추천학과</div><div class="sub-title-2-large pr-1 text--darken-1 grey--text">{{companyInfo.recommend.toString()}}</div>
                         </v-row>
                         <v-row class="pt-2" style="height: 40px;">
@@ -131,6 +131,17 @@
                 required: true
             }
         },
+        data() {
+            return{
+                numReviews : 0
+            }
+        },
+        mounted() {
+            this.$http.get('../../api/reviews/company/' + this.companyInfo.ID)
+            .then(response => {
+                this.numReviews = Object.keys(response.data).length;
+            })
+        },
         computed: {
             aggregate() {
                 var sum=0;
@@ -144,7 +155,6 @@
             routeToCompany() {
                 this.$router.push({path: '../../company/' + this.companyInfo.ID})
             }
-
         }
     }
 </script>

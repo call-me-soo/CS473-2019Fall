@@ -43,12 +43,9 @@ router.put('/:ID', function(req, res){
       for (let i = 0; i < 5; i++) {
         company.star[i] = Number((sumStar[i] / numReviews).toFixed(2))
       }
-      company.reviews = reviews;
 
       // http://blog.adeel.io/2016/03/06/mongoose-save-to-update-value-in-array/
       company.markModified('star');
-      company.markModified('reviews');
-
       company.save(function(err){
         if(err) return res.send(err);
         return res.send({result: 1});

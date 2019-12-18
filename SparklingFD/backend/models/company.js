@@ -11,7 +11,7 @@ const companySchema = new Schema({
     star: [Number],
     salary: Number,
     salaryPercent: Number,
-    reviews: Schema.Types.Mixed
+    // reviews: Schema.Types.Mixed
 });
 
 module.exports = mongoose.model('company', companySchema); 
