@@ -15,6 +15,7 @@
             <v-row wrap justify="center" align="center">
                 <v-col cols="5">
                     <v-form ref="signInForm" lazy-validation>  
+                        <v-row><small class="alert"> {{ errormsg }} </small></v-row>
                         <v-row>
 
                             <v-col cols="12">
@@ -83,7 +84,8 @@ export default {
             password:'',
             rules: {
                 required: v => !!v || '필수 입력 항목입니다.',
-            }
+            },
+            errormsg: ''
         }
     },
     methods: {
@@ -99,6 +101,7 @@ export default {
                 this.$router.go(-1);
                 console.log(response);
             }, error => {
+                this.errormsg = error.response.data;
                 console.log(error);
             });
         },
@@ -122,6 +125,10 @@ export default {
 
     .v-btn {
         letter-spacing: -0.02px;
+    }
+
+    .alert {
+        color: red;
     }
 
 </style>
