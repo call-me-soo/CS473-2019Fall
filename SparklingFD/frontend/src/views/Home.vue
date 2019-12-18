@@ -39,7 +39,7 @@
         </v-row>
 
         <v-row justify="center" align="center" >
-          <v-col cols="11">
+          <v-col cols="9">
             <div class="korean sub-title-large d-none d-md-inline-block">사랑받은 리뷰</div>
             <div class="korean sub-title-small d-md-none">사랑받은 리뷰</div>
           </v-col>
@@ -48,7 +48,7 @@
         <ReviewCardSlick :bestReviews.sync="bestReviews"></ReviewCardSlick>
 
         <v-row justify="center" align="center" class="mt-10">
-          <v-col cols="11">
+          <v-col cols="9">
             <div class="korean sub-title-large d-none d-md-inline-block">따끈따끈한 리뷰</div>
             <div class="korean sub-title-small d-md-none">따끈따끈 리뷰</div>
           </v-col>

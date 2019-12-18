@@ -4,8 +4,22 @@
 @import url('https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css');
 @import "~slick-carousel/slick/slick.css";
 
+/* slick style */
+.slick-prev{
+  width: 50px !important;
+  height: 50px !important;
+  left: 70px !important;
+  background-color: #FFCF57 !important;
+  z-index: -10 !important;
+}
 
-
+.slick-next{
+  width: 50px !important;
+  height: 50px !important;
+  right: 70px !important;
+  background-color: #FFCF57 !important;
+  z-index: -10 !important;
+}
 
 .cracker{
   font-family: 'Baloo Bhai', cursive;
