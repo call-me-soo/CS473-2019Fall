@@ -1,7 +1,7 @@
 <template>
 
   <v-flex>
-    <div class="d-none d-md-inline">
+    <div class="d-none d-md-inline text-left">
       <v-row justify="center">
           <v-col cols="12">
             <slick
@@ -131,8 +131,8 @@
             autoplay: true,
             autoplaySpeed: 5000,
             arrows: true,
-            prevArrow: '<button type="button" class="slick-prev">Previous</button>',
-            nextArrow: '<button type="button" class="slick-next">Next</button>',
+            prevArrow: '<button class="custom-prev"><--</button>',
+            nextArrow: '<button class="custom-next">--></button>',
             dots: true,
             infinite: true,
             speed: 300,
@@ -178,10 +178,6 @@
 
   @import "~slick-carousel/slick/slick.css";
   @import "~slick-carousel/slick/slick-theme.css";
-
-  .card-wrapper{
-    width: 98% !important;
-  }
 
   .card {
     height: 260px;

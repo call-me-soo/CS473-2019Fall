@@ -5,20 +5,32 @@
 @import "~slick-carousel/slick/slick.css";
 
 /* slick style */
-.slick-prev{
-  width: 50px !important;
-  height: 50px !important;
-  left: 70px !important;
-  background-color: #FFCF57 !important;
-  z-index: -10 !important;
+.custom-prev{
+  position: absolute;
+  top: 130px !important;
+  left: 120px !important;
+  z-index: 10 !important;
+  /* font-family: 'Nanum Gothic', sans-serif;
+  font-weight: bold !important; */
+  font-family: 'Baloo Bhai', cursive;
+  /* letter-spacing: -10px !important; */
+  font-size: 80px;
+  line-height: 0 !important;
+  color: #FFCF57 !important;
 }
 
-.slick-next{
-  width: 50px !important;
-  height: 50px !important;
-  right: 70px !important;
-  background-color: #FFCF57 !important;
-  z-index: -10 !important;
+.custom-next{
+  position: absolute;
+  top: 130px !important;
+  right: 120px !important;
+  z-index: 10 !important;
+  /* font-family: 'Nanum Gothic', sans-serif;
+  font-weight: bold !important; */
+  font-family: 'Baloo Bhai', cursive;
+  /* letter-spacing: -10px !important; */
+  font-size: 80px;
+  line-height: 0 !important;
+  color: #FFCF57 !important;
 }
 
 .cracker{
