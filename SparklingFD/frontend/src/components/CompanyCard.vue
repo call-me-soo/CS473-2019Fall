@@ -154,23 +154,6 @@
         methods: {
             routeToCompany() {
                 this.$router.push({path: '../../company/' + this.companyInfo.ID})
-            },
-            temporaryfix(salary){
-                if (salary < 300) {
-                    this.companyInfo.star[2] = 5*((salary-120)/150).toFixed(1)
-                    return ((1-(salary-120)/150)*100).toFixed(1)
-                } else {
-                    this.companyInfo.star[2] = 5* ((salary)/300).toFixed(1)
-                    return ((1-(salary)/300)*100).toFixed(1)
-                }
-            },
-            temporarySalary(){
-                let temp = 0;
-                this.companyInfo.reviews.forEach(
-                    review => {temp += parseInt(review.review.salary)
-                    }
-                );
-                return (temp/this.companyInfo.reviews.length).toFixed(1);
             }
         }
     }
