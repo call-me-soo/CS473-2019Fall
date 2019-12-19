@@ -33,7 +33,7 @@
                                 >
                                     mdi-thumb-up
                                 </v-icon>
-                                {{review.like[0]}}
+                                {{review.like}}
                             </v-btn>
                         </v-btn-toggle>
                     </v-row>
@@ -202,6 +202,7 @@
 
             updateLike() {
                 this.$http.put('../../api/reviews/like/' + this.review.id);
+                this.review.like += 1;
             }
         }
     }

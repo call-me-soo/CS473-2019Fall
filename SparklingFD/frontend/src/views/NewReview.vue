@@ -194,6 +194,7 @@
 
 <script>
     import Toolbar from "../components/Toolbar";
+    import axios from 'axios';
 
     export default {
         name: "Review",
@@ -258,7 +259,7 @@
         data() {
             return {
                 companyInfo: {},
-                yearOption: [2019, 2018, 2017, 2016, 2015],
+                yearOption: [2019, 2018, 2017],
                 seasonOption: ['봄', '여름', '가을', '겨울'],
                 review: {
                     id: 0,

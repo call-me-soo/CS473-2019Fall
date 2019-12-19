@@ -123,7 +123,6 @@
         },
         computed: {
             chartData () {
-                console.log(this.data)
                 return this.data
             },
             chartLabel () {
@@ -134,8 +133,11 @@
             this.renderLineChart()
         },
         watch: {
-            data: function() {
-                this.renderLineChart();
+            data: {
+                deep: true,
+                handler() {
+                    this.renderLineChart();
+                }
             }
         }
 

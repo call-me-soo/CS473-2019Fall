@@ -106,10 +106,9 @@ export default {
   },
   methods: {
     search () {
+      let filter = ['harness', 'atmosphere', 'salary', 'learn', 'welfare'];
 
-      var filter = ['harness', 'atmosphere', 'salary', 'learn', 'welfare'];
-
-      for (var i=0; i<5; i++){
+      for (let i=0; i<5; i++){
         if (this.filterSelected[i]){
           this.searchQuery[filter[i]] = this.filterRating[i]
         }
@@ -118,13 +117,12 @@ export default {
         }
       }
 
-      if(this.searchInput === '' || this.searchInput === undefined){
+      if (this.searchInput === '' || this.searchInput === undefined) {
         this.$router.push({path: 'search/' + 'all' + '/harness=' + this.searchQuery.harness + '&atmosphere=' + this.searchQuery.atmosphere + '&salary=' + this.searchQuery.salary + '&learn=' + this.searchQuery.learn + '&welfare=' + this.searchQuery.welfare})
-      }else {
+      } else {
         this.$router.push({path: 'search/' + this.searchInput + '/harness=' + this.searchQuery.harness + '&atmosphere=' + this.searchQuery.atmosphere + '&salary=' + this.searchQuery.salary + '&learn=' + this.searchQuery.learn + '&welfare=' + this.searchQuery.welfare})
       }
-    }
-
+    },
   }
 };
 </script>

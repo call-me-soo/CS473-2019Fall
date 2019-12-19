@@ -1,8 +1,6 @@
 <template>
     <v-card class="card korean mb-3 mr-3 ml-3 text-left" @click.stop="modalOpen">
-        <div v-if="modalVisible">
-         <ReviewDialog :visible.sync="modalVisible" :review="review"></ReviewDialog>
-        </div>
+        <ReviewDialog :visible.sync="modalVisible" :review="review"></ReviewDialog>
         <v-row wrap
                class="justify-center pt-5"
         >
@@ -25,7 +23,32 @@
                     </v-flex>
                     <v-flex class="label pr-1">{{review.review.aggregate}}</v-flex>
                     <v-spacer></v-spacer>
-                    <v-flex><v-btn rounded small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like[0]}}</v-btn></v-flex>
+                    <v-flex>
+                        <v-btn-toggle
+                            v-model="like"
+                            class="ml-2"
+                            color="#FFCF57"
+                            group
+                            rounded
+                        >
+                            <v-btn
+                                    :disabled="!isAuthenticated"
+                                    small
+                                    outlined
+                                    rounded
+                                    text
+                                    @click="updateLike"
+                            >
+                                <v-icon
+                                        class="mr-1"
+                                        small
+                                >
+                                    mdi-thumb-up
+                                </v-icon>
+                                {{review.like}}
+                            </v-btn>
+                        </v-btn-toggle>
+                    </v-flex>
                 </v-row>
 
             </v-col>
@@ -46,9 +69,18 @@
                 required: true
             }
         },
+        computed: {
+            isAuthenticated() {
+                if(this.$store.state._id){
+                    return true
+                }
+                return false
+            }
+        },
         data () {
             return {
                 modalVisible: false,
+                like: 1
             }
         },
         methods: {
@@ -65,6 +97,10 @@
             },
             modalOpen() {
                 this.modalVisible = true;
+            },
+            updateLike() {
+                this.$http.put('../../api/reviews/like/' + this.review.id);
+                this.review.like += 1;
             }
         }
     }

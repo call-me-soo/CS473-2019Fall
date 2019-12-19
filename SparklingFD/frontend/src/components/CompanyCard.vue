@@ -10,8 +10,8 @@
                             <div>
                                 <v-avatar class="pr-5 pb-2" size="40">
                                     <img
-                                            src="https://cdn.vuetifyjs.com/images/john.jpg"
-                                            alt="John"
+                                            v-bind:src="this.companyInfo.logosrc"
+                                            alt="img"
                                     >
                                 </v-avatar>
                             </div>
@@ -37,7 +37,7 @@
                                             dense
                                             half-increments
                                     ></v-rating>
-                                    <span class="label d-inline">{{this.companyInfo.star[0]}}</span>
+                                    <span class="label d-inline">{{this.companyInfo.star[0].toFixed(2)}}</span>
                                 </v-row>
                             </v-col>
                             <v-col cols="6">
@@ -53,7 +53,7 @@
                                             dense
                                             half-increments
                                     ></v-rating>
-                                    <span class="label d-inline">{{this.companyInfo.star[1]}}</span>
+                                    <span class="label d-inline">{{this.companyInfo.star[1].toFixed(2)}}</span>
                                 </v-row>
                             </v-col>
                         </v-row>
@@ -71,7 +71,7 @@
                                             dense
                                             half-increments
                                     ></v-rating>
-                                    <span class="label d-inline">{{this.companyInfo.star[3]}}</span>
+                                    <span class="label d-inline">{{this.companyInfo.star[3].toFixed(2)}}</span>
                                 </v-row>
                             </v-col>
                             <v-col cols="6">
@@ -87,7 +87,7 @@
                                             dense
                                             half-increments
                                     ></v-rating>
-                                    <span class="label d-inline">{{this.companyInfo.star[4]}}</span>
+                                    <span class="label d-inline">{{this.companyInfo.star[4].toFixed(2)}}</span>
                                 </v-row>
                             </v-col>
                         </v-row>
@@ -109,7 +109,7 @@
                                         dense
                                         half-increments
                                 ></v-rating>
-                                <span class="label d-inline">{{this.aggregate}}</span>
+                                <span class="label d-inline">{{this.aggregate.toFixed(2)}}</span>
                             </v-col>
                         </v-row>
                     </v-col>

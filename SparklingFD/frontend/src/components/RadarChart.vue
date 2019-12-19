@@ -54,8 +54,12 @@
 
         },
         watch: {
-            data: function() {
-                this.renderRadarChart();
+            data:  {
+                deep: true,
+                handler() {
+                    this.renderRadarChart();
+                }
+
             }
         }
 
