@@ -4,8 +4,28 @@
 @import url('https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css');
 @import "~slick-carousel/slick/slick.css";
 
+/* slick style */
+.custom-prev{
+  position: absolute;
+  top: 130px !important;
+  left: 7% !important;
+  z-index: 10 !important;
+  font-family: 'Nanum Gothic', sans-serif;
+  font-size: 70px;
+  line-height: 0 !important;
+  color: #FFCF57 !important;
+}
 
-
+.custom-next{
+  position: absolute;
+  top: 130px !important;
+  right: 8% !important;
+  z-index: 10 !important;
+  font-family: 'Nanum Gothic', sans-serif;
+  font-size: 70px;
+  line-height: 0 !important;
+  color: #FFCF57 !important;
+}
 
 .cracker{
   font-family: 'Baloo Bhai', cursive;

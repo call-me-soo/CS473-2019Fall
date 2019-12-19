@@ -39,25 +39,25 @@
         </v-row>
 
         <v-row justify="center" align="center" >
-          <v-col cols="11">
+          <v-col cols="9">
             <div class="korean sub-title-large d-none d-md-inline-block">사랑받은 리뷰</div>
             <div class="korean sub-title-small d-md-none">사랑받은 리뷰</div>
           </v-col>
         </v-row>
 
-        <ReviewCardSlick :bestReviews.sync="bestReviews"></ReviewCardSlick>
+        <ReviewCardSlick :bestReviews.sync="bestReviews" class="text-center"></ReviewCardSlick>
 
         <v-row justify="center" align="center" class="mt-10">
-          <v-col cols="11">
+          <v-col cols="9">
             <div class="korean sub-title-large d-none d-md-inline-block">따끈따끈한 리뷰</div>
             <div class="korean sub-title-small d-md-none">따끈따끈 리뷰</div>
           </v-col>
         </v-row>
 
         <v-row wrap justify="center">
-          <v-col cols="10">
-            <v-row wrap>
-              <reviewCardSmall v-for="review in recentReviews.slice().reverse()" :key="recentReviews.indexOf(review)"
+          <v-col cols="10" class="text-center">
+            <v-row wrap justify="center" align="center">
+              <reviewCardSmall v-for="review in recentReviews" :key="recentReviews.indexOf(review)"
                       :review="review"
               ></reviewCardSmall>
             </v-row>

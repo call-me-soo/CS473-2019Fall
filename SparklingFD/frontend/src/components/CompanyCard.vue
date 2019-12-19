@@ -17,11 +17,11 @@
                             </div>
                             <div class="card-title-large pr-5">{{companyInfo.name}}</div>
                             <div class="sub-title-2-large pr-7 text--darken-1 grey--text">{{companyInfo.field.toString()}} | {{companyInfo.location}}</div>
-                            <div class="sub-title-2-large pr-2">기업리뷰</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{companyInfo.reviews.length}}</div>
+                            <div class="sub-title-2-large pr-2">기업리뷰</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{numReviews}}</div>
                             <div class="sub-title-2-large pr-2">추천학과</div><div class="sub-title-2-large pr-1 text--darken-1 grey--text">{{companyInfo.recommend.toString()}}</div>
                         </v-row>
                         <v-row class="pt-2" style="height: 40px;">
-                            <div class="sub-title-large pr-2">급여</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{this.temporarySalary()}}만원, 상위 {{this.temporaryfix(this.temporarySalary())}} %</div>
+                            <div class="sub-title-large pr-2">급여</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{companyInfo.salary}}만원, 상위 {{companyInfo.salaryPercent}}%</div>
                         </v-row>
                         <v-row wrap align="baseline" style="height: 40px">
                             <v-col cols="6">
@@ -131,8 +131,16 @@
                 required: true
             }
         },
+        data() {
+            return{
+                numReviews : 0
+            }
+        },
         mounted() {
-            console.log(this.companyInfo)
+            this.$http.get('../../api/reviews/company/' + this.companyInfo.ID)
+            .then(response => {
+                this.numReviews = Object.keys(response.data).length;
+            })
         },
         computed: {
             aggregate() {
@@ -140,7 +148,7 @@
                 for(var i=0; i<5; i++){
                     sum +=this.companyInfo.star[i]
                 }
-                return sum/5.0;
+                return Number((sum/5.0).toFixed(2));
             }
         },
         methods: {
@@ -164,7 +172,6 @@
                 );
                 return (temp/this.companyInfo.reviews.length).toFixed(1);
             }
-
         }
     }
 </script>

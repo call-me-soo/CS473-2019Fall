@@ -147,6 +147,38 @@
     export default {
         name: "Company",
         components: { Toolbar, LineChart, VueSlider, RadarChart, ReviewCardBig },
+        created () {
+            this.$http.get('../../api/getCompanyInfo/' + this.$route.params.companyId)
+            .then((response) => {
+                this.companyInfo = response.data;
+
+                this.$http.get('../../api/reviews/company/' + this.$route.params.companyId)
+                .then((response) => {
+                    this.companyInfo.reviews = response.data;
+                    
+                    this.toggleSort('date');
+                    this.companyInfo.reviews.map(
+                        review => {
+                            this.range.push(review.semester)
+                        }
+                    );
+                    this.range = this.range.filter((item, index) => this.range.indexOf(item) === index);
+                    this.range.sort((a, b) => {
+                        if (a['year'] === b['year']) {
+                            return a['season'] - b['season']
+                        } else {
+                            return a['year'] - b['year']
+                        }
+                    });
+                    this.range = this.range.map(function (element) {
+                        return this.formatSemester(element)
+                    }.bind(this));
+                    this.inputRange = [this.range[0], this.range[this.range.length-1]];
+                    this.label = this.range;
+                    this.processData();
+                });
+            });
+        },
         computed: {
             isReviewsEmpty() {
                 if (this.companyInfo.reviews.length == 0) return true;
@@ -200,7 +232,7 @@
                     )
                 }
 
-                this.companyInfo.reviews.forEach(
+                this.companyInfo.reviews.map(
                     element => {
                         const index = this.label.indexOf(this.formatSemester(element.semester));
                         temp[index] += 1;
@@ -253,39 +285,6 @@
                     return '겨울';
                 }
             }
-
-        },
-        created () {
-            this.$http.get('../../api/getCompanyInfo/' + this.$route.params.companyId)
-                .then((response) => {
-                    this.companyInfo = response.data;
-                    this.toggleSort('date');
-
-                    this.companyInfo.reviews.forEach(
-                        review => {
-                            this.range.push(review.semester);
-                            review.review.star[2] = (1-review.review.salaryPercent) * 5
-                        }
-                    );
-
-                    this.range.sort((a, b) => {
-                        if (a['year'] === b['year']) {
-                            return a['season'] - b['season']
-                        } else {
-                            return a['year'] - b['year']
-                        }
-                    });
-
-                    this.range = this.range.map(function (element) {
-                        return this.formatSemester(element)
-                    }.bind(this));
-
-                    this.range = this.range.filter((item, index, array) => { return index == array.indexOf(item) });
-
-                    this.inputRange = [this.range[0], this.range[this.range.length-1]];
-                    this.label = this.range;
-                    this.processData();
-                });
         },
         data () {
             return {

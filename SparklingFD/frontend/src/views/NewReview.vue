@@ -231,49 +231,29 @@
                 this.$router.push({path: '../../company/' + this.companyInfo.ID})
             },
             postPost() {
-
-                // this.review.company = this.companyInfo;
-                // this.review.user = this.$store.state;
                 this.review.company.id = this.companyInfo.ID;
                 this.review.company.name = this.companyInfo.name;
-                this.review.company.src = this.companyInfo.src;
-                this.review.id = this.companyInfo.reviews.length;
-                this.review.review.aggregate = (this.review.review.star[0] + this.review.review.star[1] + this.review.review.star[3] + this.review.review.star[4]) / 4;
-                if(this.review.semester.season === "봄"){
-                    this.review.semester.season = 1
-                }
-                if(this.review.semester.season === "여름"){
-                    this.review.semester.season = 2
-                }
-                if(this.review.semester.season === "가을"){
-                    this.review.semester.season = 3
-                }
-                if(this.review.semester.season === "겨울"){
-                    this.review.semester.season = 4
-                }
-                axios.post('../../api/reviews/', this.review)
+                this.review.company.logosrc = this.companyInfo.logosrc;
+                this.review.user = this.$store.state;
+                this.$http.post('../../api/reviews/', this.review)
                 .then(response => {
                     console.log(response);
-                })
-                .catch(e => {
-                    this.errors.push(e)
-                    console.log(this.errors)
-                })
-                console.log(this.review)
-                axios.put(`../../api/getCompanyInfo/mod/`+this.companyInfo.ID, {
-                    body: this.review,
-                    salary: this.review.review.salary
-                })
-                .then(response => {
-                    console.log(response);
-                    this.$router.go(-1);
-                })
-                // .then(this.$router.push({path: '../../company/' + this.companyInfo.ID}))
-                .catch(e => {
-                    this.errors.push(e)
-                    console.log(this.errors)
-                })
-                console.log(this.review)
+                    this.$http.put('../../api/getCompanyInfo/' + this.companyInfo.ID)
+                    .then(response => {
+                        console.log(response);
+                        this.$http.put('../../api/getCompanyInfo/', {})
+                        .then(response => {
+                            console.log(response);
+                            this.$router.go(-1);
+                        }).catch(err => {
+                            console.log(err);
+                        })
+                    }).catch(error=>{
+                        console.log(error);
+                    })
+                }).catch(error => {
+                    console.log(error)
+                });
             }
         },
         data() {
@@ -281,21 +261,21 @@
                 companyInfo: {},
                 yearOption: [2019, 2018, 2017],
                 seasonOption: ['봄', '여름', '가을', '겨울'],
-
                 review: {
                     id: 0,
                     company: {
                         id: 0,
-                        name: "",
-                        src: ""
+                        name: '',
+                        logosrc: ''
                     },
                     user: {
-                        major: this.$store.state.major,
-                        nickname: this.$store.state.nickname
+                        _id: '',
+                        major: '',
+                        nickname: '',
                     },
                     semester: {
                         year: 0,
-                        season: ""
+                        season: ''
                     },
                     like: 0,
                     review: {
@@ -303,7 +283,7 @@
                         salary: 0,
                         salaryPercent : 0,
                         star: [0, 0, 0, 0, 0],
-                        content: ""
+                        content: ''
                     }
                 }
             }

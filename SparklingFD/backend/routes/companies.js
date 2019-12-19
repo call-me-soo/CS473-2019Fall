@@ -1,8 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var companies = require('../exampleCompanies.json');
-var bodyParser = require('body-parser');
 const Company = require('../models/company');
+const Review = require('../models/review');
 
 router.get('/', function(req, res){
   Company.find(function(err, companies){
@@ -52,151 +51,69 @@ router.get('/:ID', function(req, res){
   })
 })
 
-router.post('/add', function(req, res){
-  var company = new Company();
-  company.ID = req.query.ID;
-  company.name = req.query.name;
-  company.logosrc = req.query.logosrc;
-  company.field = req.query.field;
-  company.location = req.query.location;
-  company.recommend = req.query.recommend;
-  company.star = [0, 0, 0, 0, 0];
-  company.salary = 0;
-  company.reviews = req.query.reviews;
-
-  company.save(function(err){
-      if(err){
-          console.error(err);
-          res.json({result: 0});
-          return;
-      }
-
-      res.json({result: 1});
-
-  });
-});
-// router.put('/mod/update/:companyId', function(req, res){
-  // Company.findOne({ID: req.params.companyId}, function(err, company){
-  //   console.log("찾으면");
-  //   console.log(company);
-  //   if(err) return res.status(500).json({ error: 'database failure' });
-  //   if(!company) return res.status(404).json({ error: 'company not found' });
-  //   console.log("들어갈땐1");
-  //   console.log(req.body.salary);
-  //   console.log(parseInt(req.body.salary));
-  //   console.log(company.salary);
-  //   var numofreviews = company.reviews.length
-  //   company.salary = ((company.salary * numofreviews) + parseInt(req.body.salary)) / numofreviews
-  //   company.salarypercent = String(company.salary) + "%"
-  //   // company.star[0] = ((company.star[0] * numofreviews) + req.body.star[0]) / numofreviews
-  //   // company.star[1] = ((company.star[1] * numofreviews) + req.body.star[1]) / numofreviews
-  //   // company.star[2] = ((company.star[2] * numofreviews) + req.body.star[2]) / numofreviews
-  //   // company.star[3] = ((company.star[3] * numofreviews) + req.body.star[3]) / numofreviews
-  //   // company.star[4] = ((company.star[4] * numofreviews) + req.body.star[4]) / numofreviews
-  //   console.log("들어갈땐2");
-  //   // console.log(company.star);
-  //   console.log(company.salary);
-  //   company.save(function(err){
-  //     if(err){
-  //         console.error(err);
-  //         res.json({result: 0});
-  //         return;
-  //     }
-  //     res.json({result: 1});
-  //   })
-  // })
-// })
-router.put('/mod/:companyId', function(req, res){
-  console.log("컴패니 아이디는");
-  console.log(req.params.companyId);
-  console.log("내용은");
-  console.log(req.body.body);
-  console.log(req.body.body.review);
-  Company.findOneAndUpdate({ID: req.params.companyId}, {$push: {reviews: req.body.body}}, function(err, company){
-    console.log("찾으면");
-    console.log(req.body.body)
-    console.log("이거랑")
-    console.log(company);
-    console.log(company.reviews);
+router.put('/:ID', function(req, res){
+  Company.findOne({ID: req.params.ID}, function(err, company){
     if(err) return res.status(500).json({ error: 'database failure' });
     if(!company) return res.status(404).json({ error: 'company not found' });
-  })
-  Company.findOne({ID: req.params.companyId}, function(err, company){
-    console.log("찾으면");
-    console.log(company);
-    if(err) return res.status(500).json({ error: 'database failure' });
-    if(!company) return res.status(404).json({ error: 'company not found' });
-    console.log("들어갈땐1");
-    console.log(req.body.salary);
-    console.log(parseInt(req.body.salary));
-    console.log(company.salary);
-    var numofreviews = company.reviews.length + 1;
-    console.log("Sogood")
-    console.log(numofreviews)
-    console.log(company.salary)
-    console.log(company.salary * numofreviews)
-    console.log((company.salary * numofreviews) + parseInt(req.body.salary))
-    company.salary = ((company.salary * (numofreviews - 1)) + parseInt(req.body.salary)) / numofreviews
-    var totalreview = 0
-    for (var i = 0; i < company.reviews.length; i++) {
-      if(company.reviews){
-        totalreview = totalreview + company.reviews[i].review.star[2]
+
+    Review.find({'company.id': Number(req.params.ID)}, function(err, reviews){
+      if (err) return res.status(500).send('database failure');
+      if (!reviews) return res.status(404).send("reviews not found");
+      
+      var sumMajor = {'전산': 0, '기계': 0, '전자': 0, '산디': 0, '생화공': 0, '신소재': 0, '기타': 0};
+      var sumSalary = 0;
+      var sumStar = [0,0,0,0,0];
+      var numReviews = 0;
+
+      reviews.map(review => {
+        Object.keys(sumMajor).forEach(e => {
+          if (e == review.user.major){
+            sumMajor[review.user.major]++;
+          }
+        })
+        sumSalary += Number(review.review.salary);
+        for (var i = 0; i < 5; i++) {
+          sumStar[i] += Number(review.review.star[i]);
+        }
+        numReviews ++;
+      })
+
+      company.recommend = Object.keys(sumMajor).sort((a, b) => {return Number(sumMajor[b]) - Number(sumMajor[a])}).slice(0,2);
+      company.salary = Number((sumSalary / numReviews).toFixed(2));
+      for (let i = 0; i < 5; i++) {
+        company.star[i] = Number((sumStar[i] / numReviews).toFixed(2))
       }
-    }
-    company.salarypercent = (totalreview / numofreviews) * 20;
-    // company.star[0] = ((company.star[0] * numofreviews) + req.body.star[0]) / numofreviews
-    // company.star[1] = ((company.star[1] * numofreviews) + req.body.star[1]) / numofreviews
-    // company.star[2] = ((company.star[2] * numofreviews) + req.body.star[2]) / numofreviews
-    // company.star[3] = ((company.star[3] * numofreviews) + req.body.star[3]) / numofreviews
-    // company.star[4] = ((company.star[4] * numofreviews) + req.body.star[4]) / numofreviews
-    console.log("들어갈땐2");
-    // console.log(company.star);
-    console.log(company.salary);
-    company.save(function(err){
-      if(err){
-          console.error(err);
-          res.json({result: 0});
-          return;
-      }
-      res.json({result: 1});
+
+      // http://blog.adeel.io/2016/03/06/mongoose-save-to-update-value-in-array/
+      company.markModified('star');
+      company.save(function(err){
+        if(err) return res.send(err);
+        return res.send({result: 1});
+      })
+
     })
   })
-  // Company.findOne({ID: req.params.companyId} {$push: {reviews: req.body.body.review}}, function(err, company){
-  //   console.log("찾으면");
-  //   console.log(company);
-  //   if(err) return res.status(500).json({ error: 'database failure' });
-  //   if(!company) return res.status(404).json({ error: 'company not found' });
+})
 
-  //   if(req.body.body.review) company.reviews = company.reviews.append(req.body.body.review);
-  //   console.log("들어갈땐");
-  //   console.log(company.reviews);
-  //     company.save(function(err){
-  //     if(err){
-  //         console.error(err);
-  //         res.json({result: 0});
-  //         return;
-  //     }
-
-  //     res.json({result: 1});
-  //   })
-  // })
-
-});
-// { _id: req.body.id }, 
-//    { $push: { friends: objFriends  } },
-
-// router.get('/', function(req, res, next) {
-//   res.send(companies)
-// });
-
-// router.get('/:ID', function (req, res, next) {
-//     // console.log('ID')
-//     var id = parseInt(req.params.ID, 10)
-//     // console.log(id)
-//     var companybyID = companies.filter(function (company) {
-//         return company.ID === id
-//     });
-//     res.send(companybyID)
-// });
+router.put('/', function(req, res){
+  Company.find((err, doc) => {
+    if (err) return res.status(500).send('mongoDB error');
+    if (!doc) return res.status(404).send('companies not found');
+    var salaries = new Set(doc.map(company => company.salary)); // Set {100, 300, 200}
+    var orderedSalaries = Array.from(salaries).sort((a, b) => b - a); // [300, 200, 100]
+    var denominator = orderedSalaries.length == 1 ? 1 : orderedSalaries.length - 1;
+    var updates = [];
+    doc.map(company => {
+      var updatePromise = Company.updateOne(
+          {"_id": company._id},
+          {$set: {"salaryPercent": Number((orderedSalaries.indexOf(company.salary) / denominator * 100).toFixed(2))}}
+      );
+      updates.push(updatePromise);
+    });
+    Promise.all(updates).then(function(results){
+      return res.send(results);
+    });
+  });
+})
 
 module.exports = router;

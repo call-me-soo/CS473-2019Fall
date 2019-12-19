@@ -1,5 +1,5 @@
 <template>
-    <v-card class="card korean mb-3 mr-3 ml-3" @click.stop="modalOpen">
+    <v-card class="card korean mb-3 mr-3 ml-3 text-left" @click.stop="modalOpen">
         <ReviewDialog :visible.sync="modalVisible" :review="review"></ReviewDialog>
         <v-row wrap
                class="justify-center pt-5"
