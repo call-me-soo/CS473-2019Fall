@@ -8,7 +8,7 @@
         "recommend": ["CS", "EE"],
         "star": [0, 0, 0, 0, 0],
         "salary": 0,        
-        "salarypercent": "20%", 
+        "salaryPercent": 20, 
         "reviews": []
     },
     {
@@ -20,7 +20,7 @@
         "recommend": ["CS", "EE"],
         "star": [0, 0, 0, 0, 0],
         "salary": 0,        
-        "salarypercent": "20%", 
+        "salaryPercent": 20, 
         "reviews": []
     },
     {
@@ -32,7 +32,7 @@
         "recommend": ["CS", "EE"],
         "star": [0, 0, 0, 0, 0],
         "salary": 0,        
-        "salarypercent": "15%",
+        "salaryPercent": 15,
         "reviews": []
     }
 ]
