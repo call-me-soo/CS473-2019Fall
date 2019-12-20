@@ -24,7 +24,7 @@
                         <v-flex class="card-title-large pr-2">{{review.company.name}}</v-flex>
                         <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}</v-flex>
                         <v-btn-toggle
-                                v-model="like"
+                                :v-model="likeClicked"
                                 class="ml-2"
                                 color="#FFCF57"
                                 group
@@ -154,6 +154,9 @@
             return true
           }
           return false
+        },
+        likeClicked() {
+            return this.like;
         }
       },
       data() {
