@@ -1,7 +1,7 @@
 <template>
     <v-flex>
         <div class="d-none d-md-inline">
-            <ReviewDialog :visible.sync="modalVisible" :review="review"></ReviewDialog>
+            <ReviewDialog v-bind:visible.sync="modalVisible" v-bind:review="review"></ReviewDialog>
             <v-card class="card korean mt-4 mb-4" @click.stop="modalOpen">
                 <v-row class="pl-12 pa-5" wrap>
                     <v-col class="korean" cols="8">
@@ -9,7 +9,7 @@
                                align="baseline"
                                class="d-inline-flex pb-4">
                             <v-flex class="card-title-large pr-2">{{review.company.name}}</v-flex>
-                            <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}</v-flex>
+                            <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{review.semester.season}}</v-flex>
                             <v-btn-toggle
                                     v-model="like"
                                     class="ml-2"
@@ -97,17 +97,6 @@
             }
         },
         methods: {
-            numbertoSeason(number){
-                if (number===1){
-                    return '봄';
-                } else if (number===2){
-                    return '여름';
-                } else if (number===3){
-                    return '가을';
-                } else {
-                    return '겨울';
-                }
-            },
             modalOpen() {
                 this.modalVisible = true;
             },

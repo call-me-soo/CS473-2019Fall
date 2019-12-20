@@ -11,7 +11,7 @@
                            align="baseline"
                            class="d-inline-flex pb-4">
                         <v-flex class="card-title-large pr-2" @click="routeToCompany">{{review.company.name}}</v-flex>
-                        <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}</v-flex>
+                        <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{review.semester.season}}</v-flex>
                         <v-btn-toggle
                             v-model="like"
                             class="ml-2"
@@ -53,7 +53,7 @@
             <v-row wrap class="pt-5">
                 <v-col cols="4">
                     <v-row wrap class="pl-3" justify="center">
-                        <RadarChart :data="review.review.star" style="width:200px"></RadarChart>
+                        <RadarChart ref="radar" v-bind:data="review.review.star" style="width:200px"></RadarChart>
                     </v-row>
                     <v-row wrap class="pt-2" justify="center" align="baseline">
                         <v-col class="text-center">
@@ -167,30 +167,19 @@
         },
         computed: {
             isAuthenticated() {
-                if(this.$store.state._id){
+                if (this.$store.state._id) {
                     return true
                 }
                 return false
             }
         },
-        data () {
+        data() {
             return {
                 like: 1
             }
         },
         methods: {
-            numbertoSeason(number){
-                if (number==1){
-                    return '봄';
-                } else if (number==2){
-                    return '여름';
-                } else if (number==3){
-                    return '가을';
-                } else {
-                    return '겨울';
-                }
-            },
-            handleWrapperClick(){
+            handleWrapperClick() {
                 this.$emit('update:visible', false)
             },
             close() {
@@ -203,8 +192,11 @@
             updateLike() {
                 this.$http.put('../../api/reviews/like/' + this.review.id);
                 this.review.like += 1;
+            },
+            updateData() {
+                this.$refs.radar.renderRadarChart()
             }
-        }
+        },
     }
 </script>
 

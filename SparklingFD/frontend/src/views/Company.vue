@@ -2,7 +2,7 @@
     <v-app>
         <v-content>
             <Toolbar></Toolbar>
-            <v-container>
+            <v-container v-if="Object.keys(this.companyInfo).length !== 0">
                 <v-row wrap class="pt-5" justify="center" align="center">
                     <v-col class="korean d-none d-md-flex" cols="9">
                         <v-row
@@ -12,8 +12,8 @@
                             <div>
                                 <v-avatar class="pr-5 pb-2" size="40">
                                     <img
-                                            src="https://cdn.vuetifyjs.com/images/john.jpg"
-                                            alt="John"
+                                            v-bind:src="this.companyInfo.logosrc"
+                                            alt="img"
                                     >
                                 </v-avatar>
                             </div>
@@ -83,10 +83,10 @@
 
                 <v-row v-show="!isReviewsEmpty" wrap class="pt-3 pb-3" justify="center" align="center">
                     <v-col cols="6">
-                        <LineChart :data="this.processed" :label="this.label"></LineChart>
+                        <LineChart v-bind:data="this.processed" :label="this.label"></LineChart>
                     </v-col>
                     <v-col cols="3">
-                        <RadarChart :data="this.star"></RadarChart>
+                        <RadarChart ref="radar" v-bind:data="this.star"></RadarChart>
                     </v-col>
                 </v-row>
 
@@ -155,20 +155,28 @@
                 this.$http.get('../../api/reviews/company/' + this.$route.params.companyId)
                 .then((response) => {
                     this.companyInfo.reviews = response.data;
-                    
                     this.toggleSort('date');
                     this.companyInfo.reviews.map(
                         review => {
                             this.range.push(review.semester)
                         }
                     );
-                    this.range = this.range.filter((item, index) => this.range.indexOf(item) === index);
-                    this.range.sort((a, b) => {
-                        if (a['year'] === b['year']) {
-                            return a['season'] - b['season']
-                        } else {
-                            return a['year'] - b['year']
+
+                    let reducer = (accumulator, value) => {
+                        if (accumulator.every( x => { return (this.compareSeason(x, value) !== 0) } )) {
+                            console.log(value);
+                            console.log('every');
+                            accumulator.push(value);
                         }
+                        return accumulator;
+                    };
+
+                    this.range = this.range.reduce(reducer, []);
+                    console.log(this.range);
+
+
+                    this.range.sort((a, b) => {
+                        this.compareSeason(a, b)
                     });
                     this.range = this.range.map(function (element) {
                         return this.formatSemester(element)
@@ -181,26 +189,39 @@
         },
         computed: {
             isReviewsEmpty() {
-                if (this.companyInfo.reviews.length == 0) return true;
-                return false;
+                return this.companyInfo.reviews.length === 0;
+
             },
             isAuthenticated() {
-                if(this.$store.state._id) return true
-                return false
+                return !!this.$store.state._id;
+
             }
         },
         methods: {
             routeToReview() {
                 this.$router.push({path: '../../newreview/company/' + this.companyInfo.ID})
             },
+            compareSeason(a, b) {
+                let seasons = ['봄', '여름', '가을', '겨울'];
+                if (a['year'] < b['year']){
+                    return -1;
+                } else if (a['year'] > b['year']){
+                    return 1;
+                } else {
+                    if (seasons.indexOf(a['season']) < seasons.indexOf(b['season'])){
+                        return -1;
+                    } else if (seasons.indexOf(a['season']) > seasons.indexOf(b['season'])){
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                }
+
+            },
             toggleSort() {
                 if (this.sortCards === 'date'){
                     this.sortedReview = this.companyInfo.reviews.sort((b, a) => {
-                        if (a['semester']['year'] === b['semester']['year']) {
-                            return a['semester']['season'] - b['semester']['season']
-                        } else {
-                            return a['semester']['year'] - b['semester']['year']
-                        }
+                        this.compareSeason(a['semester'], b['semester']);
                     })
                 } else {
                     this.sortedReview = this.companyInfo.reviews.sort((b, a) => {
@@ -217,9 +238,7 @@
                 this.processed['aggregate'] = [];
                 items.forEach(
                     label => this.processed[label] = []
-                )
-
-                console.log(this.processed)
+                );
 
                 this.label = this.range.slice(this.range.indexOf(this.inputRange[0]), this.range.indexOf(this.inputRange[1]) + 1);
 
@@ -258,7 +277,7 @@
                         element => {
                             this.processed['aggregate'][i] += this.processed[element][i]
                         }
-                    )
+                    );
                     this.processed['aggregate'][i] = this.processed['aggregate'][i]/5
                 }
 
@@ -267,24 +286,13 @@
                         this.star[index] = this.processed[element].reduce((a,b) => a + b, 0) / this.processed[element].length;
 
                     }
-                )
-                console.log(this.processed)
-
+                );
+                
+                this.$refs.radar.renderRadarChart()
             },
             formatSemester(semester){
-                return semester.year + ' ' + this.numbertoSeason(semester.season)
+                return semester.year + ' ' + semester.season
             },
-            numbertoSeason(number){
-                if (number===1){
-                    return '봄';
-                } else if (number===2){
-                    return '여름';
-                } else if (number===3){
-                    return '가을';
-                } else {
-                    return '겨울';
-                }
-            }
         },
         data () {
             return {
@@ -300,7 +308,7 @@
                 inputRange: [], //user input about semester range
                 label: [], //sliced range for line chart
                 range: [], //review exist range
-                star: [0,0,0,0,0], //star for radar chart
+                star: [1,1,1,1,1], //star for radar chart
                 sortCards: 'date',
                 sortedReview: {},
             }
