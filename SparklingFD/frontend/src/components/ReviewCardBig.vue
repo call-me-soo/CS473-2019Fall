@@ -93,7 +93,7 @@
         data () {
             return {
                 modalVisible: false,
-                like: 1
+                like: true
             }
         },
         methods: {
@@ -101,9 +101,16 @@
                 this.modalVisible = true;
             },
             updateLike() {
-                this.$http.put('../../api/reviews/like/' + this.review.id);
-                this.review.like += 1;
-            }
+                if(this.like){
+                    this.$http.put('../../api/reviews/like/' + this.review.id);
+                    this.review.like += 1;
+                    this.like = false;
+                }else{
+                    this.$http.put('../../api/reviews/likedown/' + this.review.id);
+                    this.review.like += -1;
+                    this.like = true;
+                }
+            },
         }
     }
 </script>

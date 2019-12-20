@@ -158,7 +158,7 @@
       },
       data() {
         return {
-          like: 1,
+          like: true,
           modalVisible: false,
           slickOptions: {
             accessibility: true,
@@ -208,9 +208,16 @@
           });
         },
         updateLike() {
-          this.$http.put('../../api/reviews/like/' + this.review.id);
-          this.review.like += 1;
-        }
+          if(this.like){
+            this.$http.put('../../api/reviews/like/' + this.review.id);
+            this.review.like += 1;
+            this.like = false;
+          }else{
+            this.$http.put('../../api/reviews/likedown/' + this.review.id);
+            this.review.like += -1;
+            this.like = true;
+          }
+        },
       }
     }
 </script>
