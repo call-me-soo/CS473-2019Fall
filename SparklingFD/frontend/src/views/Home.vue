@@ -45,11 +45,7 @@
           </v-col>
         </v-row>
 
-        <ReviewCardSlick
-                v-if="this.bestReviews.length === 10"
-                :bestReviews.sync="bestReviews"
-                class="text-center">
-        </ReviewCardSlick>
+        <ReviewCardSlick :bestReviews.sync="bestReviews" class="text-center"></ReviewCardSlick>
 
         <v-row justify="center" align="center" class="mt-10">
           <v-col cols="9">
