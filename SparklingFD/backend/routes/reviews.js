@@ -33,9 +33,18 @@ router.get('/:id', function(req, res){
     })
 })
 
-//리뷰 1개에 좋아요 반영하기
+//리뷰 1개에 좋아요+1 반영하기
 router.put('/like/:id', function(req, res){
     Review.findOneAndUpdate({id: req.params.id}, {$inc: {like: 1}}, function(err, doc){
+        if (err) return res.status(500).send("MongoDB error");
+        if (!doc) return res.status(404).send("Reviews not found");
+        return res.send("좋아요");
+    })
+})
+
+//리뷰 1개에 좋아요-1 반영하기
+router.put('/likedown/:id', function(req, res){
+    Review.findOneAndUpdate({id: req.params.id}, {$inc: {like: -1}}, function(err, doc){
         if (err) return res.status(500).send("MongoDB error");
         if (!doc) return res.status(404).send("Reviews not found");
         return res.send("좋아요");

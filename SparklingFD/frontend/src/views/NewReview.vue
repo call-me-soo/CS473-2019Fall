@@ -194,8 +194,6 @@
 
 <script>
     import Toolbar from "../components/Toolbar";
-    // import axios from 'axios';
-
     export default {
         name: "Review",
         components: { Toolbar },
