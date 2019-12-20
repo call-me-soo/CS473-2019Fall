@@ -55,7 +55,6 @@
         },
         watch: {
             data:  {
-                immediate: true,
                 deep: true,
                 handler() {
                     this.renderRadarChart();

@@ -80,46 +80,51 @@
               </slick>
           </v-col>
       </v-row>
-      <ReviewDialog :visible.sync="modalVisible" :review="this.review"></ReviewDialog>
-
+      <ReviewDialog
+              v-if="modalVisible"
+              ref="modal"
+              v-bind:visible.sync="modalVisible"
+              v-bind:review="this.review">
+      </ReviewDialog>
     </div>
-    <div class="d-md-none">
-      <v-row justify="center">
-          <v-col cols="12">
-            <slick
-                      ref="slick"
-                      :options="slickOptions"
-              >
-                <v-card class="card" v-for="review in (bestReviews.length > 0 ? bestReviews : placeholder)" :key="bestReviews.indexOf(review)">
-                  <v-row wrap
-                         justify="center"
-                         align="baseline"
-                         class="pl-8 pt-7">
-                    <v-flex class="korean card-title-small pr-2">{{review.company.name}}</v-flex>
-                  </v-row>
-                  <v-row wrap
-                         justify="center"
-                         align="baseline"
-                         class="pl-8"
-                  >
-                    <v-flex class="korean card-subtitle pr-1 text--darken-1 grey--text">
-                      {{review.user.major}} {{review.user.nickname}} | {{review.semester}}
-                      <v-btn class="korean ml-1" rounded x-small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
-                    </v-flex>
-                  </v-row>
-                  <v-row wrap
-                         class="pl-5"
-                  >
-                    <v-col cols="11">
-                      <v-flex class="korean card-content-small">{{review.review.content}}</v-flex>
-                    </v-col>
-                  </v-row>
-                </v-card>
 
-              </slick>
-          </v-col>
-      </v-row>
-    </div>
+<!--    <div class="d-md-none">-->
+<!--      <v-row justify="center">-->
+<!--          <v-col cols="12">-->
+<!--            <slick-->
+<!--                      ref="slick"-->
+<!--                      :options="slickOptions"-->
+<!--              >-->
+<!--                <v-card class="card" v-for="review in (bestReviews.length > 0 ? bestReviews : placeholder)" :key="bestReviews.indexOf(review)">-->
+<!--                  <v-row wrap-->
+<!--                         justify="center"-->
+<!--                         align="baseline"-->
+<!--                         class="pl-8 pt-7">-->
+<!--                    <v-flex class="korean card-title-small pr-2">{{review.company.name}}</v-flex>-->
+<!--                  </v-row>-->
+<!--                  <v-row wrap-->
+<!--                         justify="center"-->
+<!--                         align="baseline"-->
+<!--                         class="pl-8"-->
+<!--                  >-->
+<!--                    <v-flex class="korean card-subtitle pr-1 text&#45;&#45;darken-1 grey&#45;&#45;text">-->
+<!--                      {{review.user.major}} {{review.user.nickname}} | {{review.semester}}-->
+<!--                      <v-btn class="korean ml-1" rounded x-small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>-->
+<!--                    </v-flex>-->
+<!--                  </v-row>-->
+<!--                  <v-row wrap-->
+<!--                         class="pl-5"-->
+<!--                  >-->
+<!--                    <v-col cols="11">-->
+<!--                      <v-flex class="korean card-content-small">{{review.review.content}}</v-flex>-->
+<!--                    </v-col>-->
+<!--                  </v-row>-->
+<!--                </v-card>-->
+
+<!--              </slick>-->
+<!--          </v-col>-->
+<!--      </v-row>-->
+<!--    </div>-->
   </v-flex>
 
 
@@ -153,7 +158,7 @@
       },
       data() {
         return {
-          placeholder: [{"_id":"5ddbf68bb326f312260693f8","id":1,"company":{"id":1,"name":"SK하이닉스","src":"/"},"user":{"id":1,"major":"전산학부","nickname":"빨간 넥타이"},"semester":{"year":2019,"season":1},"like":57,"review":{"aggregate":2.5,"star":[3,5,4,5,3],"content":"급여를 매우 잘 챙겨줍니다."}},{"_id":"5ddbf694b326f312260693f9","id":2,"company":{"id":2,"name":"삼성","src":"/"},"user":{"id":2,"major":"전산학부","nickname":"검은 호랑이"},"semester":{"year":2018,"season":2},"like":33,"review":{"aggregate":3.7,"star":[4,3,4,3,4],"content":"배고파요 도와주세요"}},{"_id":"5ddcb9a5ebf3b87ba7992483","id":3,"company":{"id":3,"name":"네이버","src":"/"},"user":{"id":2,"major":"전산학부","nickname":"검은 호랑이"},"semester":{"year":2018,"season":2},"like":17,"review":{"aggregate":5,"star":[5,5,5,5,5],"content":"최고의 기업이었습니다. 배우는 것도 많고 복지도 짱짱인데 돈도 많이 줬습니다. 교통도 편리하고 사옥도 제공됩니다."}},{"_id":"5ddcba0eebf3b87ba7992484","id":4,"company":{"id":3,"name":"네이버","src":"/"},"user":{"id":1,"major":"전산학부","nickname":"빨간 넥타이"},"semester":{"year":2019,"season":1},"like":8,"review":{"aggregate":5,"star":[5,5,3,5,5],"content":"좋긴한데 일을 많이 시켜요..."}},{"_id":"5dec8a95095e9bf8bdd51fde","id":0,"company":{"field":["IT"],"recommend":["CS"],"star":[5,5,4,5,5],"reviews":[{"id":3,"company":{"id":3,"name":"네이버","src":"/"},"user":{"id":2,"major":"전산학부","nickname":"검은 호랑이"},"semester":{"year":2018,"season":2},"like":17,"review":{"aggregate":5,"star":[5,5,5,5,5],"content":"최고의 기업이었습니다. 배우는 것도 많고 복지도 짱짱인데 돈도 많이 줬습니다. 교통도 편리하고 사옥도 제공됩니다."}},{"id":4,"company":{"id":3,"name":"네이버","src":"/"},"user":{"id":1,"major":"전산학부","nickname":"빨간 넥타이"},"semester":{"year":2019,"season":1},"like":8,"review":{"aggregate":5,"star":[5,5,3,5,5],"content":"좋긴한데 일을 많이 시켜요..."}}],"_id":"5ddcbb52ebf3b87ba7992485","ID":3,"name":"네이버","logosrc":"/","location":"판교","salary":"10%"},"semester":{"year":"","season":""},"like":0,"review":{"aggregate":0,"star":[0,0,0,0,0],"content":""},"__v":0}],
+          like: 1,
           modalVisible: false,
           slickOptions: {
             accessibility: true,
@@ -198,6 +203,9 @@
         modalOpen(review) {
           this.modalVisible = true;
           this.review = review;
+          this.$nextTick(function(){
+            this.$refs.modal.updateData()
+          });
         },
         updateLike() {
           this.$http.put('../../api/reviews/like/' + this.review.id);

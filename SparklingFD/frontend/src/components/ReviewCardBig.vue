@@ -1,7 +1,7 @@
 <template>
     <v-flex>
         <div class="d-none d-md-inline">
-            <ReviewDialog :visible.sync="modalVisible" :review="review"></ReviewDialog>
+            <ReviewDialog v-bind:visible.sync="modalVisible" v-bind:review="review"></ReviewDialog>
             <v-card class="card korean mt-4 mb-4" @click.stop="modalOpen">
                 <v-row class="pl-12 pa-5" wrap>
                     <v-col class="korean" cols="8">

@@ -45,7 +45,11 @@
           </v-col>
         </v-row>
 
-        <ReviewCardSlick :bestReviews.sync="bestReviews" class="text-center"></ReviewCardSlick>
+        <ReviewCardSlick
+                v-if="this.bestReviews.length === 10"
+                :bestReviews.sync="bestReviews"
+                class="text-center">
+        </ReviewCardSlick>
 
         <v-row justify="center" align="center" class="mt-10">
           <v-col cols="9">
@@ -54,10 +58,16 @@
           </v-col>
         </v-row>
 
-        <v-row wrap justify="center">
+        <v-row
+                v-if="this.recentReviews.length !== 0"
+                wrap
+                justify="center"
+        >
           <v-col cols="10" class="text-center">
             <v-row wrap justify="center" align="center">
-              <reviewCardSmall v-for="review in recentReviews" :key="recentReviews.indexOf(review)"
+              <reviewCardSmall
+                      v-for="review in recentReviews"
+                      :key="recentReviews.indexOf(review)"
                       :review="review"
               ></reviewCardSmall>
             </v-row>

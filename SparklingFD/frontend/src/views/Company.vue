@@ -2,7 +2,7 @@
     <v-app>
         <v-content>
             <Toolbar></Toolbar>
-            <v-container>
+            <v-container v-if="Object.keys(this.companyInfo).length !== 0">
                 <v-row wrap class="pt-5" justify="center" align="center">
                     <v-col class="korean d-none d-md-flex" cols="9">
                         <v-row
@@ -161,13 +161,22 @@
                             this.range.push(review.semester)
                         }
                     );
-                    this.range = this.range.filter((item, index) => this.range.indexOf(item) === index);
-                    this.range.sort((a, b) => {
-                        if (a['year'] === b['year']) {
-                            return this.compareSeason(a['season'], b['season'])
-                        } else {
-                            return a['year'] - b['year']
+
+                    let reducer = (accumulator, value) => {
+                        if (accumulator.every( x => { return (this.compareSeason(x, value) !== 0) } )) {
+                            console.log(value);
+                            console.log('every');
+                            accumulator.push(value);
                         }
+                        return accumulator;
+                    };
+
+                    this.range = this.range.reduce(reducer, []);
+                    console.log(this.range);
+
+
+                    this.range.sort((a, b) => {
+                        this.compareSeason(a, b)
                     });
                     this.range = this.range.map(function (element) {
                         return this.formatSemester(element)
@@ -175,18 +184,17 @@
                     this.inputRange = [this.range[0], this.range[this.range.length-1]];
                     this.label = this.range;
                     this.processData();
-                    this.$refs.radar.renderRadarChart()
                 });
             });
         },
         computed: {
             isReviewsEmpty() {
-                if (this.companyInfo.reviews.length === 0) return true;
-                return false;
+                return this.companyInfo.reviews.length === 0;
+
             },
             isAuthenticated() {
-                if(this.$store.state._id) return true;
-                return false
+                return !!this.$store.state._id;
+
             }
         },
         methods: {
@@ -195,22 +203,25 @@
             },
             compareSeason(a, b) {
                 let seasons = ['봄', '여름', '가을', '겨울'];
-                if (seasons.indexOf(a) < seasons.indexOf(b)){
+                if (a['year'] < b['year']){
                     return -1;
-                } else if (seasons.indexOf(a) > seasons.indexOf(b)){
+                } else if (a['year'] > b['year']){
                     return 1;
                 } else {
-                    return 0;
+                    if (seasons.indexOf(a['season']) < seasons.indexOf(b['season'])){
+                        return -1;
+                    } else if (seasons.indexOf(a['season']) > seasons.indexOf(b['season'])){
+                        return 1;
+                    } else {
+                        return 0;
+                    }
                 }
+
             },
             toggleSort() {
                 if (this.sortCards === 'date'){
                     this.sortedReview = this.companyInfo.reviews.sort((b, a) => {
-                        if (a['semester']['year'] === b['semester']['year']) {
-                            return this.compareSeason(a['semester']['season'], b['semester']['season'])
-                        } else {
-                            return a['semester']['year'] - b['semester']['year']
-                        }
+                        this.compareSeason(a['semester'], b['semester']);
                     })
                 } else {
                     this.sortedReview = this.companyInfo.reviews.sort((b, a) => {
@@ -276,6 +287,8 @@
 
                     }
                 );
+                
+                this.$refs.radar.renderRadarChart()
             },
             formatSemester(semester){
                 return semester.year + ' ' + semester.season
