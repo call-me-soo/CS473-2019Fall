@@ -6,7 +6,7 @@
         >
             <v-col cols="10">
                 <v-flex class="card-title pb-2">{{review.company.name}}</v-flex>
-                <v-flex class="card-subtitle text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}</v-flex>
+                <v-flex class="card-subtitle text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{review.semester.season}}</v-flex>
                 <v-row class="card-content pt-5 pa-3">{{review.review.content}}</v-row>
                 <v-row wrap class="pt-2 pl-1" align="baseline">
                     <v-flex>
@@ -84,17 +84,17 @@
             }
         },
         methods: {
-            numbertoSeason(number){
-                if (number==1){
-                    return '봄';
-                } else if (number==2){
-                    return '여름';
-                } else if (number==3){
-                    return '가을';
-                } else {
-                    return '겨울';
-                }
-            },
+            // numbertoSeason(number){
+            //     if (number==1){
+            //         return '봄';
+            //     } else if (number==2){
+            //         return '여름';
+            //     } else if (number==3){
+            //         return '가을';
+            //     } else {
+            //         return '겨울';
+            //     }
+            // },
             modalOpen() {
                 this.modalVisible = true;
             },

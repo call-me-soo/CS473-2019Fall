@@ -11,7 +11,7 @@
                            align="baseline"
                            class="d-inline-flex pb-4">
                         <v-flex class="card-title-large pr-2" @click="routeToCompany">{{review.company.name}}</v-flex>
-                        <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}</v-flex>
+                        <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{review.semester.season}}</v-flex>
                         <v-btn-toggle
                             v-model="like"
                             class="ml-2"
@@ -179,17 +179,17 @@
             }
         },
         methods: {
-            numbertoSeason(number){
-                if (number==1){
-                    return '봄';
-                } else if (number==2){
-                    return '여름';
-                } else if (number==3){
-                    return '가을';
-                } else {
-                    return '겨울';
-                }
-            },
+            // numbertoSeason(number){
+            //     if (number==1){
+            //         return '봄';
+            //     } else if (number==2){
+            //         return '여름';
+            //     } else if (number==3){
+            //         return '가을';
+            //     } else {
+            //         return '겨울';
+            //     }
+            // },
             handleWrapperClick(){
                 this.$emit('update:visible', false)
             },

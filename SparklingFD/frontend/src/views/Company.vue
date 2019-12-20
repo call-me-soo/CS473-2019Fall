@@ -12,8 +12,8 @@
                             <div>
                                 <v-avatar class="pr-5 pb-2" size="40">
                                     <img
-                                            src="https://cdn.vuetifyjs.com/images/john.jpg"
-                                            alt="John"
+                                            v-bind:src="this.companyInfo.logosrc"
+                                            alt="img"
                                     >
                                 </v-avatar>
                             </div>
@@ -155,7 +155,6 @@
                 this.$http.get('../../api/reviews/company/' + this.$route.params.companyId)
                 .then((response) => {
                     this.companyInfo.reviews = response.data;
-                    
                     this.toggleSort('date');
                     this.companyInfo.reviews.map(
                         review => {
@@ -165,7 +164,7 @@
                     this.range = this.range.filter((item, index) => this.range.indexOf(item) === index);
                     this.range.sort((a, b) => {
                         if (a['year'] === b['year']) {
-                            return a['season'] - b['season']
+                            return this.compareSeason(a['season'], b['season'])
                         } else {
                             return a['year'] - b['year']
                         }
@@ -181,11 +180,11 @@
         },
         computed: {
             isReviewsEmpty() {
-                if (this.companyInfo.reviews.length == 0) return true;
+                if (this.companyInfo.reviews.length === 0) return true;
                 return false;
             },
             isAuthenticated() {
-                if(this.$store.state._id) return true
+                if(this.$store.state._id) return true;
                 return false
             }
         },
@@ -193,11 +192,21 @@
             routeToReview() {
                 this.$router.push({path: '../../newreview/company/' + this.companyInfo.ID})
             },
+            compareSeason(a, b) {
+                let seasons = ['봄', '여름', '가을', '겨울'];
+                if (seasons.indexOf(a) < seasons.indexOf(b)){
+                    return -1;
+                } else if (seasons.indexOf(a) > seasons.indexOf(b)){
+                    return 1;
+                } else {
+                    return 0;
+                }
+            },
             toggleSort() {
                 if (this.sortCards === 'date'){
                     this.sortedReview = this.companyInfo.reviews.sort((b, a) => {
                         if (a['semester']['year'] === b['semester']['year']) {
-                            return a['semester']['season'] - b['semester']['season']
+                            return this.compareSeason(a['semester']['season'], b['semester']['season'])
                         } else {
                             return a['semester']['year'] - b['semester']['year']
                         }
@@ -217,9 +226,7 @@
                 this.processed['aggregate'] = [];
                 items.forEach(
                     label => this.processed[label] = []
-                )
-
-                console.log(this.processed)
+                );
 
                 this.label = this.range.slice(this.range.indexOf(this.inputRange[0]), this.range.indexOf(this.inputRange[1]) + 1);
 
@@ -258,7 +265,7 @@
                         element => {
                             this.processed['aggregate'][i] += this.processed[element][i]
                         }
-                    )
+                    );
                     this.processed['aggregate'][i] = this.processed['aggregate'][i]/5
                 }
 
@@ -267,24 +274,24 @@
                         this.star[index] = this.processed[element].reduce((a,b) => a + b, 0) / this.processed[element].length;
 
                     }
-                )
+                );
                 console.log(this.processed)
 
             },
             formatSemester(semester){
-                return semester.year + ' ' + this.numbertoSeason(semester.season)
+                return semester.year + ' ' + semester.season
             },
-            numbertoSeason(number){
-                if (number===1){
-                    return '봄';
-                } else if (number===2){
-                    return '여름';
-                } else if (number===3){
-                    return '가을';
-                } else {
-                    return '겨울';
-                }
-            }
+            // numbertoSeason(number){
+            //     if (number===1){
+            //         return '봄';
+            //     } else if (number===2){
+            //         return '여름';
+            //     } else if (number===3){
+            //         return '가을';
+            //     } else {
+            //         return '겨울';
+            //     }
+            // }
         },
         data () {
             return {
