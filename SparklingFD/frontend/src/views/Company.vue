@@ -166,7 +166,7 @@
                         if (accumulator.every( x => { return (this.compareSeason(x, value) !== 0) } )) {
                             console.log(value);
                             console.log('every');
-                            accumulator.push(value);
+                            accumulator.unshift(value);
                         }
                         return accumulator;
                     };
