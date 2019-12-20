@@ -139,7 +139,10 @@ export default {
             }, error => {
                 this.errormsg = error.response.data;
                 console.log(error);
-            })});
+            })},error => {
+                this.errormsg = error.response.data;
+                console.log(error);
+            });
         }
     }
 }
