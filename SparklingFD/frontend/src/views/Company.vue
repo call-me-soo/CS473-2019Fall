@@ -155,7 +155,7 @@
                 this.$http.get('../../api/reviews/company/' + this.$route.params.companyId)
                 .then((response) => {
                     this.companyInfo.reviews = response.data;
-                    this.toggleSort('date');
+                    this.toggleSort();
                     this.companyInfo.reviews.map(
                         review => {
                             this.range.push(review.semester)
@@ -164,16 +164,11 @@
 
                     let reducer = (accumulator, value) => {
                         if (accumulator.every( x => { return (this.compareSeason(x, value) !== 0) } )) {
-                            console.log(value);
-                            console.log('every');
                             accumulator.unshift(value);
                         }
                         return accumulator;
                     };
-
                     this.range = this.range.reduce(reducer, []);
-                    console.log(this.range);
-
 
                     this.range.sort((a, b) => {
                         this.compareSeason(a, b)
@@ -190,11 +185,9 @@
         computed: {
             isReviewsEmpty() {
                 return this.companyInfo.reviews.length === 0;
-
             },
             isAuthenticated() {
                 return !!this.$store.state._id;
-
             }
         },
         methods: {
@@ -216,17 +209,16 @@
                         return 0;
                     }
                 }
-
             },
             toggleSort() {
                 if (this.sortCards === 'date'){
-                    this.sortedReview = this.companyInfo.reviews.sort((b, a) => {
-                        this.compareSeason(a['semester'], b['semester']);
-                    })
+                    this.sortedReview = this.companyInfo.reviews.sort((b, a) =>
+                        this.compareSeason(a['semester'], b['semester'])
+                    );
                 } else {
-                    this.sortedReview = this.companyInfo.reviews.sort((b, a) => {
-                        return a['like'] - b['like']
-                    })
+                    this.sortedReview = this.companyInfo.reviews.sort((b, a) =>
+                        a['like'] - b['like']
+                    );
                 }
             },
             processData() {
