@@ -178,6 +178,7 @@
                     }.bind(this));
                     this.inputRange = [this.range[0], this.range[this.range.length-1]];
                     this.label = this.range;
+                    this.star = this.companyInfo.star;
                     this.processData();
                 });
             });
