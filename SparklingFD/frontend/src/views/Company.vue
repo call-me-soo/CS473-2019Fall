@@ -83,10 +83,10 @@
 
                 <v-row v-show="!isReviewsEmpty" wrap class="pt-3 pb-3" justify="center" align="center">
                     <v-col cols="6">
-                        <LineChart :data="this.processed" :label="this.label"></LineChart>
+                        <LineChart v-bind:data="this.processed" :label="this.label"></LineChart>
                     </v-col>
                     <v-col cols="3">
-                        <RadarChart :data="this.star"></RadarChart>
+                        <RadarChart ref="radar" v-bind:data="this.star"></RadarChart>
                     </v-col>
                 </v-row>
 
@@ -175,6 +175,7 @@
                     this.inputRange = [this.range[0], this.range[this.range.length-1]];
                     this.label = this.range;
                     this.processData();
+                    this.$refs.radar.renderRadarChart()
                 });
             });
         },
@@ -275,23 +276,10 @@
 
                     }
                 );
-                console.log(this.processed)
-
             },
             formatSemester(semester){
                 return semester.year + ' ' + semester.season
             },
-            // numbertoSeason(number){
-            //     if (number===1){
-            //         return '봄';
-            //     } else if (number===2){
-            //         return '여름';
-            //     } else if (number===3){
-            //         return '가을';
-            //     } else {
-            //         return '겨울';
-            //     }
-            // }
         },
         data () {
             return {
@@ -307,7 +295,7 @@
                 inputRange: [], //user input about semester range
                 label: [], //sliced range for line chart
                 range: [], //review exist range
-                star: [0,0,0,0,0], //star for radar chart
+                star: [1,1,1,1,1], //star for radar chart
                 sortCards: 'date',
                 sortedReview: {},
             }

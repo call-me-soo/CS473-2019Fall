@@ -55,14 +55,13 @@ export default {
   created() {
     if (this.$route.path == '/') this.isHome = true;
     else this.isHome = false;
-    
-    // console.log(this.$route.params.userInput)
-    this.$http.get('../../api/searchQuery/userinput?input='
-      + this.$route.params.userInput + '&'
-      + this.$route.params.query)
-      .then((response) => {
-        this.companyInfo = response.data;
-    });
+    //
+    // this.$http.get('../../api/searchQuery/userinput?input='
+    //   + this.$route.params.userInput + '&'
+    //   + this.$route.params.query)
+    //   .then((response) => {
+    //     this.companyInfo = response.data;
+    // });
   },
   computed: {
     // only show when v-show="isAuthenticated"
