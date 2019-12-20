@@ -25,7 +25,7 @@
                     <v-spacer></v-spacer>
                     <v-flex>
                         <v-btn-toggle
-                            v-model="like"
+                            :v-model="likeClicked"
                             class="ml-2"
                             color="#FFCF57"
                             group
@@ -75,6 +75,9 @@
                     return true
                 }
                 return false
+            },
+            likeClicked() {
+                return this.like;
             }
         },
         data () {

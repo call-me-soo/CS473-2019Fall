@@ -13,7 +13,7 @@
                         <v-flex class="card-title-large pr-2" @click="routeToCompany">{{review.company.name}}</v-flex>
                         <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{review.semester.season}}</v-flex>
                         <v-btn-toggle
-                            v-model="like"
+                            :v-model="likeClicked"
                             class="ml-2"
                             color="#FFCF57"
                             group
@@ -171,6 +171,9 @@
                     return true
                 }
                 return false
+            },
+            likeClicked() {
+                return this.like;
             }
         },
         data() {
@@ -189,14 +192,16 @@
                 this.$router.push({path: '../../company/' + this.review.company.id})
             },
             updateLike() {
-                if(this.like){
+                if(this.like == true){
                     this.$http.put('../../api/reviews/like/' + this.review.id);
                     this.review.like += 1;
                     this.like = false;
+                    console.log(this.like);
                 }else{
                     this.$http.put('../../api/reviews/likedown/' + this.review.id);
                     this.review.like += -1;
                     this.like = true;
+                    console.log(this.like);
                 }
             },
             updateData() {
