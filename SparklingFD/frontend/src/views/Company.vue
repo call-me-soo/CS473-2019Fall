@@ -88,7 +88,7 @@
                             <LineChart v-bind:data="this.processed" :label="this.label"></LineChart>
                         </v-col>
                         <v-col cols="3">
-                            <RadarChart ref="radar" v-bind:data="this.star"></RadarChart>
+                            <RadarChart ref="radarLarge" v-bind:data="this.star"></RadarChart>
                         </v-col>
                     </v-row>
 
@@ -99,7 +99,7 @@
                             </v-col>
                         </v-row>
                         <v-row wrap justify="center" align="center">
-                            <RadarChart ref="radar" v-bind:data="this.star"></RadarChart>
+                            <RadarChart ref="radarSmall" v-bind:data="this.star"></RadarChart>
                         </v-row>
                     </div>
 
@@ -304,7 +304,8 @@
                     }
                 );
 
-                this.$refs.radar.renderRadarChart()
+                this.$refs.radarLarge.renderRadarChart()
+                this.$refs.radarSmall.renderRadarChart()
             },
             formatSemester(semester){
                 return semester.year + ' ' + semester.season
