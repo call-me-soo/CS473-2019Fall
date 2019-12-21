@@ -21,8 +21,7 @@
 
       <v-spacer></v-spacer>
 
-      <div v-show="!isHome">
-        <v-col cols="7" class="d-none d-md-inline">
+        <v-col v-if="!isHome" cols="7" class="d-none d-md-inline">
           <v-row align="center">
             <searchBar
                     :searchInput.sync="searchInput"
@@ -34,13 +33,12 @@
           </v-row>
         </v-col>
 
-        <div class="d-md-none d-inline">
+        <div v-if="!isHome" class="d-md-none d-inline">
           <v-btn @click="searchOpen=!searchOpen" class="ml-5" color="white" rounded depressed>
             <v-icon>mdi-magnify</v-icon>
           </v-btn>
         </div>
 
-      </div>
 
 
     <v-spacer></v-spacer>
@@ -94,7 +92,7 @@ export default {
   name: "Toolbar",
   components: { searchFilter, SearchBar },
   created() {
-    if (this.$route.path == '/') this.isHome = true;
+    if (this.$route.path === '/') this.isHome = true;
     else this.isHome = false;
   },
   computed: {
