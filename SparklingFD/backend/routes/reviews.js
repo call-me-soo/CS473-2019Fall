@@ -84,10 +84,10 @@ router.post('/', function(req, res){
                     var updatePromise = Review.updateOne(
                         {"_id": review._id},
                         {$set: {
-                            "review.salaryPercent": Number((orderedSalaries.indexOf(review.review.salary) / (orderedSalaries.length - 1) * 100).toFixed(2)),
-                            "review.star.2": Number(((1 - orderedSalaries.indexOf(review.review.salary) / (orderedSalaries.length - 1)) * 5).toFixed(2)),
+                            "review.salaryPercent": (orderedSalaries.length == 1)? 0 : Number((orderedSalaries.indexOf(review.review.salary) / (orderedSalaries.length - 1) * 100).toFixed(2)),
+                            "review.star.2": (orderedSalaries.length == 1)? 5 : Number(((1 - orderedSalaries.indexOf(review.review.salary) / (orderedSalaries.length - 1)) * 5).toFixed(2)),
                             // "review.aggregate": Number((review.review.star.reduce((a, b) => a + b, 0) / 5).toFixed(2))
-                            "review.aggregate": Number(((review.review.star[0] + review.review.star[1] + review.review.star[3] + review.review.star[4] + Number(((1 - orderedSalaries.indexOf(review.review.salary) / (orderedSalaries.length - 1)) * 5).toFixed(2))) / 5).toFixed(2))
+                            "review.aggregate": (orderedSalaries.length == 1)? Number(((review.review.star.reduce((a, b) => a + b, 0) + 5)/5).toFixed(2)) : Number(((review.review.star[0] + review.review.star[1] + review.review.star[3] + review.review.star[4] + Number(((1 - orderedSalaries.indexOf(review.review.salary) / (orderedSalaries.length - 1)) * 5).toFixed(2))) / 5).toFixed(2))
                         }});
                     updates.push(updatePromise);
                 });
