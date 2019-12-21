@@ -6,6 +6,20 @@
               fluid
               :style="{background :'#f5f5f5'}"
       >
+        <v-btn class="black--text"
+               fab
+               dark
+               large
+               color="#FFCF57"
+               fixed
+               right
+               bottom
+               href="http://bit.ly/aftercracker"
+               target="_blank"
+        >
+          피드백<br>
+          주세요!
+        </v-btn>
         <logo id="logo"></logo>
 
         <v-row wrap
