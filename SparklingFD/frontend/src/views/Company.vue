@@ -41,9 +41,9 @@
                                 </v-avatar>
                             </div>
                             <div class="sub-title-small pr-3">{{companyInfo.name}}</div>
-                        </v-row>
-                        <v-row class="sub-title-2-small">
                             <div class="pr-5 text--darken-1 grey--text">{{companyInfo.field.toString()}} | {{companyInfo.location}}</div>
+                        </v-row>
+                        <v-row class="sub-title-2-small pl-12">
                             <div class="pr-2">기업리뷰</div><div class="pr-5 text--darken-1 grey--text">{{companyInfo.reviews.length}}</div>
                             <div class="pr-2">추천학과</div><div class="pr-1 text--darken-1 grey--text">{{companyInfo.recommend.toString()}}</div>
                         </v-row>
@@ -64,74 +64,96 @@
                     </v-col>
                 </v-row>
 
-                <v-row v-show="!isReviewsEmpty" wrap class="pa-3" justify="center">
-                    <v-col cols="9">
-                        <vue-slider
-                                ref="slider"
-                                v-model="inputRange"
-                                :adsorb="true"
-                                :interval="1"
-                                :data="range"
-                                :marks="true"
-                                :process-dragable="true"
-                                :height="5"
-                                @change="processData"
-                        >
-                        </vue-slider>
-                    </v-col>
-                </v-row>
-
-                <v-row v-show="!isReviewsEmpty" wrap class="pt-3 pb-3" justify="center" align="center">
-                    <v-col cols="6">
-                        <LineChart v-bind:data="this.processed" :label="this.label"></LineChart>
-                    </v-col>
-                    <v-col cols="3">
-                        <RadarChart ref="radar" v-bind:data="this.star"></RadarChart>
-                    </v-col>
-                </v-row>
-
-
-                <v-row v-show="!isReviewsEmpty" wrap justify="center">
-                    <v-col cols="10">
-                        <v-divider></v-divider>
-                    </v-col>
-                </v-row>
-
-
-                <v-row v-show="!isReviewsEmpty" wrap class="pt-5" justify="center" align="center" >
-                    <v-col cols="9">
-                        <v-row wrap align="center">
-                            <div class="korean sub-title-large d-none d-md-inline-block">리뷰</div>
-                            <div class="korean sub-title-small d-md-none">리뷰</div>
-                            <v-spacer></v-spacer>
-                            <v-spacer></v-spacer>
-                            <v-spacer></v-spacer>
-                            <v-spacer></v-spacer>
-                            <v-btn-toggle
-                                    dense
-                                    rounded
-                                    class="button-toggle"
-                                    v-model="sortCards"
-                                    mandatory
-                                    @change="toggleSort"
+                <div v-show="!isReviewsEmpty">
+                    <v-row wrap class="pa-3" justify="center">
+                        <v-col class="col-10 col-md-9">
+                            <vue-slider
+                                    ref="slider"
+                                    v-model="inputRange"
+                                    :adsorb="true"
+                                    :interval="1"
+                                    :data="range"
+                                    :marks="true"
+                                    :process-dragable="true"
+                                    :height="5"
+                                    @change="processData"
                             >
-                                <v-btn value="date">최신순</v-btn>
-                                <v-btn value="recommend">추천순</v-btn>
-                            </v-btn-toggle>
+                            </vue-slider>
+                        </v-col>
+                    </v-row>
+
+
+                    <v-row wrap class="pt-3 pb-3 d-none d-md-flex" justify="center" align="center">
+                        <v-col cols="6">
+                            <LineChart v-bind:data="this.processed" :label="this.label"></LineChart>
+                        </v-col>
+                        <v-col cols="3">
+                            <RadarChart ref="radar" v-bind:data="this.star"></RadarChart>
+                        </v-col>
+                    </v-row>
+
+                    <div class="pt-3 pb-3 d-md-none">
+                        <v-row wrap justify="center" align="center">
+                            <v-col cols="11">
+                                <LineChart v-bind:data="this.processed" :label="this.label"></LineChart>
+                            </v-col>
                         </v-row>
-                    </v-col>
-                </v-row>
+                        <v-row wrap justify="center" align="center">
+                            <RadarChart ref="radar" v-bind:data="this.star"></RadarChart>
+                        </v-row>
+                    </div>
 
-                <v-row v-show="!isReviewsEmpty" wrap justify="center">
-                    <v-col cols="9">
-                        <ReviewCardBig v-for="review in sortedReview"
-                                       :key="sortedReview.indexOf(review)"
-                                       v-bind:review="review"
-                        >
-                        </ReviewCardBig>
 
-                    </v-col>
-                </v-row>
+                    <v-row wrap justify="center">
+                        <v-col cols="10">
+                            <v-divider></v-divider>
+                        </v-col>
+                    </v-row>
+
+
+                    <v-row wrap class="pt-5" justify="center" align="center" >
+                        <v-col cols="9">
+                            <v-row wrap align="center">
+                                <div class="korean sub-title-large d-none d-md-inline-block">리뷰</div>
+                                <div class="korean sub-title-small d-md-none">리뷰</div>
+                                <v-spacer></v-spacer>
+                                <v-spacer></v-spacer>
+                                <v-spacer></v-spacer>
+                                <v-spacer></v-spacer>
+                                <v-btn-toggle
+                                        dense
+                                        rounded
+                                        class="button-toggle"
+                                        v-model="sortCards"
+                                        mandatory
+                                        @change="toggleSort"
+                                >
+                                    <v-btn value="date">최신순</v-btn>
+                                    <v-btn value="recommend">추천순</v-btn>
+                                </v-btn-toggle>
+                            </v-row>
+                        </v-col>
+                    </v-row>
+
+                    <v-row wrap justify="center">
+                        <v-col cols="9" class="d-none d-md-flex">
+                            <ReviewCardBig v-for="review in sortedReview"
+                                           :key="sortedReview.indexOf(review)"
+                                           v-bind:review="review"
+                            >
+                            </ReviewCardBig>
+                        </v-col>
+                        <v-col cols="11" class="d-md-none">
+                            <ReviewCardSmall v-for="review in sortedReview"
+                                           :key="sortedReview.indexOf(review)"
+                                           v-bind:review="review"
+                            >
+                            </ReviewCardSmall>
+                        </v-col>
+                    </v-row>
+
+                </div>
+
 
             </v-container>
         </v-content>
@@ -144,9 +166,10 @@
     import LineChart from "../components/LineChart";
     import RadarChart from "../components/RadarChart";
     import ReviewCardBig from "../components/ReviewCardBig";
+    import ReviewCardSmall from "../components/ReviewCardSmall";
     export default {
         name: "Company",
-        components: { Toolbar, LineChart, VueSlider, RadarChart, ReviewCardBig },
+        components: { Toolbar, LineChart, VueSlider, RadarChart, ReviewCardBig, ReviewCardSmall },
         created () {
             this.$http.get('../../api/getCompanyInfo/' + this.$route.params.companyId)
             .then((response) => {

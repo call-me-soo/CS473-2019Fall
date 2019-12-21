@@ -21,7 +21,7 @@
                       <v-row wrap
                              align="baseline"
                              class="d-inline-flex pb-4">
-                        <v-flex class="card-title-large pr-2">{{review.company.name}}</v-flex>
+                        <v-flex class="card-title pr-2">{{review.company.name}}</v-flex>
                         <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}</v-flex>
                         <v-btn
                                 :disabled="true"
@@ -41,7 +41,7 @@
                         </v-btn>
                       </v-row>
                       <v-row wrap>
-                        <v-flex class="card-content-large" @click="showModal=true">
+                        <v-flex class="card-content" @click="showModal=true">
                           {{review.review.content}}
                         </v-flex>
                       </v-row>
@@ -80,27 +80,30 @@
       </ReviewDialog>
     </div>
 
-   <div class="d-md-none">
+   <div class="d-md-none d-inline text-left">
      <v-row justify="center">
-         <v-col cols="12">
+         <v-col cols="11">
            <slick
                      ref="slick"
                      :options="slickOptions"
              >
-               <v-card class="card" v-for="review in (bestReviews.length > 0 ? bestReviews : placeholder)" :key="bestReviews.indexOf(review)">
+               <v-card class="card"
+                       v-for="review in (bestReviews.length > 0 ? bestReviews : placeholder)"
+                       :key="bestReviews.indexOf(review)"
+                       @click.stop="modalOpen(review)"
+               >
                  <v-row wrap
-                        justify="center"
                         align="baseline"
                         class="pl-8 pt-7">
-                   <v-flex class="korean card-title-small pr-2">{{review.company.name}}</v-flex>
+                   <v-flex class="korean card-title pb-2">{{review.company.name}}</v-flex>
                  </v-row>
+
                  <v-row wrap
-                        justify="center"
                         align="baseline"
                         class="pl-8"
                  >
-                   <v-flex class="korean card-subtitle pr-1 text&#45;&#45;darken-1 grey&#45;&#45;text">
-                     {{review.user.major}} {{review.user.nickname}} | {{review.semester}}
+                   <v-flex class="korean card-subtitle pr-1 text--darken-1 grey--text">
+                     {{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}
                      <v-btn class="korean ml-1" rounded x-small outlined color="grey"><v-icon class="mr-1" small>mdi-thumb-up</v-icon>{{review.like}}</v-btn>
                    </v-flex>
                  </v-row>
@@ -108,7 +111,7 @@
                         class="pl-5"
                  >
                    <v-col cols="11">
-                     <v-flex class="korean card-content-small">{{review.review.content}}</v-flex>
+                     <v-flex class="korean card-content">{{review.review.content}}</v-flex>
                    </v-col>
                  </v-row>
                </v-card>
@@ -116,6 +119,12 @@
              </slick>
          </v-col>
      </v-row>
+     <ReviewDialog
+             v-if="modalVisible"
+             ref="modal"
+             v-bind:visible.sync="modalVisible"
+             v-bind:review="this.review">
+     </ReviewDialog>
    </div>
   </v-flex>
 
@@ -231,20 +240,17 @@
     width: 98% !important;
   }
 
-  .card-title-large {
+  .card-title {
     font-weight: bold;
     font-size: larger;
   }
 
-  .card-title-small {
-    font-weight: bold;
-  }
 
   .card-subtitle {
     font-size: small;
   }
 
-  .card-content-large {
+  .card-content {
     font-size: 11.5pt;
     line-height: 18pt;
     overflow: hidden;
@@ -255,16 +261,6 @@
     -webkit-box-orient: vertical;
   }
 
-  .card-content-small {
-    font-size: 9pt;
-    line-height: 15pt;
-    overflow: hidden;
-    display: block;
-    display: -webkit-box;
-    height: 160px;
-    -webkit-line-clamp: 7;
-    -webkit-box-orient: vertical;
-  }
 
   .label {
     font-size: 9pt;

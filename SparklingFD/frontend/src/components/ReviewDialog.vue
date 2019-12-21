@@ -50,7 +50,8 @@
                 </v-col>
             </v-row>
 
-            <v-row wrap class="pt-5">
+
+            <v-row wrap class="pt-5 d-none d-md-inline">
                 <v-col cols="4">
                     <v-row wrap class="pl-3" justify="center">
                         <RadarChart ref="radar" v-bind:data="review.review.star" style="width:200px"></RadarChart>
@@ -144,6 +145,88 @@
                         </v-col>
                     </v-row>
 
+                </v-col>
+            </v-row>
+
+            <v-row wrap class="pt-5 d-md-none d-inline">
+                <v-col>
+                    <v-row wrap justify="center">
+                        <RadarChart ref="radar" v-bind:data="review.review.star" style="width:200px"></RadarChart>
+                    </v-row>
+                    <v-row wrap class="pt-2" justify="center" align="baseline">
+                        <v-col class="text-center">
+                            <v-rating
+                                    half-increments
+                                    class="d-inline pa-3"
+                                    background-color="#DDDDDD"
+                                    readonly
+                                    v-model="review.review.aggregate"
+                                    color="#FFCF57"
+                                    small
+                                    dense
+                            ></v-rating>
+                            <span class="d-inline">{{review.review.aggregate}}</span>
+                        </v-col>
+                    </v-row>
+                    <v-row class="pa-3 pl-10">
+                        <div class="sub-title-2-large pr-2">급여</div><div class="sub-title-2-large pr-5 text--darken-1 grey--text">{{review.review.salary}}만원 ( 상위 {{review.review.salaryPercent}}% )</div>
+                    </v-row>
+                    <v-row wrap class="pl-10" align="baseline">
+                        <div class="sub-title-2-large pr-2">업무강도</div>
+                        <v-rating
+                                class="d-inline pr-3"
+                                background-color="#DDDDDD"
+                                readonly
+                                v-model="review.review.star[0]"
+                                color="#FFCF57"
+                                small
+                                dense
+                                half-increments
+                        ></v-rating>
+                        <span class="label d-inline">{{review.review.star[0]}}</span>
+                    </v-row>
+                    <v-row wrap class="pl-10" align="baseline">
+                        <div class="sub-title-2-large pr-2">분위기</div>
+                        <v-rating
+                                class="d-inline pr-3"
+                                background-color="#DDDDDD"
+                                readonly
+                                v-model="review.review.star[1]"
+                                color="#FFCF57"
+                                small
+                                dense
+                                half-increments
+                        ></v-rating>
+                        <span class="label d-inline">{{review.review.star[1]}}</span>
+                    </v-row>
+                    <v-row wrap class="pl-10" align="baseline">
+                        <div class="sub-title-2-large pr-2">배우는 것</div>
+                        <v-rating
+                                class="d-inline pr-3"
+                                background-color="#DDDDDD"
+                                readonly
+                                v-model="review.review.star[3]"
+                                color="#FFCF57"
+                                small
+                                dense
+                                half-increments
+                        ></v-rating>
+                        <span class="label d-inline">{{review.review.star[3]}}</span>
+                    </v-row>
+                    <v-row wrap class="pl-10" align="baseline">
+                        <div class="sub-title-2-large pr-2">사내복지</div>
+                        <v-rating
+                                class="d-inline pr-3"
+                                background-color="#DDDDDD"
+                                readonly
+                                v-model="review.review.star[4]"
+                                color="#FFCF57"
+                                small
+                                dense
+                                half-increments
+                        ></v-rating>
+                        <span class="label d-inline">{{review.review.star[4]}}</span>
+                    </v-row>
                 </v-col>
             </v-row>
         </v-card>

@@ -27,6 +27,14 @@
   color: #FFCF57 !important;
 }
 
+.slick-dots li {
+  margin: 0 3px !important;
+}
+
+.v-application ul.slick-dots {
+  padding-left: 0px !important;
+}
+
 .cracker{
   font-family: 'Baloo Bhai', cursive;
 }

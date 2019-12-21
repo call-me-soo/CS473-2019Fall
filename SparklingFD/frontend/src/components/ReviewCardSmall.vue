@@ -79,17 +79,6 @@
             }
         },
         methods: {
-            // numbertoSeason(number){
-            //     if (number==1){
-            //         return '봄';
-            //     } else if (number==2){
-            //         return '여름';
-            //     } else if (number==3){
-            //         return '가을';
-            //     } else {
-            //         return '겨울';
-            //     }
-            // },
             modalOpen() {
                 this.modalVisible = true;
             },

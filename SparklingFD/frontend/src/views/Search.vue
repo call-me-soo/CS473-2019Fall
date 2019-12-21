@@ -8,12 +8,11 @@
                         <v-row wrap align="center">
                             <div class="korean sub-title-large d-none d-md-inline-block">검색 결과</div>
                             <div class="korean sub-title-small d-md-none">검색 결과</div>
-                            <v-spacer></v-spacer>
-                            <v-spacer></v-spacer>
-                            <v-spacer></v-spacer>
-                            <v-spacer></v-spacer>
+                            <v-spacer class="d-md-inline-flex"></v-spacer>
+                            <v-spacer class="d-none d-md-inline-flex"></v-spacer>
+                            <v-spacer class="d-none d-md-inline-flex"></v-spacer>
+                            <v-spacer class="d-none d-md-inline-flex"></v-spacer>
                             <v-overflow-btn
-                                    style="width: 30px"
                                     :items="filters"
                                     label="정렬"
                                     target="#dropdown-example"
@@ -26,7 +25,7 @@
                 </v-row>
 
                 <v-row wrap justify="center">
-                    <v-col cols="9">
+                    <v-col class="col-md-9 col-lg-9 col-sm-10 col-xs-10">
                         <CompanyCard v-for="company in sortedCompany"
                                      :key="sortedCompany.indexOf(company)"
                                      :companyInfo.sync="company"
@@ -64,9 +63,6 @@
                         this.toggleSort();
                         console.log(this.sortedCompany)
                     });
-            },
-            aggregateReview: function() {
-
             },
             toggleSort(){
                 if (this.sortFilter === '전체 평점'){

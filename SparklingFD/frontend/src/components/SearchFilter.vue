@@ -12,16 +12,16 @@
         >{{label}} {{isFilterOn ? ((label === '급여')? ' ( ' + rating + '만원이상 )': ' ( ' + rating + '이상 )' ): ''}}
         </v-btn>
       </div>
-      <v-row wrap
-             class="d-md-none"
-             justify="center"
-      >
-        <v-flex style="justify-content: space-between">
-          <div class="text-center">
-            <v-btn @click="showModal=true" class="korean mr-1 grey lighten-2 grey--text text--darken-1" small depressed rounded>{{rating}}</v-btn>
-          </div>
-        </v-flex>
-      </v-row>
+      <div wrap class="d-md-none d-inline">
+        <v-btn @click="showModal=true"
+               class="filter-button korean mt-2 ml-1 mr-1 lighten-2"
+               :class="isFilterOn ? 'button-on' : 'grey grey--text text--darken-1'"
+               rounded
+               small
+               depressed
+        >{{label}} {{isFilterOn ? ((label === '급여')? ' ( ' + rating + '만원이상 )': ' ( ' + rating + '이상 )' ): ''}}
+        </v-btn>
+      </div>
 
       <v-dialog v-model="showModal" max-width="500px">
         <v-card>
@@ -127,9 +127,7 @@
         this.$emit('update:selected', selected);
       },
       confirmModal() {
-        this.rating = this.input;
-        this.selected = true;
-        this.onCallBack(this.input, true);
+        this.onCallBack(parseInt(this.input), true);
         this.showModal = false;
         this.isFilterOn = true;
       },
