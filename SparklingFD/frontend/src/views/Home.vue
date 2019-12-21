@@ -46,7 +46,7 @@
         </v-row>
 
         <ReviewCardSlick
-                v-if="this.bestReviews.length <= 10"	
+                v-if="this.bestReviews.length > 0"	
                 :bestReviews.sync="bestReviews"	
                 class="text-center">	
         </ReviewCardSlick>
