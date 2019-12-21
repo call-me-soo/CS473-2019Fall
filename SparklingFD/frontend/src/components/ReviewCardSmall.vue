@@ -79,6 +79,7 @@
             }
         },
         methods: {
+
             modalOpen() {
                 this.modalVisible = true;
             },

@@ -77,7 +77,7 @@
                 wrap
                 justify="center"
         >
-          <v-col cols="10" class="text-center">
+          <v-col class="text-center col-xs-11 col-sm-11 col-md-10 col-lg-10 col-xl-10">
             <v-row wrap justify="center" align="center">
               <reviewCardSmall
                       v-for="review in recentReviews"
