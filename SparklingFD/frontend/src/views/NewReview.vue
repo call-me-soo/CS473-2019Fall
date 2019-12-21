@@ -278,7 +278,7 @@
                     like: 0,
                     review: {
                         aggregate: 0,
-                        salary: 0,
+                        salary: '',
                         salaryPercent : 0,
                         star: [0, 0, 0, 0, 0],
                         content: ''
