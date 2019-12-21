@@ -67,10 +67,10 @@
             toggleSort(){
                 if (this.sortFilter === '전체 평점'){
                     this.sortedCompany = this.companyInfo.sort((b, a) => {
-                        if (a['aggregate'] === b['aggregate']) {
+                        if (this.aggregate(a['star']) === b[this.aggregate(b['star'])]) {
                             return a['name'] - b['name']
                         } else {
-                            return a['aggregate'] - b['aggregate']
+                            return this.aggregate(a['star']) - this.aggregate(b['star'])
                         }
                     })
                 } else {
@@ -83,8 +83,12 @@
                         }
                     })
                 }
-
-
+            },
+            aggregate(array){
+                let temp = 0;
+                array.forEach(element => { temp += element });
+                temp = temp/5.0;
+                return temp
             }
 
         },
