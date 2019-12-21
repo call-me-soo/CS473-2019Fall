@@ -9,7 +9,7 @@
                                 wrap
                                 class="d-inline-flex"
                                 align="baseline">
-                            <div>
+                            <div v-if="this.companyInfo !== undefined">
                                 <v-avatar class="pr-5 pb-2" size="40">
                                     <img
                                             v-bind:src="this.companyInfo.logosrc"
@@ -280,7 +280,7 @@
 
                     }
                 );
-                
+
                 this.$refs.radar.renderRadarChart()
             },
             formatSemester(semester){
