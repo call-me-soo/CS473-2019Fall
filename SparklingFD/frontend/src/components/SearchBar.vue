@@ -8,7 +8,7 @@
               flat
               rounded
               hide-details
-              label="회사명 또는 지역을 입력해주세요 :)"
+              label="회사명을 입력해주세요 :)"
               background-color="white"
               prepend-inner-icon="mdi-magnify"
               @input="onCallBack"
@@ -23,7 +23,7 @@
               flat
               rounded
               hide-details
-              label="회사명 또는 지역"
+              label="회사명"
               background-color="white"
               prepend-inner-icon="mdi-magnify"
               @input="onCallBack"
