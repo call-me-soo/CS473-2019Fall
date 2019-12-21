@@ -21,7 +21,7 @@
                                             <template v-slot:activator="{ on }">
                                                 <v-icon v-on="on" small>mdi-help-circle-outline</v-icon>
                                             </template>
-                                            <span>Right tooltip</span>
+                                            <span>인턴십을 수행한 학기를 입력해 주세요.</span>
                                         </v-tooltip>
                                     </div>
                                 </v-col>
@@ -52,7 +52,7 @@
                                             <template v-slot:activator="{ on }">
                                                 <v-icon v-on="on" small>mdi-help-circle-outline</v-icon>
                                             </template>
-                                            <span>Right tooltip</span>
+                                            <span>정확한 급여 금액을 입력해 주시면, 자동으로 별점이 산출됩니다.</span>
                                         </v-tooltip>
                                     </div>
                                 </v-col>
@@ -75,7 +75,7 @@
                                             <template v-slot:activator="{ on }">
                                                 <v-icon v-on="on" small>mdi-help-circle-outline</v-icon>
                                             </template>
-                                            <span>Right tooltip</span>
+                                            <span>업무 강도가 적절했으면 5, 과도했으면 1</span>
                                         </v-tooltip>
                                     </div>
                                 </v-col>
@@ -97,7 +97,7 @@
                                             <template v-slot:activator="{ on }">
                                                 <v-icon v-on="on" small>mdi-help-circle-outline</v-icon>
                                             </template>
-                                            <span>Right tooltip</span>
+                                            <span>분위기가 좋았으면 5, 나빴으면 1</span>
                                         </v-tooltip>
                                     </div>
                                 </v-col>
@@ -119,7 +119,7 @@
                                             <template v-slot:activator="{ on }">
                                                 <v-icon v-on="on" small>mdi-help-circle-outline</v-icon>
                                             </template>
-                                            <span>Right tooltip</span>
+                                            <span>배우는 것이 많았으면 5, 적었으면 1</span>
                                         </v-tooltip>
                                     </div>
                                 </v-col>
@@ -141,7 +141,7 @@
                                             <template v-slot:activator="{ on }">
                                                 <v-icon v-on="on" small>mdi-help-circle-outline</v-icon>
                                             </template>
-                                            <span>Right tooltip</span>
+                                            <span>사내 복지가 많았으면 5, 적었으면 1</span>
                                         </v-tooltip>
                                     </div>
                                 </v-col>
@@ -163,7 +163,7 @@
                                             <template v-slot:activator="{ on }">
                                                 <v-icon v-on="on" small>mdi-help-circle-outline</v-icon>
                                             </template>
-                                            <span>Right tooltip</span>
+                                            <span>자유롭게 작성해 주세요! (ex. 사내 식당은 맛있었나요?)</span>
                                         </v-tooltip>
                                     </div>
                                 </v-col>
