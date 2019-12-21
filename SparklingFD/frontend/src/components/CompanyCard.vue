@@ -7,7 +7,7 @@
                         <v-row wrap
                                align="baseline"
                                class="d-inline-flex pt-2 pb-4">
-                            <div>
+                            <div v-if="this.companyInfo !== undefined">
                                 <v-avatar class="pr-5 pb-2" size="40">
                                     <img
                                             v-bind:src="this.companyInfo.logosrc"

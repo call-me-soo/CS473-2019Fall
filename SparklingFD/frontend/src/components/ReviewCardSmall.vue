@@ -24,30 +24,22 @@
                     <v-flex class="label pr-1">{{review.review.aggregate}}</v-flex>
                     <v-spacer></v-spacer>
                     <v-flex>
-                        <v-btn-toggle
-                            :v-model="likeClicked"
-                            class="ml-2"
-                            color="#FFCF57"
-                            group
-                            rounded
+                        <v-btn
+                                :disabled="true"
+                                small
+                                outlined
+                                rounded
+                                text
+                                class="ml-2"
                         >
-                            <v-btn
-                                    :disabled="!isAuthenticated"
+                            <v-icon
+                                    class="mr-1"
                                     small
-                                    outlined
-                                    rounded
-                                    text
-                                    @click="updateLike"
                             >
-                                <v-icon
-                                        class="mr-1"
-                                        small
-                                >
-                                    mdi-thumb-up
-                                </v-icon>
-                                {{review.like}}
-                            </v-btn>
-                        </v-btn-toggle>
+                                mdi-thumb-up
+                            </v-icon>
+                            {{review.like}}
+                        </v-btn>
                     </v-flex>
                 </v-row>
 

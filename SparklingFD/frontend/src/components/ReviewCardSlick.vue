@@ -23,30 +23,22 @@
                              class="d-inline-flex pb-4">
                         <v-flex class="card-title-large pr-2">{{review.company.name}}</v-flex>
                         <v-flex class="card-subtitle pr-1 text--darken-1 grey--text">{{review.user.major}} {{review.user.nickname}} | {{review.semester.year}} {{numbertoSeason(review.semester.season)}}</v-flex>
-                        <v-btn-toggle
-                                :v-model="likeClicked"
-                                class="ml-2"
-                                color="#FFCF57"
-                                group
+                        <v-btn
+                                :disabled="true"
+                                small
+                                outlined
                                 rounded
+                                text
+                                class="ml-2"
                         >
-                          <v-btn
-                                  :disabled="!isAuthenticated"
+                          <v-icon
+                                  class="mr-1"
                                   small
-                                  outlined
-                                  rounded
-                                  text
-                                  @click="updateLike"
                           >
-                            <v-icon
-                                    class="mr-1"
-                                    small
-                            >
-                              mdi-thumb-up
-                            </v-icon>
-                            {{review.like}}
-                          </v-btn>
-                        </v-btn-toggle>
+                            mdi-thumb-up
+                          </v-icon>
+                          {{review.like}}
+                        </v-btn>
                       </v-row>
                       <v-row wrap>
                         <v-flex class="card-content-large" @click="showModal=true">
