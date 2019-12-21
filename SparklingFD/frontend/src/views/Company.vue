@@ -136,7 +136,7 @@
                     </v-row>
 
                     <v-row wrap justify="center">
-                        <v-col cols="9" class="d-none d-md-flex">
+                        <v-col cols="9" class="d-none d-md-inline">
                             <ReviewCardBig v-for="review in sortedReview"
                                            :key="sortedReview.indexOf(review)"
                                            v-bind:review="review"

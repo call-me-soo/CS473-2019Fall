@@ -51,10 +51,10 @@
             </v-row>
 
 
-            <v-row wrap class="pt-5 d-none d-md-inline">
+            <v-row wrap class="pt-5 d-none d-md-flex">
                 <v-col cols="4">
                     <v-row wrap class="pl-3" justify="center">
-                        <RadarChart ref="radar" v-bind:data="review.review.star" style="width:200px"></RadarChart>
+                        <RadarChart ref="radarLarge" v-bind:data="review.review.star" style="width:200px"></RadarChart>
                     </v-row>
                     <v-row wrap class="pt-2" justify="center" align="baseline">
                         <v-col class="text-center">
@@ -151,7 +151,7 @@
             <v-row wrap class="pt-5 d-md-none d-inline">
                 <v-col>
                     <v-row wrap justify="center">
-                        <RadarChart ref="radar" v-bind:data="review.review.star" style="width:200px"></RadarChart>
+                        <RadarChart ref="radarSmall" v-bind:data="review.review.star" style="width:200px"></RadarChart>
                     </v-row>
                     <v-row wrap class="pt-2" justify="center" align="baseline">
                         <v-col class="text-center">
@@ -288,7 +288,9 @@
                 }
             },
             updateData() {
-                this.$refs.radar.renderRadarChart()
+                this.$refs.radarLarge.renderRadarChart()
+                this.$refs.radarSmall.renderRadarChart()
+
             }
         },
     }
