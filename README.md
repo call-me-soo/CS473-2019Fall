@@ -8,11 +8,23 @@
     <a href="http://52.78.227.11:8080/">
       Service
     </a>
+    |
+    <a href="https://youtu.be/TtzbhPZTAmM">
+      Video
+    </a>
+    |
+    <a href="https://www.notion.so/sunnynah/CS473-Final-Report-482077897d8042e3acda90f57d9747a0">
+      Final Report
+    </a>
   </p>
 </p>
 
+
 # 1. About
 Cracker는 2019년 가을학기 CS473수업에서 진행된 프로젝트로, 카이스트 학생들을 위한 인턴십 후기 공유 플랫폼입니다.
+
+[![](http://img.youtube.com/vi/TtzbhPZTAmM/0.jpg)](http://www.youtube.com/watch?v=TtzbhPZTAmM "")
+
 # 2. Structure
 Our project is mainly divided into three parts; frontend(client), backend(server), database.
 ```
